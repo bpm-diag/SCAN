@@ -1,4 +1,14 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for, send_from_directory
+from flask import Flask
+
+UPLOAD_FOLDER = 'static/uploads/'
+
+app = Flask(__name__)
+app.secret_key = "secret key"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+
+'''from flask import Flask, render_template, jsonify, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 
@@ -12,7 +22,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
-
+'''
 '''
 @app.route('/readFileInput', methods=['POST'])
 def readFileInput():
@@ -31,6 +41,7 @@ def readFileInput():
     return allActivities
 
 '''
-
+'''
 if __name__ == "__main__":
     app.run(debug=True)
+    '''
