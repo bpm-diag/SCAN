@@ -1,3 +1,4 @@
+
 #buttons-container{
     width: 96%;
     height: 20%;
@@ -9,21 +10,36 @@
 }
 
 #segment-container{
-    width: 96%;
-    height: 75%;
-    margin-top: 1%;
+    width: 950px;
+    height: 250px;
+ 
     border:2px solid black;
     border-right-style: outset;
-    font-size: 18px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    
+    /*overflow: hidden;
+    overflow-y: auto;
+    overflow-x: auto;*/
+}
+
+#response{
+    width: 800px;
+    height: 100px;
+    
     overflow-y: scroll;
     overflow-x: scroll;
+}
+
+#scroll-seg{
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
 }
 
 #deleted-segment-container{
     width: 96%;
     height: 65%;
-    margin-bottom:2%;
+    margin-top: 2%;
+    margin-bottom:1.5%;
     border:2px solid black;
     border-right-style: outset;
     font-size: 18px;

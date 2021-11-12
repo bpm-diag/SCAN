@@ -43,38 +43,29 @@ def upload_file():
             for act in allXESActivities:
                 if act not in allActivities:
                     allActivities.append(act)
-            print(allActivities)
-            return render_template('index.html', data=allActivities)
+            listActivity = takeActions(allActivities)
+            return render_template('index.html', data=allActivities, activity=listActivity)
         else:
             return redirect(request.url)
     		#flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
-			
-
+	
+def takeActions(allActivities):
+    activities = []
+    for seg in allActivities:
+        for act in seg: 
+            if act not in activities:
+                activities.append(act)
+    sortActivity = sorted(activities)            
+    return sortActivity                		
+'''
 DOWNLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/downloads/'
 
 app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 
-def process_file(path, filename):
-    log = pm4py.read_xes(path)
-    allXESActivities = []
-    for trace in log:
-        activities = []
-        for event in trace:
-            activities.append(event["concept:name"])
-        allXESActivities.append(activities)    
-    allActivities = []
-    for act in allXESActivities:
-        if act not in allActivities:
-            allActivities.append(act)
-    print(allActivities)
-    array = ['a', 'b', 'c']
-    with open('textfile.txt', 'r') as f: 
-        return render_template('index.html', text=f.read()) 
-
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename, as_attachment=True)
-	
+'''	
 
 if __name__ == "__main__":
     app.run()

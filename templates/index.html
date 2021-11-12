@@ -37,7 +37,7 @@
                 
                 <form method="post" action="/" enctype="multipart/form-data">
                    
-                   <div class="mb-3">
+                   <div class="input-group">
                         <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required >
                         <input type="submit" value="Upload">
                     </div>
@@ -49,18 +49,17 @@
                
 
             </div>
-            <div id="segment-container" >
+            <div id="segment-container"> <!--scroll-bg-->
                 <div class="title">List segments</div> 
-                <div id="response" >
+                <div id="response" > <!--scroll-div-->
                    <!-- <pre>
                         {{text}}
                     </pre>-->
-                    {% for each in data %}
-                        
-                        <li>{{ each }}</li>
-                           
-                    {% endfor %}
-                                    
+                    <div id="scroll-seg"> <!--scroll-obj-->
+                        {% for each in data %}
+                            <li>{{ each }}</li>   
+                        {% endfor %}
+                    </div>                
                 </div>
             </div>
             <div id="deleted-segment-container">
@@ -97,19 +96,17 @@
                 <div id="second-combobox" class="combobox">
                     <div class="sub-title">Select activity 1</div>
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option value="0">A</option>
-                        <option value="1">B</option>
-                        <option value="2">C</option>
-                        <option value="3">D</option>
+                        {% for act in activity %}
+                            <option>{{ act }}</option>   
+                        {% endfor %}
                     </select>
                 </div>
                  <div id="third-combobox" class="combobox">
                     <div class="sub-title">Select activity 2</div>
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option value="0">A</option>
-                        <option value="1">B</option>
-                        <option value="2">C</option>
-                        <option value="3">D</option>
+                        {% for act in activity %}
+                            <option>{{ act }}</option>   
+                        {% endfor %}
                     </select>
                 </div>
                <button id="button-apply" type="button" class="btn btn-outline-dark" style="justify-content:center">APPLY</button>
