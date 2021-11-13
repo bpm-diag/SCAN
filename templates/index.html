@@ -55,15 +55,21 @@
                    <!-- <pre>
                         {{text}}
                     </pre>-->
-                    <div id="scroll-seg"> <!--scroll-obj-->
+                    <div id="scroll-seg" class="Divtext"> <!--scroll-obj-->
                         {% for each in data %}
                             <li>{{ each }}</li>   
                         {% endfor %}
+                      
+                        
                     </div>                
                 </div>
             </div>
             <div id="deleted-segment-container">
                <div class="title">Not accepted segments</div>
+                    <div id="scroll-del-seg" class="Divtext-del"> <!--scroll-obj-->
+                          {% block result %}{% endblock %}
+                      
+                    </div>
                 
             </div>
         </div>
@@ -72,8 +78,8 @@
                 <div class="title" style="text-align:center">Add new rule</div>
                 <div id="first-combobox" class="combobox">
                     <div class="sub-title">Select rule</div>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option value="0">Existence(a)</option>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="selectFun" onclick="selectFunction();">
+                        <option value="Existence(a)">Existence(a)</option>
                         <option value="1">Absence(a)</option>
                         <option value="2">Choice(a,b)</option>
                         <option value="3">ExclusiveChoice(a,b)</option>
@@ -95,7 +101,7 @@
                 </div>
                 <div id="second-combobox" class="combobox">
                     <div class="sub-title">Select activity 1</div>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="act1">
                         {% for act in activity %}
                             <option>{{ act }}</option>   
                         {% endfor %}
@@ -103,13 +109,13 @@
                 </div>
                  <div id="third-combobox" class="combobox">
                     <div class="sub-title">Select activity 2</div>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="act2">
                         {% for act in activity %}
                             <option>{{ act }}</option>   
                         {% endfor %}
                     </select>
                 </div>
-               <button id="button-apply" type="button" class="btn btn-outline-dark" style="justify-content:center">APPLY</button>
+               <button id="button-apply" type="button" class="btn btn-outline-dark" style="justify-content:center" onclick="applyFunction();">APPLY</button>
             </div>
             <div id="division"></div>
             <div id="rules">

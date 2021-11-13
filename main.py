@@ -2,7 +2,7 @@ import os
 #import magic
 import urllib.request
 from app import app
-from flask import Flask, flash, request, redirect, render_template, url_for, send_from_directory
+from flask import Flask, flash, request, redirect, render_template, url_for, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 import pm4py
@@ -44,7 +44,7 @@ def upload_file():
                 if act not in allActivities:
                     allActivities.append(act)
             listActivity = takeActions(allActivities)
-            return render_template('index.html', data=allActivities, activity=listActivity)
+            return render_template("index.html", data=allActivities, activity=listActivity)
         else:
             return redirect(request.url)
     		#flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
@@ -56,7 +56,10 @@ def takeActions(allActivities):
             if act not in activities:
                 activities.append(act)
     sortActivity = sorted(activities)            
-    return sortActivity                		
+    return sortActivity          
+
+
+     		
 '''
 DOWNLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/downloads/'
 
@@ -66,6 +69,18 @@ app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 def uploaded_file(filename):
     return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename, as_attachment=True)
 '''	
-
+@app.route('/existence', methods=['POST'])
+def existence():
+    a = request.form["act1"]
+    segments = request.form["segments"] #va rivisto segment, lo prende come stringa invece di array
+    result = []
+    for act in segments:
+        if a in act:        
+            result.append(act)
+           # segments.remove(act)
+    print("\n existence \n", result)    
+    return jsonify({"result": result})        
+    
+    
 if __name__ == "__main__":
     app.run()
