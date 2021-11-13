@@ -1,4 +1,5 @@
 import os
+from utilities import *
 #import magic
 import urllib.request
 from app import app
@@ -6,6 +7,7 @@ from flask import Flask, flash, request, redirect, render_template, url_for, sen
 from werkzeug.utils import secure_filename
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 import pm4py
+import json
 import collections
 
 
@@ -44,19 +46,16 @@ def upload_file():
                 if act not in allActivities:
                     allActivities.append(act)
             listActivity = takeActions(allActivities)
+            with open('segments.txt', 'w') as f:
+                for line in allActivities:
+                    f.write(str(line))
+                    f.write('\n')       
             return render_template("index.html", data=allActivities, activity=listActivity)
         else:
             return redirect(request.url)
     		#flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
 	
-def takeActions(allActivities):
-    activities = []
-    for seg in allActivities:
-        for act in seg: 
-            if act not in activities:
-                activities.append(act)
-    sortActivity = sorted(activities)            
-    return sortActivity          
+      
 
 
      		
@@ -72,15 +71,26 @@ def uploaded_file(filename):
 @app.route('/existence', methods=['POST'])
 def existence():
     a = request.form["act1"]
-    segments = request.form["segments"] #va rivisto segment, lo prende come stringa invece di array
+    #segments = request.form["segments"] #va rivisto segment, lo prende come stringa invece di array
+    segments = takeSegmentFromFile()
+    removeSegment = []
+    print("seg ", segments)        
     result = []
     for act in segments:
         if a in act:        
             result.append(act)
-           # segments.remove(act)
-    print("\n existence \n", result)    
-    return jsonify({"result": result})        
+        else : 
+            if act not in removeSegment:
+                removeSegment.append(act)    
+    print("\n existence \n", result) 
+    writeOnSegmentFile(result)   
+    writeOnRemoveSegmentFile(removeSegment) 
+    return jsonify({"result": json.dumps(result), "remove": json.dumps(removeSegment)})        
     
-    
+   
+ 
+
+
+            
 if __name__ == "__main__":
     app.run()

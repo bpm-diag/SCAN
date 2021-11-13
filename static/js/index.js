@@ -12,13 +12,18 @@ function applyFunction(){
     
     console.log(fun, " ", act1)
     $(document).ready(function(){
-        var segments = $('.Divtext').text();
+       // var segments = $('.Divtext').text();
+        //var seg = fixSegments(segments)
+        
+        
         $.ajax({
             type : "POST",
             url : '/existence',
-            data: {act1: act1, segments: segments},
+           // data: {act1: act1, segments: seg},
+            data: {act1: act1},
             success: function(response) {
-                $(".Divtext").html('<p>'+response.result.toString()+'</p>');}
+                $(".Divtext").html('<p>'+response.result+'</p>')
+                $(".DivtextDel").html('<p>'+response.remove+'</p>');}
         });
         
     });
@@ -29,4 +34,9 @@ function deselectAct2(activity2){
     activity2.disabled = true;
     activity2.style.opacity = "0.5";
     
+}
+
+function fixSegments(segments){
+    var s = segments.split("\n")
+    console.log(s)
 }
