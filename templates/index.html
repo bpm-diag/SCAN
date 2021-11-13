@@ -20,53 +20,29 @@
         <div class="row">
         <div class="col-md-8">
             <div id="buttons-container">
-                <!--<div class="mb-3">
-                    <input class="form-control" type="file" id="formFile">
-                </div>-->
-                <!--<p>
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul class=flashes>
-                        {% for message in messages %}
-                        <li>{{ message }}</li>
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
-                    {% endwith %}
-                </p>-->
-                
                 <form method="post" action="/" enctype="multipart/form-data">
-                   
                    <div class="input-group">
                         <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required >
                         <input type="submit" value="Upload">
-                    </div>
-                       
+                    </div>    
                 </form>
-                <button type="button" class="btn btn-outline-secondary">CLEAR</button>
-                <button type="button" class="btn btn-outline-success">SAFE</button>
-                
-               
-
-            </div>
-            <div id="segment-container"> <!--scroll-bg-->
-                <div class="title">List segments</div> 
-                <div id="response" > <!--scroll-div-->
-                    <div id="scroll-seg" class="Divtext"> <!--scroll-obj-->
-                        {% for each in data %}
-                            <li>{{ each }}</li>   
-                        {% endfor %}
-                      
-                        
-                    </div>                
+                <div id="b-container">
+                    <button type="button" class="btn btn-outline-secondary">CLEAR</button>
+                    <button type="button" class="btn btn-outline-success">SAFE</button>
+                    <button type="button" class="btn btn-outline-primary">EXPORT</button>
                 </div>
+             </div>
+            <div id="segment-container">
+                <div class="title">List segments</div> 
+                <div id="scroll-seg" class="Divtext">
+                    {% for each in data %}
+                        <li>{{ each }}</li>   
+                    {% endfor %}
+                </div>                
             </div>
             <div id="deleted-segment-container">
-               <div class="title">Not accepted segments</div>
-               <div id="response">
-                    <div id="scroll-del-seg" class="DivtextDel"> <!--scroll-obj-->                      
-                    </div>
-                </div>
+                <div class="title">Not accepted segments</div>
+                <div id="scroll-del-seg" class="DivtextDel"></div>
             </div>
         </div>
         <div class="col-md-4">
