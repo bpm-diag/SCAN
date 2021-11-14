@@ -15,11 +15,11 @@ function takeFunction(){
     
     switch(fun) {
         case "Existence":
-           // deselectAct2(activity2);
-            applyFunctionOneElem(act1, '/existence');
+            applyFunction(act1, null, '/existence');
+            showRule(act1, null, fun)
             break;
         case "Choice":
-            applyFunctionTwoElem(act1, act2, '/choice');
+            applyFunction(act1, act2, '/choice');
             showRule(act1, act2, fun);
             break;
         default:
@@ -27,20 +27,7 @@ function takeFunction(){
     }
 }
 
-function applyFunctionOneElem(act1, url){
-    $(document).ready(function(){
-        $.ajax({
-            type : "POST",
-            url : url,
-            data: {act1: act1},
-            success: function(response) {
-                $(".Divtext").html('<p>'+response.result+'</p>')
-                $(".DivtextDel").html('<p>'+response.remove+'</p>');}
-        });     
-    });
-}
-
-function applyFunctionTwoElem(act1, act2, url){
+function applyFunction(act1, act2, url){
     $(document).ready(function(){
         $.ajax({
             type : "POST",
@@ -65,8 +52,9 @@ function activeAct2(activity2){
 
 
 function showRule(act1, act2, rule){
-    
-    $(".divRule").append('<p>' + rule + "(" + act1 + ", " + act2 + ")" + '<p>');
+    if(act2 != null)
+        $(".divRule").append('<p>' + rule + "(" + act1 + "," + act2 + ")" + '<p>');
+    else $(".divRule").append('<p>' + rule + "(" + act1 + ")" + '<p>');
        
 }
 /*
