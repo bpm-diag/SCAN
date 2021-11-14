@@ -52,29 +52,13 @@ def upload_file():
                     f.write('\n')       
             return render_template("index.html", data=allActivities, activity=listActivity)
         else:
-            return redirect(request.url)
-    		#flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
-	
+            return redirect(request.url)	
       
-
-
-     		
-'''
-DOWNLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/downloads/'
-
-app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename, as_attachment=True)
-'''	
 @app.route('/existence', methods=['POST'])
 def existence():
     a = request.form["act1"]
-    #segments = request.form["segments"] #va rivisto segment, lo prende come stringa invece di array
     segments = takeSegmentFromFile()
-    removeSegment = []
-    print("seg ", segments)        
+    removeSegment = takeRemoveSegmentFromFile()   
     result = []
     for act in segments:
         if a in act:        
@@ -86,8 +70,24 @@ def existence():
     writeOnSegmentFile(result)   
     writeOnRemoveSegmentFile(removeSegment) 
     return jsonify({"result": json.dumps(result), "remove": json.dumps(removeSegment)})        
-    
    
+@app.route('/choice', methods=['POST'])
+def choice():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    result = []
+    for act in segments:
+        if a in act or b in act:
+            result.append(act)
+        else : 
+            if act not in removeSegment:
+                removeSegment.append(act)     
+    print("\n choice \n", result) 
+    writeOnSegmentFile(result)   
+    writeOnRemoveSegmentFile(removeSegment) 
+    return jsonify({"result": json.dumps(result), "remove": json.dumps(removeSegment)})       
  
 
 

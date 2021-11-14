@@ -16,6 +16,17 @@ def takeSegmentFromFile():
                 if elem != "[" and elem != "]" and elem != "," and elem != "'" and elem != " " and elem != "\n":
                     s.append(elem)
             segments.append(s)
+    return segments
+
+def takeRemoveSegmentFromFile():  
+    segments = []  
+    with open('removeSegments.txt', 'r') as f:
+        for line in f:
+            s = []
+            for elem in line:
+                if elem != "[" and elem != "]" and elem != "," and elem != "'" and elem != " " and elem != "\n":
+                    s.append(elem)
+            segments.append(s)
     return segments       
 
 def writeOnSegmentFile(result):
@@ -26,7 +37,7 @@ def writeOnSegmentFile(result):
         f.close()
         
 def writeOnRemoveSegmentFile(removeSegment):
-    with open('removeSegments.txt', 'w') as f:
+    with open('removeSegments.txt', 'a') as f:
         for line in removeSegment:
             f.write(str(line))
             f.write("\n")
