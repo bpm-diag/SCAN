@@ -37,7 +37,7 @@ def writeOnSegmentFile(result):
         f.close()
         
 def writeOnRemoveSegmentFile(removeSegment):
-    with open('removeSegments.txt', 'a') as f:
+    with open('removeSegments.txt', 'w') as f:
         for line in removeSegment:
             f.write(str(line))
             f.write("\n")
