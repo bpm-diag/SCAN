@@ -1,7 +1,7 @@
 function selectFunction(){
     var fun = document.getElementById("selectFun").value;
     var activity2 = document.getElementById("act2");
-    if(fun == "Existence(a)") deselectAct2(activity2);
+    if(fun == "Existence") deselectAct2(activity2);
     else activeAct2(activity2);
 }
 
@@ -10,16 +10,17 @@ function takeFunction(){
     var act1 = document.getElementById("act1").value;
     var activity2 = document.getElementById("act2");
     var act2 = activity2.value;
-    if(fun == "Existence(a)") deselectAct2(activity2);
+    if(fun == "Existence") deselectAct2(activity2);
     else activeAct2(activity2);
     
     switch(fun) {
-        case "Existence(a)":
+        case "Existence":
            // deselectAct2(activity2);
             applyFunctionOneElem(act1, '/existence');
             break;
-        case "Choice(a,b)":
+        case "Choice":
             applyFunctionTwoElem(act1, act2, '/choice');
+            showRule(act1, act2, fun);
             break;
         default:
             text = "To do"; 
@@ -62,6 +63,12 @@ function activeAct2(activity2){
     activity2.style.opacity = "1";   
 }
 
+
+function showRule(act1, act2, rule){
+    
+    $(".divRule").append('<p>' + rule + "(" + act1 + ", " + act2 + ")" + '<p>');
+       
+}
 /*
 function fixSegments(segments){
     var s = segments.split("\n")
