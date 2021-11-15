@@ -133,6 +133,11 @@ def alternate_succession():
 @app.route('/chain_succession', methods=['POST'])
 def chain_succession():
     result, removeSegment = rule_chain_succession()
+    return jsonify({"result": result, "remove": removeSegment}) 
+
+@app.route('/not_co_existence', methods=['POST'])
+def not_co_existence():
+    result, removeSegment = rule_not_co_existence()
     return jsonify({"result": result, "remove": removeSegment})       
   
 
