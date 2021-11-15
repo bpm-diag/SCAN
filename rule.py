@@ -479,3 +479,57 @@ def rule_not_succession():
     writeOnSegmentFile(result)   
     writeOnRemoveSegmentFile(removeSegment)
     return result, removeSegment
+
+
+def rule_not_chain_succession():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    result = []
+    for act in segments:
+        if a in act and b in act:
+            counter = collections.Counter(act)
+            if counter[a] == 1 and counter[b] == 1:
+                position_a = act.index(a)
+                position_b = act.index(b)     
+                if position_b > position_a + 1:
+                    result.append(act)
+                elif position_b < position_a:
+                    result.append(act) 
+                else : 
+                    if act not in removeSegment:
+                        removeSegment.append(act)        
+            else:
+                list_a = []
+                list_b = []
+                count = -1
+                for elem in act:
+                    count += 1
+                    if elem == a:
+                        list_a.append(count)
+                    elif elem == b:
+                        list_b.append(count)            
+                i = 0
+                j = 0
+                for i in range(len(list_a)):
+                    for j in range(len(list_b)):
+                        if list_b[j] > list_a[i] + 1:
+                            if act not in result:
+                                result.append(act)
+                        elif list_b[j] < list_a[i]:
+                            if act not in result:
+                                result.append(act)
+                        else: 
+                            if act in result:
+                                result.remove(act)
+                            if act not in removeSegment:
+                                removeSegment.append(act)                    
+        elif a not in act and b not in act:
+            result.append(act)
+        else: 
+            if act not in removeSegment:
+                removeSegment.append(act)     
+    writeOnSegmentFile(result)   
+    writeOnRemoveSegmentFile(removeSegment)
+    return result, removeSegment

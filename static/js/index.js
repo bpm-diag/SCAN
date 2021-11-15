@@ -81,9 +81,10 @@ function takeFunction(){
         case "NotSuccession":
             applyFunction(act1, act2, '/not_succession');
             showRule(act1, act2, fun);
-            break;                                             
+            break;                                                 
         default:
-            text = "To do"; 
+            applyFunction(act1, act2, '/not_chain_succession');
+            showRule(act1, act2, fun); 
     }
 }
 

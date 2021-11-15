@@ -143,7 +143,12 @@ def not_co_existence():
 @app.route('/not_succession', methods=['POST'])
 def not_succession():
     result, removeSegment = rule_not_succession()
-    return jsonify({"result": result, "remove": removeSegment})  
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/not_chain_succession', methods=['POST'])
+def not_chain_succession():
+    result, removeSegment = rule_not_chain_succession()
+    return jsonify({"result": result, "remove": removeSegment})   
 
        
   
