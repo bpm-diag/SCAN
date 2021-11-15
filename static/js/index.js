@@ -65,7 +65,11 @@ function takeFunction(){
         case "Succession":
             applyFunction(act1, act2, '/succession');
             showRule(act1, act2, fun);
-            break;                                    
+            break;
+        case "AlternateSuccession":
+            applyFunction(act1, act2, '/alternate_succession');
+            showRule(act1, act2, fun);
+            break;                                        
         default:
             text = "To do"; 
     }

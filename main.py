@@ -125,6 +125,11 @@ def succession():
     result, removeSegment = rule_succession()
     return jsonify({"result": result, "remove": removeSegment})     
  
+@app.route('/alternate_succession', methods=['POST'])
+def alternate_succession():
+    result, removeSegment = rule_alternate_succession()
+    return jsonify({"result": result, "remove": removeSegment})     
+  
 
 
             
