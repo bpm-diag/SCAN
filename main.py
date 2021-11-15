@@ -80,6 +80,11 @@ def exclusive_choice():
     result, removeSegment = rule_exclusive_choice()
     return jsonify({"result": result, "remove": removeSegment})       
  
+@app.route('/responded_existence', methods=['POST'])
+def responded_existence():
+    result, removeSegment = rule_responded_existence()
+    return jsonify({"result": result, "remove": removeSegment})       
+ 
 
 
             

@@ -29,6 +29,10 @@ function takeFunction(){
         case "ExclusiveChoice":
             applyFunction(act1, act2, '/exclusive_choice');
             showRule(act1, act2, fun);
+            break; 
+        case "RespondedExistence":
+            applyFunction(act1, act2, '/responded_existence');
+            showRule(act1, act2, fun);
             break;    
         default:
             text = "To do"; 
