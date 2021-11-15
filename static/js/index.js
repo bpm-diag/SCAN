@@ -77,7 +77,11 @@ function takeFunction(){
         case "NotCoExistence":
             applyFunction(act1, act2, '/not_co_existence');
             showRule(act1, act2, fun);
-            break;                                                
+            break;
+        case "NotSuccession":
+            applyFunction(act1, act2, '/not_succession');
+            showRule(act1, act2, fun);
+            break;                                             
         default:
             text = "To do"; 
     }
