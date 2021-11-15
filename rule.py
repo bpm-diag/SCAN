@@ -250,4 +250,45 @@ def rule_alternate_precedence():
     writeOnRemoveSegmentFile(removeSegment)
     return result, removeSegment
     
-    
+def rule_chain_precedence():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    result = []
+    for act in segments:
+        if a in act and b in act:
+            counter = collections.Counter(act)
+            if counter[b] == 1:
+                position_a = act.index(a)
+                position_b = act.index(b)     
+                if position_a < position_b:
+                    result.append(act) 
+            elif counter[b] > 1:
+                list_a = []
+                list_b = []
+                count = -1
+                for elem in act:
+                    count += 1
+                    if elem == a:
+                        list_a.append(count)
+                    elif elem == b:
+                        list_b.append(count)            
+                i = 0
+                j = 0
+                for i in range(len(list_b)):
+                    for j in range(len(list_a)):
+                        if list_a[j] + 1 == list_b[i]:
+                            if act not in result:
+                                result.append(act)
+                        else:
+                            if act in result:
+                                result.remove(act) 
+        elif b not in act:
+            result.append(act) 
+        else : 
+            if act not in removeSegment:
+                removeSegment.append(act)     
+    writeOnSegmentFile(result)   
+    writeOnRemoveSegmentFile(removeSegment)
+    return result, removeSegment        

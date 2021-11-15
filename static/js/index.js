@@ -53,7 +53,11 @@ function takeFunction(){
         case "AlternatePrecedence":
             applyFunction(act1, act2, '/alternate_precedence');
             showRule(act1, act2, fun);
-            break;                        
+            break;
+        case "ChainPrecedence":
+            applyFunction(act1, act2, '/chain_precedence');
+            showRule(act1, act2, fun);
+            break;                            
         default:
             text = "To do"; 
     }
