@@ -93,6 +93,11 @@ def response():
 @app.route('/alternate_response', methods=['POST'])
 def alternate_response():
     result, removeSegment = rule_alternate_response()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/chain_response', methods=['POST'])
+def chain_response():
+    result, removeSegment = rule_chain_response()
     return jsonify({"result": result, "remove": removeSegment})       
  
 

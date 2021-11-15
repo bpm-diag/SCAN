@@ -145,5 +145,48 @@ def rule_alternate_response():
     writeOnSegmentFile(result)   
     writeOnRemoveSegmentFile(removeSegment)
     return result, removeSegment
+
+def rule_chain_response():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    result = []
+    for act in segments:
+        if a in act and b in act:
+            counter = collections.Counter(act)
+            if counter[a] == 1:
+                for elem in range(len(act)-1):
+                    if act[elem] == a and act[elem+1] == b:
+                        result.append(act) 
+            elif counter[a] > 1:
+                list_a = []
+                list_b = []
+                count = -1
+                for elem in act:
+                    count += 1
+                    if elem == a:
+                        list_a.append(count)
+                    elif elem == b:
+                        list_b.append(count)            
+                i = 0
+                j = 0
+                for i in range(len(list_a)):
+                    for j in range(len(list_b)):
+                        if list_a[i] + 1 == list_b[j]:
+                            if act not in result:
+                                result.append(act) 
+                        else:
+                            if act in result: 
+                                result.remove(act)
+                           
+        elif a not in act:
+            result.append(act)   
+        else : 
+            if act not in removeSegment:
+                removeSegment.append(act)     
+    writeOnSegmentFile(result)   
+    writeOnRemoveSegmentFile(removeSegment)
+    return result, removeSegment
     
     

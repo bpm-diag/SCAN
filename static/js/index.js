@@ -39,9 +39,13 @@ function takeFunction(){
             showRule(act1, act2, fun);
             break; 
         case "AlternateResponse":
-                applyFunction(act1, act2, '/alternate_response');
-                showRule(act1, act2, fun);
-                break;        
+            applyFunction(act1, act2, '/alternate_response');
+            showRule(act1, act2, fun);
+            break;
+        case "ChainResponse":
+            applyFunction(act1, act2, '/chain_response');
+            showRule(act1, act2, fun);
+            break;                
         default:
             text = "To do"; 
     }
