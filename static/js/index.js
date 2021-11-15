@@ -49,7 +49,11 @@ function takeFunction(){
         case "Precedence":
             applyFunction(act1, act2, '/precedence');
             showRule(act1, act2, fun);
-            break;                    
+            break;
+        case "AlternatePrecedence":
+            applyFunction(act1, act2, '/alternate_precedence');
+            showRule(act1, act2, fun);
+            break;                        
         default:
             text = "To do"; 
     }

@@ -103,6 +103,11 @@ def chain_response():
 @app.route('/precedence', methods=['POST'])
 def precedence():
     result, removeSegment = rule_precedence()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/alternate_precedence', methods=['POST'])
+def alternate_precedence():
+    result, removeSegment = rule_alternate_precedence()
     return jsonify({"result": result, "remove": removeSegment})       
  
 
