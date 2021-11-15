@@ -10,7 +10,7 @@ function takeFunction(){
     var act1 = document.getElementById("act1").value;
     var activity2 = document.getElementById("act2");
     var act2 = activity2.value;
-    if(fun == "Existence") deselectAct2(activity2);
+    if(fun == "Existence" || fun == "Absence") deselectAct2(activity2);
     else activeAct2(activity2);
     
     switch(fun) {
@@ -18,6 +18,10 @@ function takeFunction(){
             applyFunction(act1, null, '/existence');
             showRule(act1, null, fun)
             break;
+        case "Absence":
+            applyFunction(act1, null, '/absence');
+            showRule(act1, null, fun)
+            break;    
         case "Choice":
             applyFunction(act1, act2, '/choice');
             showRule(act1, act2, fun);

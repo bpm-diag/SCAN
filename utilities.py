@@ -1,3 +1,7 @@
+def clear():
+    clearFile('segments.txt')
+    clearFile('removeSegments.txt')
+
 def clearFile(file):
     f = open(file,"w")
     f.close()

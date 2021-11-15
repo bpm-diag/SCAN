@@ -1,8 +1,9 @@
 import os
 from utilities import *
+from rule import *
 #import magic
 import urllib.request
-from app import app
+from app import *
 from flask import Flask, flash, request, redirect, render_template, url_for, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
@@ -23,8 +24,7 @@ def upload_form():
 
 @app.route('/clear')
 def clearDiv():
-    clearFile('segments.txt')
-    clearFile('removeSegments.txt')
+    clear()
     return render_template('index.html');
 
 @app.route('/', methods=['POST'])
@@ -62,41 +62,17 @@ def upload_file():
       
 @app.route('/existence', methods=['POST'])
 def existence():
-    a = request.form["act1"]
-    segments = takeSegmentFromFile()
-    removeSegment = takeRemoveSegmentFromFile()   
-    result = []
-    for act in segments:
-        if a in act:        
-            result.append(act)
-        else : 
-            if act not in removeSegment:
-                removeSegment.append(act)    
-    writeOnSegmentFile(result)   
-    writeOnRemoveSegmentFile(removeSegment) 
+    result, removeSegment = rule_existence()
     return jsonify({"result": result, "remove": removeSegment})        
    
 @app.route('/choice', methods=['POST'])
 def choice():
-    a = request.form["act1"]
-    b = request.form["act2"]
-    segments = takeSegmentFromFile()
-    removeSegment = takeRemoveSegmentFromFile() 
-    result = []
-    for act in segments:
-        if a in act or b in act:
-            result.append(act)
-        else : 
-            if act not in removeSegment:
-                removeSegment.append(act)     
-    writeOnSegmentFile(result)   
-    writeOnRemoveSegmentFile(removeSegment) 
+    result, removeSegment = rule_choice()
     return jsonify({"result": result, "remove": removeSegment})       
  
 
 
             
 if __name__ == "__main__":
-    clearFile('segments.txt')
-    clearFile('removeSegments.txt')
+    clear()
     app.run()
