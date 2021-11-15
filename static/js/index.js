@@ -33,6 +33,10 @@ function takeFunction(){
         case "RespondedExistence":
             applyFunction(act1, act2, '/responded_existence');
             showRule(act1, act2, fun);
+            break;  
+        case "Response":
+            applyFunction(act1, act2, '/response');
+            showRule(act1, act2, fun);
             break;    
         default:
             text = "To do"; 
