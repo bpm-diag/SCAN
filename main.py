@@ -88,6 +88,11 @@ def responded_existence():
 @app.route('/response', methods=['POST'])
 def response():
     result, removeSegment = rule_response()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/alternate_response', methods=['POST'])
+def alternate_response():
+    result, removeSegment = rule_alternate_response()
     return jsonify({"result": result, "remove": removeSegment})       
  
 
