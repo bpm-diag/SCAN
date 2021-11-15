@@ -63,6 +63,11 @@ def upload_file():
 @app.route('/existence', methods=['POST'])
 def existence():
     result, removeSegment = rule_existence()
+    return jsonify({"result": result, "remove": removeSegment})  
+
+@app.route('/absence', methods=['POST'])
+def absence():
+    result, removeSegment = rule_absence()
     return jsonify({"result": result, "remove": removeSegment})        
    
 @app.route('/choice', methods=['POST'])
