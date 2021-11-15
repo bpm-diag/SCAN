@@ -73,6 +73,11 @@ def absence():
 @app.route('/choice', methods=['POST'])
 def choice():
     result, removeSegment = rule_choice()
+    return jsonify({"result": result, "remove": removeSegment})     
+
+@app.route('/exclusive_choice', methods=['POST'])
+def exclusive_choice():
+    result, removeSegment = rule_exclusive_choice()
     return jsonify({"result": result, "remove": removeSegment})       
  
 

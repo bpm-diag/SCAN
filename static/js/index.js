@@ -26,6 +26,10 @@ function takeFunction(){
             applyFunction(act1, act2, '/choice');
             showRule(act1, act2, fun);
             break;
+        case "ExclusiveChoice":
+            applyFunction(act1, act2, '/exclusive_choice');
+            showRule(act1, act2, fun);
+            break;    
         default:
             text = "To do"; 
     }
