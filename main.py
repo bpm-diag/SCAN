@@ -21,6 +21,12 @@ def allowed_file(filename):
 def upload_form():
 	return render_template('index.html')
 
+@app.route('/clear')
+def clearDiv():
+    clearFile('segments.txt')
+    clearFile('removeSegments.txt')
+    return render_template('index.html');
+
 @app.route('/', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
@@ -91,4 +97,6 @@ def choice():
 
             
 if __name__ == "__main__":
+    clearFile('segments.txt')
+    clearFile('removeSegments.txt')
     app.run()

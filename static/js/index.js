@@ -71,3 +71,12 @@ function showResponse(response){
     }
 
 }
+
+function clearDiv(){
+    $(".Divtext").empty()
+    $(".DivtextDel").empty()
+    $(".divRule").empty()
+    $.ajax({
+        url: "/clear"
+    });    
+}

@@ -1,3 +1,7 @@
+def clearFile(file):
+    f = open(file,"w")
+    f.close()
+         
 def takeActions(allActivities):
     activities = []
     for seg in allActivities:
