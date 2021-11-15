@@ -45,7 +45,11 @@ function takeFunction(){
         case "ChainResponse":
             applyFunction(act1, act2, '/chain_response');
             showRule(act1, act2, fun);
-            break;                
+            break;
+        case "Precedence":
+            applyFunction(act1, act2, '/precedence');
+            showRule(act1, act2, fun);
+            break;                    
         default:
             text = "To do"; 
     }
