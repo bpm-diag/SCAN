@@ -291,4 +291,20 @@ def rule_chain_precedence():
                 removeSegment.append(act)     
     writeOnSegmentFile(result)   
     writeOnRemoveSegmentFile(removeSegment)
-    return result, removeSegment        
+    return result, removeSegment
+
+def rule_co_existence():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    result = []
+    for act in segments:
+        if a in act and b in act:
+            result.append(act)
+        else : 
+            if act not in removeSegment:
+                removeSegment.append(act)     
+    writeOnSegmentFile(result)   
+    writeOnRemoveSegmentFile(removeSegment)
+    return result, removeSegment       

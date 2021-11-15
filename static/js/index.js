@@ -57,7 +57,11 @@ function takeFunction(){
         case "ChainPrecedence":
             applyFunction(act1, act2, '/chain_precedence');
             showRule(act1, act2, fun);
-            break;                            
+            break;
+        case "CoExistence":
+            applyFunction(act1, act2, '/co_existence');
+            showRule(act1, act2, fun);
+            break;                                
         default:
             text = "To do"; 
     }

@@ -113,7 +113,12 @@ def alternate_precedence():
 @app.route('/chain_precedence', methods=['POST'])
 def chain_precedence():
     result, removeSegment = rule_chain_precedence()
-    return jsonify({"result": result, "remove": removeSegment})       
+    return jsonify({"result": result, "remove": removeSegment})  
+
+@app.route('/co_existence', methods=['POST'])
+def co_existence():
+    result, removeSegment = rule_co_existence()
+    return jsonify({"result": result, "remove": removeSegment})     
  
 
 
