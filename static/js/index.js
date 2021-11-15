@@ -61,7 +61,11 @@ function takeFunction(){
         case "CoExistence":
             applyFunction(act1, act2, '/co_existence');
             showRule(act1, act2, fun);
-            break;                                
+            break;
+        case "Succession":
+            applyFunction(act1, act2, '/succession');
+            showRule(act1, act2, fun);
+            break;                                    
         default:
             text = "To do"; 
     }

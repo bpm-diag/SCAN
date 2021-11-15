@@ -118,6 +118,11 @@ def chain_precedence():
 @app.route('/co_existence', methods=['POST'])
 def co_existence():
     result, removeSegment = rule_co_existence()
+    return jsonify({"result": result, "remove": removeSegment}) 
+
+@app.route('/succession', methods=['POST'])
+def succession():
+    result, removeSegment = rule_succession()
     return jsonify({"result": result, "remove": removeSegment})     
  
 
