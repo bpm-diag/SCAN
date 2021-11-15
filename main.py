@@ -66,10 +66,9 @@ def existence():
         else : 
             if act not in removeSegment:
                 removeSegment.append(act)    
-    print("\n existence \n", result) 
     writeOnSegmentFile(result)   
     writeOnRemoveSegmentFile(removeSegment) 
-    return jsonify({"result": json.dumps(result), "remove": json.dumps(removeSegment)})        
+    return jsonify({"result": result, "remove": removeSegment})        
    
 @app.route('/choice', methods=['POST'])
 def choice():
@@ -84,10 +83,9 @@ def choice():
         else : 
             if act not in removeSegment:
                 removeSegment.append(act)     
-    print("\n choice \n", result) 
     writeOnSegmentFile(result)   
     writeOnRemoveSegmentFile(removeSegment) 
-    return jsonify({"result": json.dumps(result), "remove": json.dumps(removeSegment)})       
+    return jsonify({"result": result, "remove": removeSegment})       
  
 
 

@@ -34,8 +34,7 @@ function applyFunction(act1, act2, url){
             url : url,
             data: {act1: act1, act2: act2},
             success: function(response) {
-                $(".Divtext").html('<p>'+response.result+'</p>')
-                $(".DivtextDel").html('<p>'+response.remove+'</p>');}
+                showResponse(response);}
         });     
     });
 }
@@ -57,8 +56,18 @@ function showRule(act1, act2, rule){
     else $(".divRule").append('<p>' + rule + "(" + act1 + ")" + '<p>');
        
 }
-/*
-function fixSegments(segments){
-    var s = segments.split("\n")
-    console.log(s)
-}*/
+
+
+function showResponse(response){
+    var result = response.result
+    var remove = response.remove
+    $(".Divtext").empty()
+    for(var i=0; i < result.length; i++){
+        $(".Divtext").append('<p>'+result[i] + '<br>' +'</p>')
+    }
+    $(".DivtextDel").empty()
+    for(var i=0; i < remove.length; i++){
+        $(".DivtextDel").append('<p>'+remove[i] + '<br>' +'</p>')
+    }
+
+}
