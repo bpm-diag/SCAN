@@ -66,7 +66,7 @@ def upload_file():
                     f.write('\n')
                     replaceInFile("segments.txt")
             flash("Successfully loaded", "success")            
-            return render_template("index.html", data=actWithOccurence, activity=listActivity)
+            return render_template("index.html", data=actWithOccurence, activity=listActivity, nameFile=filename)
         else:
             flash("Extension not allowed", "danger")
             return redirect(request.url)	

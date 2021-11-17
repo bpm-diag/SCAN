@@ -145,6 +145,7 @@ function clearDiv(){
     $(".Divtext").empty()
     $(".DivtextDel").empty()
     $(".divRule").empty()
+    $(".title_file").empty()
     $.ajax({
         url: "/clear"
     });    

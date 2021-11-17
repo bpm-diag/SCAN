@@ -20,27 +20,34 @@
         <div class="row">
         <div class="col-md-9">
             <div id="buttons-container">
-                <form method="post" action="/" enctype="multipart/form-data">
-                    <div class="input-group">
-                        <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required >
-                        <input type="submit" value="Upload">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form method="post" action="/" enctype="multipart/form-data">
+                            <div class="input-group">
+                                <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
+                                <input type="submit" value="Upload">
+                            </div> 
+                        </form>
+                        <div id="b-container">
+                            <button type="button" class="btn btn-outline-secondary" onclick="clearDiv();">CLEAR</button>
+                            <button type="button" class="btn btn-outline-primary">EXPORT</button>
+                        </div>
+                        <div class="title_file" id="name">
+                            {{nameFile}}
+                        </div>    
                     </div>
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }} alert-dismissible fade show" id="error_flash">
-                                <span>{{ message }}</span>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_flash();"></button>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}    
-                </form>
-                
-               
-                <div id="b-container">
-                    <button type="button" class="btn btn-outline-secondary" onclick="clearDiv();">CLEAR</button>
-                    <button type="button" class="btn btn-outline-primary">EXPORT</button>
+                    <div class="col-md-6" height="10px">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} alert-dismissible fade show" id="error_flash">
+                                        <span>{{ message }}</span>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_flash();"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %} 
+                    </div>      
                 </div>
              </div>
             <div id="segment-container">
