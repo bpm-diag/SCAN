@@ -86,7 +86,11 @@
                         {% endfor %}
                     </select>
                 </div>
-               <button id="button-apply" type="button" class="btn btn-outline-dark" style="justify-content:center" onclick="takeFunction();">APPLY</button>
+                <button id="button-apply" type="button" class="btn btn-outline-dark" style="justify-content:center" onclick="takeFunction();">APPLY</button>
+                <div class="alert alert-danger alert-dismissible fade show" id="error_adding_rule" style="display:none">
+                    <strong>Error!</strong>It is not possible to use the same activity twice.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_error_adding_rule();"></button>
+                </div>
             </div>
             <div id="division"></div>
             <div id="rules">

@@ -12,7 +12,10 @@ function takeFunction(){
     var act2 = activity2.value;
     if(fun == "Existence" || fun == "Absence") deselectAct2(activity2);
     else activeAct2(activity2);
-    
+    checkActivities(act1, act2, fun)
+}
+
+function goToFunction(act1, act2, fun){
     switch(fun) {
         case "Existence":
             applyFunction(act1, null, '/existence');
@@ -140,4 +143,19 @@ function clearDiv(){
     $.ajax({
         url: "/clear"
     });    
+}
+
+function checkActivities(act1, act2, fun){
+    var error = document.getElementById("error_adding_rule");
+    if(act1 == act2){
+        error.style.display = 'block';
+    }
+    else{
+        error.style.display = 'none';
+        goToFunction(act1, act2, fun)
+    } 
+}
+
+function close_error_adding_rule(){
+    document.getElementById("error_adding_rule").style.display = 'none';
 }
