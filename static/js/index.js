@@ -10,9 +10,14 @@ function takeFunction(){
     var act1 = document.getElementById("act1").value;
     var activity2 = document.getElementById("act2");
     var act2 = activity2.value;
-    if(fun == "Existence" || fun == "Absence") deselectAct2(activity2);
-    else activeAct2(activity2);
-    checkActivities(act1, act2, fun)
+    if(fun == "Existence" || fun == "Absence"){
+        deselectAct2(activity2);
+        checkActivities(act1, null, fun)
+    } 
+    else{
+        activeAct2(activity2);
+        checkActivities(act1, act2, fun)
+    }    
 }
 
 function goToFunction(act1, act2, fun){
@@ -145,17 +150,39 @@ function clearDiv(){
     });    
 }
 
+var array_rule = []
+var rule = []
 function checkActivities(act1, act2, fun){
     var error = document.getElementById("error_adding_rule");
+    var duplicate = document.getElementById("error_duplicate_rule");
     if(act1 == act2){
         error.style.display = 'block';
     }
     else{
         error.style.display = 'none';
-        goToFunction(act1, act2, fun)
+        rule = [fun, act1, act2]
+        if(isArrayInArray(array_rule, rule) == false){
+            array_rule.push(rule)
+            goToFunction(act1, act2, fun)
+            duplicate.style.display = 'none';
+        }
+        else duplicate.style.display = 'block';
     } 
 }
 
+function isArrayInArray(arr, item){
+    var item_as_string = JSON.stringify(item);
+  
+    var contains = arr.some(function(ele){
+      return JSON.stringify(ele) === item_as_string;
+    });
+    return contains;
+  }
+
 function close_error_adding_rule(){
     document.getElementById("error_adding_rule").style.display = 'none';
+}
+
+function close_error_duplicate_rule(){
+    document.getElementById("error_duplicate_rule").style.display = 'none';
 }
