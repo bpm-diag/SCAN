@@ -8,6 +8,8 @@ from flask import Flask, flash, request, redirect, render_template, url_for, sen
 from werkzeug.utils import secure_filename
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 import pm4py
+from collections import Counter
+import re
 import json
 import collections
 
@@ -46,17 +48,24 @@ def upload_file():
                 activities = []
                 for event in trace:
                     activities.append(event["concept:name"])
-                allXESActivities.append(activities)    
+                allXESActivities.append(activities)       
             allActivities = []
+            actWithOccurence = []
+            c = Counter()
             for act in allXESActivities:
+                c[tuple(act)] += 1
                 if act not in allActivities:
                     allActivities.append(act)
-            listActivity = takeActions(allActivities)
+            listActivity = takeActions(allActivities) 
+            for elem in c:
+                list = [c[elem], elem]
+                actWithOccurence.append(list)      
             with open('segments.txt', 'w') as f:
-                for line in allActivities:
+                for line in actWithOccurence:
                     f.write(str(line))
-                    f.write('\n')       
-            return render_template("index.html", data=allActivities, activity=listActivity)
+                    f.write('\n')
+                    replaceInFile("segments.txt")            
+            return render_template("index.html", data=actWithOccurence, activity=listActivity)
         else:
             return redirect(request.url)	
       

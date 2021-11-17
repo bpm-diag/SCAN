@@ -28,7 +28,6 @@
                 </form>
                 <div id="b-container">
                     <button type="button" class="btn btn-outline-secondary" onclick="clearDiv();">CLEAR</button>
-                    <button type="button" class="btn btn-outline-success">SAFE</button>
                     <button type="button" class="btn btn-outline-primary">EXPORT</button>
                 </div>
              </div>
@@ -36,7 +35,7 @@
                 <div class="title">List segments</div> 
                 <div id="scroll-seg" class="Divtext">
                     {% for each in data %}
-                        <p>{{ each }}</p>   
+                        <p>{{ each[0] }} &nbsp; {{each[1]}}</p>  
                     {% endfor %}
                 </div>                
             </div>

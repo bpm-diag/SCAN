@@ -1,7 +1,7 @@
 function selectFunction(){
     var fun = document.getElementById("selectFun").value;
     var activity2 = document.getElementById("act2");
-    if(fun == "Existence") deselectAct2(activity2);
+    if(fun == "Existence" || fun == "Absence") deselectAct2(activity2);
     else activeAct2(activity2);
 }
 
@@ -124,11 +124,11 @@ function showResponse(response){
     var remove = response.remove
     $(".Divtext").empty()
     for(var i=0; i < result.length; i++){
-        $(".Divtext").append('<p>'+result[i] + '<br>' +'</p>')
+        $(".Divtext").append('<p>'+result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" +'</p>')
     }
     $(".DivtextDel").empty()
     for(var i=0; i < remove.length; i++){
-        $(".DivtextDel").append('<p>'+remove[i] + '<br>' +'</p>')
+        $(".DivtextDel").append('<p>'+remove[i][0]+ '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" +'</p>')
     }
 
 }
