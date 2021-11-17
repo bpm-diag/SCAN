@@ -186,3 +186,7 @@ function close_error_adding_rule(){
 function close_error_duplicate_rule(){
     document.getElementById("error_duplicate_rule").style.display = 'none';
 }
+
+function close_flash(){
+    document.getElementById("error_flash").style.display = 'none';
+}

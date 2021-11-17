@@ -64,9 +64,11 @@ def upload_file():
                 for line in actWithOccurence:
                     f.write(str(line))
                     f.write('\n')
-                    replaceInFile("segments.txt")            
+                    replaceInFile("segments.txt")
+            flash("Successfully loaded", "success")            
             return render_template("index.html", data=actWithOccurence, activity=listActivity)
         else:
+            flash("Extension not allowed", "danger")
             return redirect(request.url)	
       
 @app.route('/existence', methods=['POST'])
