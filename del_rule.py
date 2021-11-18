@@ -32,3 +32,19 @@ def rule_del_absence():
     writeOnSegmentFile(segments)   
     writeOnRemoveSegmentFile(remove) 
     return segments, remove
+
+def rule_del_choice():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    remove = []
+    for act in removeSegment:
+        if a not in act or b not in act:
+            segments.append(act)
+        else : 
+            if act in segments:
+                remove.append(act)         
+    writeOnSegmentFile(segments)   
+    writeOnRemoveSegmentFile(remove)
+    return segments, remove
