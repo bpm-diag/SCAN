@@ -305,8 +305,6 @@ def rule_chain_precedence():
                         list_b.append(count)            
                 i = 0
                 j = 0
-                print("la: ", list_a)
-                print("lb: ", list_b)
                 for i in range(len(list_b)):
                     for j in range(len(list_a)):
                         if list_a[j] + 1 == list_b[i]:
@@ -333,7 +331,7 @@ def rule_co_existence():
     removeSegment = takeRemoveSegmentFromFile() 
     result = []
     for act in segments:
-        if a in act and b in act:
+        if a in act and b in act and act not in result:
             result.append(act)
         else : 
             if act not in removeSegment:
@@ -354,10 +352,37 @@ def rule_succession():
             if counter[a] == 1:
                 position_a = act.index(a)
                 position_b = act.index(b)     
-                if position_a < position_b:
-                    result.append(act)         
-        elif a not in act and b in act:
+                if position_a < position_b and act not in result:
+                    result.append(act)
+                else : 
+                    if act not in removeSegment:
+                        removeSegment.append(act)    
+            elif counter[a] > 1:
+                list_a = []
+                list_b = []
+                count = -1
+                for elem in act:
+                    count += 1
+                    if elem == a:
+                        list_a.append(count)
+                    elif elem == b:
+                        list_b.append(count)            
+                i = 0
+                j = 0
+                for i in range(len(list_b)):
+                    for j in range(len(list_a)):
+                        if list_a[j] < list_b[i]:
+                            if act not in result:
+                                result.append(act)
+                        else:
+                            if act in result:
+                                result.remove(act)
+                            if act not in removeSegment:
+                                removeSegment.append(act)                 
+        elif a not in act and b in act and act not in result:
             result.append(act) 
+        elif a not in act and b not in act and act not in result:
+            result.append(act)     
         else : 
             if act not in removeSegment:
                 removeSegment.append(act)     
