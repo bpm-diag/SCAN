@@ -140,7 +140,6 @@ def rule_alternate_response():
                         if list_a[i] < list_b[i] and list_b[i] < list_a[i+1]and list_b[i+1] > list_a[i+1]:
                             result.append(act)
                         else :
-                            print("hidfjdfkl")
                             if act not in removeSegment:
                                 removeSegment.append(act) 
                 else:
@@ -165,9 +164,13 @@ def rule_chain_response():
         if a in act and b in act:
             counter = collections.Counter(act)
             if counter[a] == 1:
-                for elem in range(len(act)-1):
-                    if act[elem] == a and act[elem+1] == b:
-                        result.append(act) 
+                position_a = act.index(a)
+                position_b = act.index(b)    
+                if position_a + 1 == position_b:
+                    result.append(act)
+                else : 
+                    if act not in removeSegment:
+                        removeSegment.append(act)     
             elif counter[a] > 1:
                 list_a = []
                 list_b = []
@@ -180,15 +183,18 @@ def rule_chain_response():
                         list_b.append(count)            
                 i = 0
                 j = 0
+                print("la: ", list_a)
+                print("lb: ", list_b)
                 for i in range(len(list_a)):
                     for j in range(len(list_b)):
                         if list_a[i] + 1 == list_b[j]:
-                            if act not in result:
+                            if act not in result and act not in removeSegment:
                                 result.append(act) 
                         else:
                             if act in result: 
                                 result.remove(act)
-                           
+                            if act not in removeSegment:
+                                removeSegment.append(act)       
         elif a not in act:
             result.append(act)   
         else : 
