@@ -29,7 +29,9 @@ function checkActivities(act1, act2, fun){
     }
     else{
         error.style.display = 'none';
-        rule = fun + act1 + act2
+        if(act2 != null) rule = fun + act1 + act2
+        else rule = fun + act1;
+
         if(array_rule.includes(rule) == false){
             array_rule.push(rule)
             goToFunction(act1, act2, fun)
@@ -149,7 +151,6 @@ function showRule(act1, act2, rule){
     } 
     label.appendChild(checkbox);   
     label.appendChild(description);
-    console.log(label.value)
 
     document.getElementById('ruleId').append(label);
     document.getElementById('ruleId').append(document.createElement('br'));
