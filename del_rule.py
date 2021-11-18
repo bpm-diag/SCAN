@@ -67,3 +67,19 @@ def rule_del_exclusive_choice():
     writeOnSegmentFile(segments)   
     writeOnRemoveSegmentFile(remove)
     return segments, remove
+
+def rule_del_responded_existence():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    remove = []
+    for act in removeSegment:
+        if b not in act and a in act:
+            segments.append(act)
+        else : 
+            if act in segments:
+                remove.append(act)     
+    writeOnSegmentFile(segments)   
+    writeOnRemoveSegmentFile(remove)
+    return segments, remove
