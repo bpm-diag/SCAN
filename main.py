@@ -105,6 +105,11 @@ def del_choice():
 @app.route('/exclusive_choice', methods=['POST'])
 def exclusive_choice():
     result, removeSegment = rule_exclusive_choice()
+    return jsonify({"result": result, "remove": removeSegment}) 
+
+@app.route('/del_exclusive_choice', methods=['POST'])
+def del_exclusive_choice():
+    result, removeSegment = rule_del_exclusive_choice()
     return jsonify({"result": result, "remove": removeSegment})       
  
 @app.route('/responded_existence', methods=['POST'])
@@ -112,9 +117,19 @@ def responded_existence():
     result, removeSegment = rule_responded_existence()
     return jsonify({"result": result, "remove": removeSegment})
 
+@app.route('/del_responded_existence', methods=['POST'])
+def del_responded_existence():
+    result, removeSegment = rule_del_responded_existence()
+    return jsonify({"result": result, "remove": removeSegment})
+
 @app.route('/response', methods=['POST'])
 def response():
     result, removeSegment = rule_response()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/del_response', methods=['POST'])
+def del_response():
+    result, removeSegment = rule_del_response()
     return jsonify({"result": result, "remove": removeSegment})
 
 @app.route('/alternate_response', methods=['POST'])
@@ -122,9 +137,19 @@ def alternate_response():
     result, removeSegment = rule_alternate_response()
     return jsonify({"result": result, "remove": removeSegment})
 
+@app.route('/del_alternate_response', methods=['POST'])
+def del_alternate_response():
+    result, removeSegment = rule_del_alternate_response()
+    return jsonify({"result": result, "remove": removeSegment})
+
 @app.route('/chain_response', methods=['POST'])
 def chain_response():
     result, removeSegment = rule_chain_response()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/del_chain_response', methods=['POST'])
+def del_chain_response():
+    result, removeSegment = rule_del_chain_response()
     return jsonify({"result": result, "remove": removeSegment}) 
 
 @app.route('/precedence', methods=['POST'])
@@ -132,9 +157,19 @@ def precedence():
     result, removeSegment = rule_precedence()
     return jsonify({"result": result, "remove": removeSegment})
 
+@app.route('/del_precedence', methods=['POST'])
+def del_precedence():
+    result, removeSegment = rule_del_precedence()
+    return jsonify({"result": result, "remove": removeSegment})
+
 @app.route('/alternate_precedence', methods=['POST'])
 def alternate_precedence():
     result, removeSegment = rule_alternate_precedence()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/del_alternate_precedence', methods=['POST'])
+def del_alternate_precedence():
+    result, removeSegment = rule_del_alternate_precedence()
     return jsonify({"result": result, "remove": removeSegment})
 
 @app.route('/chain_precedence', methods=['POST'])
@@ -142,24 +177,49 @@ def chain_precedence():
     result, removeSegment = rule_chain_precedence()
     return jsonify({"result": result, "remove": removeSegment})  
 
+@app.route('/del_chain_precedence', methods=['POST'])
+def del_chain_precedence():
+    result, removeSegment = rule_del_chain_precedence()
+    return jsonify({"result": result, "remove": removeSegment})
+
 @app.route('/co_existence', methods=['POST'])
 def co_existence():
     result, removeSegment = rule_co_existence()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/del_co_existence', methods=['POST'])
+def del_co_existence():
+    result, removeSegment = rule_del_co_existence()
     return jsonify({"result": result, "remove": removeSegment}) 
 
 @app.route('/succession', methods=['POST'])
 def succession():
     result, removeSegment = rule_succession()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/del_succession', methods=['POST'])
+def del_succession():
+    result, removeSegment = rule_del_succession()
     return jsonify({"result": result, "remove": removeSegment})     
  
 @app.route('/alternate_succession', methods=['POST'])
 def alternate_succession():
     result, removeSegment = rule_alternate_succession()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/del_alternate_succession', methods=['POST'])
+def del_alternate_succession():
+    result, removeSegment = rule_del_alternate_succession()
     return jsonify({"result": result, "remove": removeSegment}) 
 
 @app.route('/chain_succession', methods=['POST'])
 def chain_succession():
     result, removeSegment = rule_chain_succession()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/del_chain_succession', methods=['POST'])
+def del_chain_succession():
+    result, removeSegment = rule_del_chain_succession()
     return jsonify({"result": result, "remove": removeSegment}) 
 
 @app.route('/not_co_existence', methods=['POST'])
@@ -167,14 +227,29 @@ def not_co_existence():
     result, removeSegment = rule_not_co_existence()
     return jsonify({"result": result, "remove": removeSegment})
 
+@app.route('/del_not_co_existence', methods=['POST'])
+def del_not_co_existence():
+    result, removeSegment = rule_del_not_co_existence()
+    return jsonify({"result": result, "remove": removeSegment})
+
 @app.route('/not_succession', methods=['POST'])
 def not_succession():
     result, removeSegment = rule_not_succession()
     return jsonify({"result": result, "remove": removeSegment})
 
+@app.route('/del_not_succession', methods=['POST'])
+def del_not_succession():
+    result, removeSegment = rule_del_not_succession()
+    return jsonify({"result": result, "remove": removeSegment})
+
 @app.route('/not_chain_succession', methods=['POST'])
 def not_chain_succession():
     result, removeSegment = rule_not_chain_succession()
+    return jsonify({"result": result, "remove": removeSegment})   
+
+@app.route('/del_not_chain_succession', methods=['POST'])
+def del_not_chain_succession():
+    result, removeSegment = rule_del_not_chain_succession()
     return jsonify({"result": result, "remove": removeSegment})   
 
        
