@@ -237,8 +237,11 @@ def rule_alternate_precedence():
             if counter[b] == 1:
                 position_a = act.index(a)
                 position_b = act.index(b)     
-                if position_a < position_b:
-                    result.append(act) 
+                if position_a < position_b and act not in result:
+                    result.append(act)
+                else : 
+                    if act not in removeSegment:
+                        removeSegment.append(act)     
             elif counter[b] > 1:
                 list = []
                 for elem in act:
@@ -247,14 +250,18 @@ def rule_alternate_precedence():
                     elif elem == b:
                         list.append(b)            
                 i = 0
-                j = 0
                 for i in range(len(list)-1):
                     if list[i] != list[i+1] and act not in result:
                         result.append(act)
+                    elif list[0] == b and list[1] == a:
+                        if act not in removeSegment:
+                            removeSegment.append(act)    
                     elif list[i] == a and list[i+1] == a and act not in result:
                         result.append(act)
                     elif list[i] == b and list[i+1] == b and act in result:
                         result.remove(act)
+                        if act not in removeSegment:
+                            removeSegment.append(act) 
                         break      
         elif b not in act:
             result.append(act)

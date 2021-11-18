@@ -214,3 +214,42 @@ def rule_del_precedence():
     writeOnSegmentFile(segments)   
     writeOnRemoveSegmentFile(remove)
     return segments, remove
+
+def rule_del_alternate_precedence():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    remove = []
+    for act in removeSegment:
+        if a in act and b in act:
+            counter = collections.Counter(act)
+            if counter[b] == 1:
+                position_a = act.index(a)
+                position_b = act.index(b)     
+                if position_a > position_b and act not in segments:
+                    segments.append(act)
+                else : 
+                    if act in segments:
+                        remove.append(act)      
+            elif counter[b] > 1:
+                list = []
+                for elem in act:
+                    if elem == a:
+                        list.append(a)
+                    elif elem == b:
+                        list.append(b)            
+                i = 0
+                for i in range(len(list)-1):
+                    if list[i] == b and list[i+1] == b and act not in segments:
+                        segments.append(act)
+                    elif list[0] == a and list[1] == b and act not in segments:
+                        segments.append(act)          
+        elif b in act and a not in act:
+            segments.append(act)
+        else : 
+            if act in segments:
+                remove.append(act)     
+    writeOnSegmentFile(segments)   
+    writeOnRemoveSegmentFile(remove)
+    return segments, remove
