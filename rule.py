@@ -8,7 +8,7 @@ def rule_existence():
     removeSegment = takeRemoveSegmentFromFile()   
     result = []
     for act in segments:
-        if a in act:        
+        if a in act and act not in result:        
             result.append(act)
         else : 
             if act not in removeSegment:
@@ -23,7 +23,7 @@ def rule_absence():
     removeSegment = takeRemoveSegmentFromFile()   
     result = []
     for act in segments:
-        if a not in act:
+        if a not in act and act not in result:
             result.append(act)
         else : 
             if act not in removeSegment:
@@ -39,7 +39,7 @@ def rule_choice():
     removeSegment = takeRemoveSegmentFromFile() 
     result = []
     for act in segments:
-        if a in act or b in act:
+        if a in act or b in act and act not in result:
             result.append(act)
         else : 
             if act not in removeSegment:
@@ -55,9 +55,9 @@ def rule_exclusive_choice():
     removeSegment = takeRemoveSegmentFromFile() 
     result = []
     for act in segments:
-        if a in act and b not in act:
+        if a in act and b not in act and act not in result:
             result.append(act)
-        elif b in act and a not in act:
+        elif b in act and a not in act and act not in result:
             result.append(act)
         else : 
             if act not in removeSegment:
@@ -73,11 +73,11 @@ def rule_responded_existence():
     removeSegment = takeRemoveSegmentFromFile() 
     result = []
     for act in segments:
-        if b not in act and a not in act:
+        if b not in act and a not in act and act not in result:
             result.append(act)
-        elif a in act and b in act:
+        elif a in act and b in act and act not in result:
             result.append(act) 
-        elif a not in act:
+        elif a not in act and act not in result:
             result.append(act)  
         else : 
             if act not in removeSegment:
@@ -96,9 +96,12 @@ def rule_response():
         if a in act and b in act:
             position_a = act.index(a)
             position_b = act.index(b)     
-            if position_b > position_a:
-                result.append(act) 
-        elif a not in act:
+            if position_b > position_a and act not in result:
+                result.append(act)
+            else : 
+                if act not in removeSegment:
+                    removeSegment.append(act)      
+        elif a not in act and act not in result:
             result.append(act)   
         else : 
             if act not in removeSegment:
@@ -119,7 +122,7 @@ def rule_alternate_response():
             if counter[a] == 1:
                 position_a = act.index(a)
                 position_b = act.index(b)     
-                if position_b > position_a:
+                if position_b > position_a and act not in result:
                     result.append(act)
                 else:
                     if act not in removeSegment:
@@ -137,7 +140,7 @@ def rule_alternate_response():
                 i = 0
                 if(len(list_a) == len(list_b)):
                     for i in range(len(list_a)-1):
-                        if list_a[i] < list_b[i] and list_b[i] < list_a[i+1]and list_b[i+1] > list_a[i+1]:
+                        if list_a[i] < list_b[i] and list_b[i] < list_a[i+1]and list_b[i+1] > list_a[i+1] and act not in result:
                             result.append(act)
                         else :
                             if act not in removeSegment:
@@ -166,7 +169,7 @@ def rule_chain_response():
             if counter[a] == 1:
                 position_a = act.index(a)
                 position_b = act.index(b)    
-                if position_a + 1 == position_b:
+                if position_a + 1 == position_b and act not in result:
                     result.append(act)
                 else : 
                     if act not in removeSegment:
@@ -183,8 +186,6 @@ def rule_chain_response():
                         list_b.append(count)            
                 i = 0
                 j = 0
-                print("la: ", list_a)
-                print("lb: ", list_b)
                 for i in range(len(list_a)):
                     for j in range(len(list_b)):
                         if list_a[i] + 1 == list_b[j]:
@@ -214,9 +215,12 @@ def rule_precedence():
         if a in act and b in act:
             position_a = act.index(a)
             position_b = act.index(b)     
-            if position_b > position_a:
+            if position_b > position_a and act not in result:
                 result.append(act) 
-        elif b not in act:
+            else : 
+                if act not in removeSegment:
+                    removeSegment.append(act)     
+        elif b not in act and act not in result:
             result.append(act)  
         else : 
             if act not in removeSegment:
@@ -284,8 +288,11 @@ def rule_chain_precedence():
             if counter[b] == 1:
                 position_a = act.index(a)
                 position_b = act.index(b)     
-                if position_a < position_b:
-                    result.append(act) 
+                if position_a + 1 == position_b and act not in result:
+                    result.append(act)
+                else : 
+                    if act not in removeSegment:
+                        removeSegment.append(act)      
             elif counter[b] > 1:
                 list_a = []
                 list_b = []
@@ -298,6 +305,8 @@ def rule_chain_precedence():
                         list_b.append(count)            
                 i = 0
                 j = 0
+                print("la: ", list_a)
+                print("lb: ", list_b)
                 for i in range(len(list_b)):
                     for j in range(len(list_a)):
                         if list_a[j] + 1 == list_b[i]:
@@ -305,7 +314,9 @@ def rule_chain_precedence():
                                 result.append(act)
                         else:
                             if act in result:
-                                result.remove(act) 
+                                result.remove(act)
+                            if act not in removeSegment:
+                                removeSegment.append(act)     
         elif b not in act:
             result.append(act) 
         else : 
