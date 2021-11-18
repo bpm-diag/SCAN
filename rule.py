@@ -73,7 +73,7 @@ def rule_responded_existence():
     removeSegment = takeRemoveSegmentFromFile() 
     result = []
     for act in segments:
-        if b not in act and a  not in act:
+        if b not in act and a not in act:
             result.append(act)
         elif a in act and b in act:
             result.append(act) 
@@ -120,7 +120,10 @@ def rule_alternate_response():
                 position_a = act.index(a)
                 position_b = act.index(b)     
                 if position_b > position_a:
-                    result.append(act) 
+                    result.append(act)
+                else:
+                    if act not in removeSegment:
+                        removeSegment.append(act)     
             elif counter[a] > 1:
                 list_a = []
                 list_b = []
@@ -132,11 +135,17 @@ def rule_alternate_response():
                     elif elem == b:
                         list_b.append(count)            
                 i = 0
-                j = 0
-                for i in range(len(list_a)-1):
-                    for j in range(len(list_b)-1):
-                        if list_a[i] < list_b[j] and list_b[j] < list_a[i+1]and list_b[j+1] > list_a[i+1]:
+                if(len(list_a) == len(list_b)):
+                    for i in range(len(list_a)-1):
+                        if list_a[i] < list_b[i] and list_b[i] < list_a[i+1]and list_b[i+1] > list_a[i+1]:
                             result.append(act)
+                        else :
+                            print("hidfjdfkl")
+                            if act not in removeSegment:
+                                removeSegment.append(act) 
+                else:
+                    if act not in removeSegment:
+                        removeSegment.append(act)                       
         elif a not in act:
             result.append(act)  
         else : 
