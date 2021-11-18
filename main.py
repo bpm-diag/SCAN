@@ -1,6 +1,7 @@
 import os
 from utilities import *
 from rule import *
+from del_rule import *
 #import magic
 import urllib.request
 from app import *
@@ -76,14 +77,29 @@ def existence():
     result, removeSegment = rule_existence()
     return jsonify({"result": result, "remove": removeSegment})  
 
+@app.route('/del_existence', methods=['POST'])
+def del_existence():
+    result, removeSegment = rule_del_existence()
+    return jsonify({"result": result, "remove": removeSegment})  
+
 @app.route('/absence', methods=['POST'])
 def absence():
     result, removeSegment = rule_absence()
-    return jsonify({"result": result, "remove": removeSegment})        
+    return jsonify({"result": result, "remove": removeSegment})    
+
+@app.route('/del_absence', methods=['POST'])
+def del_absence():
+    result, removeSegment = rule_del_absence()
+    return jsonify({"result": result, "remove": removeSegment})            
    
 @app.route('/choice', methods=['POST'])
 def choice():
     result, removeSegment = rule_choice()
+    return jsonify({"result": result, "remove": removeSegment})
+
+@app.route('/del_choice', methods=['POST'])
+def del_choice():
+    result, removeSegment = rule_del_choice()
     return jsonify({"result": result, "remove": removeSegment})     
 
 @app.route('/exclusive_choice', methods=['POST'])

@@ -20,6 +20,25 @@ function takeFunction(){
     }    
 }
 
+var array_rule = []
+function checkActivities(act1, act2, fun){
+    var error = document.getElementById("error_adding_rule");
+    var duplicate = document.getElementById("error_duplicate_rule");
+    if(act1 == act2){
+        error.style.display = 'block';
+    }
+    else{
+        error.style.display = 'none';
+        rule = fun + act1 + act2
+        if(array_rule.includes(rule) == false){
+            array_rule.push(rule)
+            goToFunction(act1, act2, fun)
+            duplicate.style.display = 'none';
+        }
+        else duplicate.style.display = 'block';
+    } 
+}
+
 function goToFunction(act1, act2, fun){
     switch(fun) {
         case "Existence":
@@ -108,24 +127,33 @@ function applyFunction(act1, act2, url){
     });
 }
 
-function deselectAct2(activity2){
-    activity2.disabled = true;
-    activity2.style.opacity = "0.5";   
-}
-
-function activeAct2(activity2){
-    activity2.disabled = false;
-    activity2.style.opacity = "1";   
-}
-
-
+var list_checkbox = []
 function showRule(act1, act2, rule){
-    if(act2 != null)
-        $(".divRule").append('<p>' + rule + "(" + act1 + "," + act2 + ")" + '<p>');
-    else $(".divRule").append('<p>' + rule + "(" + act1 + ")" + '<p>');
-       
-}
+    var label = document.createElement("label");
+    var checkbox = document.createElement("input");
 
+    checkbox.type = "checkbox"; 
+    if(act2 != null){
+        var description = document.createTextNode(" " + rule + "(" + act1 + "," + act2 + ")");
+        checkbox.id = rule + act1 + act2;
+        label.id = "label" + rule + act1 + act2
+        label.value = rule + "-" + act1 + "-" + act2
+        list_checkbox.push(checkbox.id) 
+    } 
+    else {
+        var description = document.createTextNode(" " + rule + "(" + act1 + ")");
+        checkbox.id = rule + act1; 
+        label.id = "label" + rule + act1
+        label.value = rule + "-" + act1
+        list_checkbox.push(checkbox.id) 
+    } 
+    label.appendChild(checkbox);   
+    label.appendChild(description);
+    console.log(label.value)
+
+    document.getElementById('ruleId').append(label);
+    document.getElementById('ruleId').append(document.createElement('br'));
+}
 
 function showResponse(response){
     var result = response.result
@@ -141,45 +169,116 @@ function showResponse(response){
 
 }
 
+function deleteBtn(){
+    for(var i = 0; i < list_checkbox.length; i++){
+        if(document.getElementById(list_checkbox[i]).checked){
+            var label = document.getElementById("label" + list_checkbox[i])
+            var value = label.value
+            label.remove()
+            array_rule = array_rule.filter(function(f) { return f !== list_checkbox[i] })
+            list_checkbox = list_checkbox.filter(function(f) { return f !== list_checkbox[i] })
+            var arr = value.split("-")
+            var fun = arr[0]
+            var act1 = arr[1]
+            var act2 = null
+            if(arr.length > 2){
+                act2 = arr[2]
+            }
+            recomputeSegments(fun, act1, act2)
+        }
+    }
+}
+
+function recomputeSegments(fun, act1, act2){
+    switch(fun) {
+        case "Existence":
+            applyFunction(act1, null, '/del_existence');
+            break;
+        case "Absence":
+            applyFunction(act1, null, '/del_absence');
+            break;    
+        case "Choice":
+            applyFunction(act1, act2, '/del_choice');
+            break;
+        case "ExclusiveChoice":
+            applyFunction(act1, act2, '/del_exclusive_choice');
+            break; 
+        case "RespondedExistence":
+            applyFunction(act1, act2, '/del_responded_existence');
+            break;  
+        case "Response":
+            applyFunction(act1, act2, '/del_response');
+            break; 
+        case "AlternateResponse":
+            applyFunction(act1, act2, '/del_alternate_response');
+            break;
+        case "ChainResponse":
+            applyFunction(act1, act2, '/del_chain_response');
+            break;
+        case "Precedence":
+            applyFunction(act1, act2, '/del_precedence');
+            break;
+        case "AlternatePrecedence":
+            applyFunction(act1, act2, '/del_alternate_precedence');
+            break;
+        case "ChainPrecedence":
+            applyFunction(act1, act2, '/del_chain_precedence');
+            break;
+        case "CoExistence":
+            applyFunction(act1, act2, '/del_co_existence');
+            break;
+        case "Succession":
+            applyFunction(act1, act2, '/del_succession');
+            break;
+        case "AlternateSuccession":
+            applyFunction(act1, act2, '/del_alternate_succession');
+            break;
+        case "ChainSuccession":
+            applyFunction(act1, act2, '/del_chain_succession');
+            break;   
+        case "NotCoExistence":
+            applyFunction(act1, act2, '/del_not_co_existence');
+            break;
+        case "NotSuccession":
+            applyFunction(act1, act2, '/del_not_succession');
+            break;                                                 
+        default:
+            applyFunction(act1, act2, '/del_not_chain_succession');
+    }
+}
+
+function deselectAct2(activity2){
+    activity2.disabled = true;
+    activity2.style.opacity = "0.5";   
+}
+
+function activeAct2(activity2){
+    activity2.disabled = false;
+    activity2.style.opacity = "1";   
+}
+
 function clearDiv(){
     $(".Divtext").empty()
     $(".DivtextDel").empty()
     $(".divRule").empty()
     $(".title_file").empty()
+    array_rule = []
     $.ajax({
         url: "/clear"
     });    
 }
 
-var array_rule = []
-var rule = []
-function checkActivities(act1, act2, fun){
-    var error = document.getElementById("error_adding_rule");
-    var duplicate = document.getElementById("error_duplicate_rule");
-    if(act1 == act2){
-        error.style.display = 'block';
+function hideShow(){
+    var button = document.getElementById("hideShowBtn");
+    if(button.value == "Hide"){
+        button.value = "Show";
+        button.innerHTML = "SHOW"
     }
     else{
-        error.style.display = 'none';
-        rule = [fun, act1, act2]
-        if(isArrayInArray(array_rule, rule) == false){
-            array_rule.push(rule)
-            goToFunction(act1, act2, fun)
-            duplicate.style.display = 'none';
-        }
-        else duplicate.style.display = 'block';
-    } 
+        button.value = "Hide";
+        button.innerHTML = "HIDE"
+    }
 }
-
-function isArrayInArray(arr, item){
-    var item_as_string = JSON.stringify(item);
-  
-    var contains = arr.some(function(ele){
-      return JSON.stringify(ele) === item_as_string;
-    });
-    return contains;
-  }
-
 function close_error_adding_rule(){
     document.getElementById("error_adding_rule").style.display = 'none';
 }

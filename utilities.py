@@ -52,6 +52,7 @@ def writeOnRemoveSegmentFile(removeSegment):
             f.write("\n")
     f.close() 
     replaceInFile("removeSegments.txt")
+     
         
 def replaceInFile(file):
     fin = open(file, "rt")
