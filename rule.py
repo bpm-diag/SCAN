@@ -461,16 +461,20 @@ def rule_chain_succession():
                 elif elem == b:
                     list_b.append(count)            
             i = 0
-            j = 0
-            for i in range(len(list_b)):
-                for j in range(len(list_a)):
-                    if list_a[j] + 1 == list_b[i]:
+            if(len(list_a) == len(list_b)):
+                for i in range(len(list_b)):
+                    if list_a[i] + 1 == list_b[i]:
                         if act not in result:
                             result.append(act)
                     else:
                         if act in result:
-                            result.remove(act) 
-        elif a not in act and b not in act:
+                            result.remove(act)
+                        if act not in removeSegment:
+                            removeSegment.append(act)                            
+            else:
+                if act not in removeSegment:
+                    removeSegment.append(act)                  
+        elif a not in act and b not in act and act not in result:
             result.append(act)    
         else : 
             if act not in removeSegment:
