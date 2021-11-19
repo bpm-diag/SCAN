@@ -456,3 +456,19 @@ def rule_del_chain_succession():
     writeOnSegmentFile(segments)   
     writeOnRemoveSegmentFile(remove)
     return segments, remove
+
+def rule_del_not_co_existence():
+    a = request.form["act1"]
+    b = request.form["act2"]
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile() 
+    remove = []
+    for act in removeSegment:
+        if a in act and b in act and act not in segments:
+            segments.append(act)
+        else : 
+            if act in segments:
+                remove.append(act)     
+    writeOnSegmentFile(segments)   
+    writeOnRemoveSegmentFile(remove)
+    return segments, remove

@@ -490,11 +490,11 @@ def rule_not_co_existence():
     removeSegment = takeRemoveSegmentFromFile() 
     result = []
     for act in segments:
-        if a in act and b not in act:
+        if a in act and b not in act and act not in result:
             result.append(act)
-        elif a not in act and b in act:
+        elif a not in act and b in act and act not in result:
             result.append(act)
-        elif a not in act and b not in act:
+        elif a not in act and b not in act and act not in result:
             result.append(act)    
         else : 
             if act not in removeSegment:
