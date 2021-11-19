@@ -402,8 +402,11 @@ def rule_alternate_succession():
             if counter[a] == 1 and counter[b] == 1:
                 position_a = act.index(a)
                 position_b = act.index(b)     
-                if position_a < position_b:
+                if position_a < position_b and act not in result:
                     result.append(act) 
+                else : 
+                    if act not in removeSegment:
+                        removeSegment.append(act)       
             elif counter[a] > 1 and counter[b] > 1:
                 list_a = []
                 list_b = []
@@ -415,16 +418,23 @@ def rule_alternate_succession():
                     elif elem == b:
                         list_b.append(count)            
                 i = 0
-                j = 0
-                for i in range(len(list_b)-1):
-                    for j in range(len(list_a)-1):
-                        if list_a[j] < list_b[i] and list_a[j+1] > list_b[i]:
+                if(len(list_a) == len(list_b)):
+                    for i in range(len(list_b)-1):
+                        if list_a[i] < list_b[i] and list_a[i+1] > list_b[i]:
                             if act not in result:
                                 result.append(act)
                         else:
                             if act in result:
-                                result.remove(act) 
-        elif a not in act and b in act:
+                                result.remove(act)
+                            if act not in removeSegment:
+                                removeSegment.append(act)
+                else : 
+                    if act not in removeSegment:
+                        removeSegment.append(act) 
+            else : 
+                if act not in removeSegment:
+                    removeSegment.append(act)                                 
+        elif a not in act and b in act and act not in result:
             result.append(act)
         else : 
             if act not in removeSegment:
