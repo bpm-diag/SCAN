@@ -514,8 +514,8 @@ def rule_not_succession():
             counter = collections.Counter(act)
             if counter[a] == 1 and counter[b] == 1:
                 position_a = act.index(a)
-                position_b = act.index(b)     
-                if position_a > position_b:
+                position_b = act.index(b)
+                if position_a > position_b and act not in result:
                     result.append(act)
                 else:
                     if act not in removeSegment:
@@ -565,10 +565,8 @@ def rule_not_chain_succession():
             if counter[a] == 1 and counter[b] == 1:
                 position_a = act.index(a)
                 position_b = act.index(b)     
-                if position_b > position_a + 1:
+                if position_b != position_a + 1 and act not in result:
                     result.append(act)
-                elif position_b < position_a:
-                    result.append(act) 
                 else : 
                     if act not in removeSegment:
                         removeSegment.append(act)        
@@ -586,10 +584,7 @@ def rule_not_chain_succession():
                 j = 0
                 for i in range(len(list_a)):
                     for j in range(len(list_b)):
-                        if list_b[j] > list_a[i] + 1:
-                            if act not in result:
-                                result.append(act)
-                        elif list_b[j] < list_a[i]:
+                        if list_b[j] != list_a[i] + 1:
                             if act not in result:
                                 result.append(act)
                         else: 
