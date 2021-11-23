@@ -2,17 +2,13 @@ import os
 from utilities import *
 from rule import *
 from del_rule import *
-#import magic
-import urllib.request
 from app import *
 from flask import Flask, flash, request, redirect, render_template, url_for, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
-from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 import pm4py
 from collections import Counter
-import re
-import json
-import collections
+import tkinter.messagebox
+from tkinter import ttk
 
 
 ALLOWED_EXTENSIONS = {'xes'}
@@ -42,8 +38,8 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            log = pm4py.read_xes(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], "log.xes"))
+            log = pm4py.read_xes(os.path.join(app.config['UPLOAD_FOLDER'], "log.xes"))  
             allXESActivities = []
             for trace in log:
                 activities = []
@@ -60,7 +56,8 @@ def upload_file():
             listActivity = takeActions(allActivities) 
             for elem in c:
                 list = [c[elem], elem]
-                actWithOccurence.append(list)      
+                actWithOccurence.append(list)    
+            clear()      
             with open('segments.txt', 'w') as f:
                 for line in actWithOccurence:
                     f.write(str(line))
@@ -72,6 +69,11 @@ def upload_file():
             flash("Extension not allowed", "danger")
             return redirect(request.url)	
       
+@app.route('/download_file')      
+def download():
+    downloadFile()
+    return render_template('index.html');   
+          
 @app.route('/existence', methods=['POST'])
 def existence():
     result, removeSegment = rule_existence()
@@ -252,8 +254,10 @@ def del_not_chain_succession():
     result, removeSegment = rule_del_not_chain_succession()
     return jsonify({"result": result, "remove": removeSegment})   
 
-       
-  
-if __name__ == "__main__":
+def main():
     clear()
     app.run()
+           
+  
+if __name__ == "__main__":
+    main()

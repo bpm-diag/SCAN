@@ -269,6 +269,17 @@ function clearDiv(){
     });    
 }
 
+function exportFile(){
+    $.ajax({
+        url: "/download_file"
+    }); 
+    /*var log = require("/download/log.xes")
+    var text = "text";
+    var filename = "log.xes";
+  
+    download(filename, log);*/
+}
+
 function hideShow(){
     var button = document.getElementById("hideShowBtn");
     if(button.value == "Hide"){
@@ -280,6 +291,7 @@ function hideShow(){
         button.innerHTML = "HIDE"
     }
 }
+
 function close_error_adding_rule(){
     document.getElementById("error_adding_rule").style.display = 'none';
 }
@@ -291,3 +303,28 @@ function close_error_duplicate_rule(){
 function close_flash(){
     document.getElementById("error_flash").style.display = 'none';
 }
+
+function close_success_download(){
+    document.getElementById("success_download").style.display = 'none';
+}
+
+function download(file, text) {
+              
+    //creating an invisible element
+    var element = document.createElement('a');
+    element.setAttribute('href', 
+    'data:text/plain;charset=utf-8, '
+    + encodeURIComponent(text));
+    element.setAttribute('download', file);
+  
+    // Above code is equivalent to
+    // <a href="path of file" download="file name">
+  
+    document.body.appendChild(element);
+  
+    //onClick property
+    element.click();
+  
+    document.body.removeChild(element);
+}
+  
