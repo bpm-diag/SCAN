@@ -1,5 +1,8 @@
 import pm4py
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
+from flask import Flask, flash
+import tkinter
+from tkinter import filedialog
 
 def clear():
     clearFile('segments.txt')
@@ -42,14 +45,13 @@ def downloadFile():
     for fil in list_ko_key:
         log = pm4py.filter_trace_attribute_values(log, 'concept:name', {fil}, retain=False)
     xes_exporter.apply(log, "downloads/log.xes")
-    import tkinter
     parent = tkinter.Tk() # Create the object
     #parent.overrideredirect(1) # Avoid it appearing and then disappearing quickly
     #parent.withdraw() # Hide the window as we do not want to see this one
-    from tkinter import filedialog
     directory_to_start_from = 'C:/Users/User/Downloads/'
     path = filedialog.askdirectory(initialdir=directory_to_start_from, title='Please select a folder:', parent=parent)
     xes_exporter.apply(log, path + "/log.xes")
+    flash("Download file with success", "success")
 
 def takeSegmentFromFile():  
     segments = []  

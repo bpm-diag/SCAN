@@ -17,7 +17,8 @@ function takeFunction(){
     else{
         activeAct2(activity2);
         checkActivities(act1, act2, fun)
-    }    
+    }  
+    
 }
 
 var array_rule = []
@@ -26,6 +27,7 @@ function checkActivities(act1, act2, fun){
     var duplicate = document.getElementById("error_duplicate_rule");
     if(act1 == act2){
         error.style.display = 'block';
+        timeout("#error_adding_rule")
     }
     else{
         error.style.display = 'none';
@@ -37,7 +39,10 @@ function checkActivities(act1, act2, fun){
             goToFunction(act1, act2, fun)
             duplicate.style.display = 'none';
         }
-        else duplicate.style.display = 'block';
+        else {
+            duplicate.style.display = 'block';
+            timeout("#error_duplicate_rule")
+        }    
     } 
 }
 
@@ -161,11 +166,19 @@ function showResponse(response){
     var remove = response.remove
     $(".Divtext").empty()
     for(var i=0; i < result.length; i++){
-        $(".Divtext").append('<p>'+result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" +'</p>')
+        var e = $('<div>'
+        + result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" + '</div>');
+        $('.Divtext').append(e);    
+        e.attr('id', 'result'+i);
+        //$(".Divtext").append('<p>'+result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" +'</p>')
     }
     $(".DivtextDel").empty()
     for(var i=0; i < remove.length; i++){
-        $(".DivtextDel").append('<p>'+remove[i][0]+ '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" +'</p>')
+        var e = $('<div>'
+        + remove[i][0] + '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" + '</div>');
+        $('.DivtextDel').append(e);    
+        e.attr('id', 'remove'+i);
+        //$(".DivtextDel").append('<p>'+remove[i][0]+ '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" +'</p>')
     }
 
 }
@@ -273,11 +286,6 @@ function exportFile(){
     $.ajax({
         url: "/download_file"
     }); 
-    /*var log = require("/download/log.xes")
-    var text = "text";
-    var filename = "log.xes";
-  
-    download(filename, log);*/
 }
 
 function hideShow(){
@@ -289,7 +297,15 @@ function hideShow(){
     else{
         button.value = "Hide";
         button.innerHTML = "HIDE"
-    }
+    }  
+}
+
+function timeout(id){
+    setTimeout(function () {
+        $(id).fadeTo(2000, 500).slideUp(500, function () {
+            $(id).remove();
+        });
+      }, 4000);//4000=4 seconds 
 }
 
 function close_error_adding_rule(){
@@ -308,23 +324,7 @@ function close_success_download(){
     document.getElementById("success_download").style.display = 'none';
 }
 
-function download(file, text) {
-              
-    //creating an invisible element
-    var element = document.createElement('a');
-    element.setAttribute('href', 
-    'data:text/plain;charset=utf-8, '
-    + encodeURIComponent(text));
-    element.setAttribute('download', file);
-  
-    // Above code is equivalent to
-    // <a href="path of file" download="file name">
-  
-    document.body.appendChild(element);
-  
-    //onClick property
-    element.click();
-  
-    document.body.removeChild(element);
-}
+ 
+
+
   
