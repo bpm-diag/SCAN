@@ -163,23 +163,36 @@ function showRule(act1, act2, rule){
 
 function showResponse(response){
     var result = response.result
+    var lenRes = result.length
     var remove = response.remove
+    var button = document.getElementById("hideShowBtn");
     $(".Divtext").empty()
     for(var i=0; i < result.length; i++){
-        var e = $('<div>'
-        + result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" + '</div>');
-        $('.Divtext').append(e);    
-        e.attr('id', 'result'+i);
-        //$(".Divtext").append('<p>'+result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" +'</p>')
+        var res = $('<div class="all">'+ result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" + '</div>');
+        $('.Divtext').append(res);    
+        res.attr('id', 'result'+i);
+        var hideRes = $('<div class="hideAll">'+ result[i][0] + '&nbsp;&nbsp;(' + "segment_" + i + ")" + '</div>');
+        $('.Divtext').append(hideRes);    
+        hideRes.attr('id', 'hideResult'+i);   
     }
     $(".DivtextDel").empty()
     for(var i=0; i < remove.length; i++){
-        var e = $('<div>'
-        + remove[i][0] + '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" + '</div>');
-        $('.DivtextDel').append(e);    
-        e.attr('id', 'remove'+i);
-        //$(".DivtextDel").append('<p>'+remove[i][0]+ '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" +'</p>')
+        var rem = $('<div class="all">' + remove[i][0] + '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" + '</div>');
+        $('.DivtextDel').append(rem);    
+        rem.attr('id', 'remove'+i);
+        var hideRem = $('<div class="hideAll">'+ remove[i][0] + '&nbsp;&nbsp;(' + "segment_" + lenRes + ")" + '</div>');
+        $('.DivtextDel').append(hideRem);    
+        hideRem.attr('id', 'hideRemove'+i);
+        lenRes++; 
     }
+    if(button.value == "Hide"){
+        $(".all").show();
+        $(".hideAll").hide();
+    }
+    else{
+        $(".all").hide();
+        $(".hideAll").show();
+    }    
 
 }
 
@@ -293,10 +306,17 @@ function hideShow(){
     if(button.value == "Hide"){
         button.value = "Show";
         button.innerHTML = "SHOW"
+        $('.each').hide();
+        $(".all").hide();
+        $(".hideAll").show();
+        
     }
     else{
         button.value = "Hide";
         button.innerHTML = "HIDE"
+        $('.each').show();
+        $(".all").show();
+        $(".hideAll").hide();
     }  
 }
 
