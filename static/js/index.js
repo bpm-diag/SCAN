@@ -1,3 +1,14 @@
+function loadSegments(){
+    $(document).ready(function(){
+        $.ajax({
+            type : "POST",
+            url : "/load_segments",
+            success: function(response) {
+                showResponse(response);}
+        });     
+    });
+}
+
 function selectFunction(){
     var fun = document.getElementById("selectFun").value;
     var activity2 = document.getElementById("act2");
@@ -188,10 +199,12 @@ function showResponse(response){
     if(button.value == "Hide"){
         $(".all").show();
         $(".hideAll").hide();
+        $(".hideEach").hide();
     }
     else{
         $(".all").hide();
         $(".hideAll").show();
+        $(".hideEach").show();
     }    
 
 }
@@ -307,6 +320,7 @@ function hideShow(){
         button.value = "Show";
         button.innerHTML = "SHOW"
         $('.each').hide();
+        $(".hideEach").show();
         $(".all").hide();
         $(".hideAll").show();
         
@@ -315,6 +329,7 @@ function hideShow(){
         button.value = "Hide";
         button.innerHTML = "HIDE"
         $('.each').show();
+        $(".hideEach").hide();
         $(".all").show();
         $(".hideAll").hide();
     }  

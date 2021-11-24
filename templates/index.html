@@ -27,7 +27,8 @@
                         <form method="post" action="/" enctype="multipart/form-data">
                             <div class="input-group">
                                 <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
-                                <input type="submit" value="Upload">
+                                <input type="submit" value="Submit">
+                                <button type="button" class="btn btn-outline-success" onclick="loadSegments();">UPLOAD</button>
                             </div> 
                         </form>
                         <div id="b-container">
@@ -55,11 +56,7 @@
              </div>
             <div id="segment-container">
                 <div class="title">List segments</div> 
-                <div id="scroll-seg" class="Divtext">
-                    {% for each in data %}
-                        <div id="each" class="each">{{ each[0] }} &nbsp; {{each[1]}}</div>  
-                    {% endfor %}
-                </div>                
+                <div id="scroll-seg" class="Divtext"></div>                
             </div>
             <div id="deleted-segment-container">
                 <div class="title">Not accepted segments</div>

@@ -62,11 +62,18 @@ def upload_file():
                     f.write('\n')
                     replaceInFile("segments.txt")
             flash("Successfully loaded", "success")            
-            return render_template("index.html", data=actWithOccurence, activity=listActivity, nameFile=filename)
+            return render_template("index.html", activity=listActivity, nameFile=filename)
         else:
             flash("Extension not allowed", "danger")
             return redirect(request.url)	
       
+@app.route('/load_segments', methods=['POST'])
+def load_segments():
+    result = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile()
+    return jsonify({"result": result, "remove": removeSegment}) 
+    
+          
 @app.route('/download_file')      
 def download():
     downloadFile()
