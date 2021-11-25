@@ -43,14 +43,14 @@ def upload_file():
                 activities = []
                 for event in trace:
                     activities.append(event["concept:name"])
-                allXESActivities.append(activities)       
+                allXESActivities.append(activities)           
             allActivities = []
             actWithOccurence = []
             c = Counter()
             for act in allXESActivities:
                 c[tuple(act)] += 1
                 if act not in allActivities:
-                    allActivities.append(act)
+                    allActivities.append(act)        
             listActivity = takeActions(allActivities) 
             for elem in c:
                 list = [c[elem], elem]
@@ -61,6 +61,7 @@ def upload_file():
                     f.write(str(line))
                     f.write('\n')
                     replaceInFile("segments.txt")
+            f.close()        
             flash("Successfully loaded", "success")            
             return render_template("index.html", activity=listActivity, nameFile=filename)
         else:

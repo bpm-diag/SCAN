@@ -182,9 +182,10 @@ function showResponse(response){
         var res = $('<div class="all">'+ result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" + '</div>');
         $('.Divtext').append(res);    
         res.attr('id', 'result'+i);
-        var hideRes = $('<div class="hideAll">'+ result[i][0] + '&nbsp;&nbsp;(' + "segment_" + i + ")" + '</div>');
+        var hideRes = $('<div class="hideAll" onclick="see();">'+ result[i][0] + '&nbsp;&nbsp;(' + "segment_" + i + ")" + '</div>');
         $('.Divtext').append(hideRes);    
-        hideRes.attr('id', 'hideResult'+i);   
+        hideRes.attr('id', 'hideResult'+i); 
+        showSeg(result[i].slice(1), hideRes.id)  
     }
     $(".DivtextDel").empty()
     for(var i=0; i < remove.length; i++){
@@ -199,12 +200,10 @@ function showResponse(response){
     if(button.value == "Hide"){
         $(".all").show();
         $(".hideAll").hide();
-        $(".hideEach").hide();
     }
     else{
         $(".all").hide();
         $(".hideAll").show();
-        $(".hideEach").show();
     }    
 
 }
@@ -319,8 +318,6 @@ function hideShow(){
     if(button.value == "Hide"){
         button.value = "Show";
         button.innerHTML = "SHOW"
-        $('.each').hide();
-        $(".hideEach").show();
         $(".all").hide();
         $(".hideAll").show();
         
@@ -328,11 +325,29 @@ function hideShow(){
     else{
         button.value = "Hide";
         button.innerHTML = "HIDE"
-        $('.each').show();
-        $(".hideEach").hide();
         $(".all").show();
         $(".hideAll").hide();
     }  
+}
+
+function showSeg(segment, id){
+    html = '<div class="showDiv"><ul>';
+    for(var i = 0; i < segment.length; i++){
+        html+= "<li>"+ segment[i]+"</li>";
+    }
+    html+= '</ul></div>';
+    $('#divSeg').append(html);
+  
+    
+}
+
+function see(){
+    $(document).ready(function(){
+        $(this).click(function() {
+            console.log("aaaaaaa")
+            $('#divSeg').show();
+        });
+    });
 }
 
 function timeout(id){

@@ -31,6 +31,7 @@
     margin-left: 1%;
     overflow-y: scroll;
     overflow-x: scroll;
+    white-space: nowrap;
 }
 
 #deleted-segment-container{
@@ -51,6 +52,7 @@
     margin-left: 1%;
     overflow-y: scroll;
     overflow-x: scroll;
+    white-space: nowrap;
 }
 
 .title_file{
@@ -105,5 +107,12 @@
     margin-left: -10%;
     padding-bottom: 20px;
     margin-bottom: 20px;
+}
+
+.showDiv{
+    border:2px solid black;
+    border-right-style: outset; 
+    background-color: aqua;
+    z-index: 2;
 }
 

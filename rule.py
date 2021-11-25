@@ -12,7 +12,7 @@ def rule_existence():
             result.append(act)
         else : 
             if act not in removeSegment:
-                removeSegment.append(act)    
+                removeSegment.append(act)               
     writeOnSegmentFile(result)   
     writeOnRemoveSegmentFile(removeSegment) 
     return result, removeSegment

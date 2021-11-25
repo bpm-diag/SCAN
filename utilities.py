@@ -57,22 +57,36 @@ def takeSegmentFromFile():
     segments = []  
     with open('segments.txt', 'r') as f:
         for line in f:
+            line = line.strip("[()]")
+            line = line.replace("(", "")
+            line = line.replace(")]", "")
+            seg = line.split(",")
             s = []
-            for elem in line:
-                if elem != "[" and elem != "]" and elem != "," and elem != "'" and elem != " " and elem != "\n" and elem != "(" and elem != ")":
-                    s.append(elem)
-            segments.append(s)
+            for word in seg:
+                word = word.replace(" '", "'")
+                word = word.rstrip("\n")
+                word = word.strip("']/")
+                s.append(word)
+            segments.append(s)        
+    f.close()        
     return segments
 
 def takeRemoveSegmentFromFile():  
     segments = []  
     with open('removeSegments.txt', 'r') as f:
         for line in f:
+            line = line.strip("[()]")
+            line = line.replace("(", "")
+            line = line.replace(")]", "")
+            seg = line.split(",")
             s = []
-            for elem in line:
-                if elem != "[" and elem != "]" and elem != "," and elem != "'" and elem != " " and elem != "\n" and elem != "(" and elem != ")":
-                    s.append(elem)
-            segments.append(s)
+            for word in seg:
+                word = word.replace(" '", "'")
+                word = word.rstrip("\n")
+                word = word.strip("']/")
+                s.append(word)
+            segments.append(s)        
+    f.close()           
     return segments       
 
 def writeOnSegmentFile(result):
@@ -81,7 +95,7 @@ def writeOnSegmentFile(result):
             f.write(str(line))
             f.write("\n")
     f.close()
-    replaceInFile("segments.txt")
+    #replaceInFile("segments.txt")
         
 def writeOnRemoveSegmentFile(removeSegment):
     with open('removeSegments.txt', 'w') as f:
@@ -89,7 +103,7 @@ def writeOnRemoveSegmentFile(removeSegment):
             f.write(str(line))
             f.write("\n")
     f.close() 
-    replaceInFile("removeSegments.txt")
+    #replaceInFile("removeSegments.txt")
      
         
 def replaceInFile(file):
