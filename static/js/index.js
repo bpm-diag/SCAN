@@ -36,6 +36,7 @@ var array_rule = []
 function checkActivities(act1, act2, fun){
     var error = document.getElementById("error_adding_rule");
     var duplicate = document.getElementById("error_duplicate_rule");
+    var opposite = document.getElementById("error_opposite_rule");
     if(act1 == act2){
         error.style.display = 'block';
         timeout("#error_adding_rule")
@@ -46,9 +47,17 @@ function checkActivities(act1, act2, fun){
         else rule = fun + act1;
 
         if(array_rule.includes(rule) == false){
-            array_rule.push(rule)
-            goToFunction(act1, act2, fun)
-            duplicate.style.display = 'none';
+            if(fun == "Existence" && array_rule.includes("Absence"+act1) || 
+                fun  == "Absence" && array_rule.includes("Existence"+act1)){
+                opposite.style.display = 'block';
+                timeout("#error_opposite_rule")
+            }        
+            else{
+                array_rule.push(rule)
+                goToFunction(act1, act2, fun)
+                opposite.style.display = 'none';
+            }
+            
         }
         else {
             duplicate.style.display = 'block';
@@ -398,7 +407,7 @@ $(document).ready(function(){
 function timeout(id){
     setTimeout(function () {
         $(id).fadeTo(2000, 500).slideUp(500, function () {
-            $(id).remove();
+            $(id).hide();
         });
       }, 4000);//4000=4 seconds 
 }
@@ -409,6 +418,10 @@ function close_error_adding_rule(){
 
 function close_error_duplicate_rule(){
     document.getElementById("error_duplicate_rule").style.display = 'none';
+}
+
+function close_error_opposite_rule(){
+    document.getElementById("error_opposite_rule").style.display = 'none';
 }
 
 function close_flash(){

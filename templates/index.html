@@ -117,6 +117,10 @@
                     <strong>Error!</strong> The rule already exists.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_error_duplicate_rule();"></button>
                 </div>
+                <div class="alert alert-danger alert-dismissible fade show" id="error_opposite_rule" style="display:none">
+                    <strong>Error!</strong> The rule is in contrast with an existing one.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_error_opposite_rule();"></button>
+                </div>
             </div>
             <div id="division"></div>
             <div id="rules">
