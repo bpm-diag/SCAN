@@ -428,6 +428,10 @@ function close_flash(){
     document.getElementById("error_flash").style.display = 'none';
 }
 
+if(document.getElementById("error_flash").style.display != 'none'){
+    timeout("#error_flash")
+}
+
 function close_success_download(){
     document.getElementById("success_download").style.display = 'none';
 }
