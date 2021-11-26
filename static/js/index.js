@@ -147,7 +147,9 @@ function applyFunction(act1, act2, url){
 
 var list_checkbox = []
 function showRule(act1, act2, rule){
+    var li = document.createElement("li")
     var label = document.createElement("label");
+    label.className = "label"
     var checkbox = document.createElement("input");
 
     checkbox.type = "checkbox"; 
@@ -155,21 +157,23 @@ function showRule(act1, act2, rule){
         var description = document.createTextNode(" " + rule + "(" + act1 + "," + act2 + ")");
         checkbox.id = rule + act1 + act2;
         label.id = "label" + rule + act1 + act2
-        label.value = rule + "-" + act1 + "-" + act2
+        label.value = String(rule + "-" + act1 + "-" + act2)
+        li.id = "li" + rule + act1 + act2
         list_checkbox.push(checkbox.id) 
     } 
     else {
         var description = document.createTextNode(" " + rule + "(" + act1 + ")");
         checkbox.id = rule + act1; 
         label.id = "label" + rule + act1
-        label.value = rule + "-" + act1
+        label.value = String(rule + "-" + act1)
+        li.id = "li" + rule + act1
         list_checkbox.push(checkbox.id) 
     } 
     label.appendChild(checkbox);   
     label.appendChild(description);
-
-    document.getElementById('ruleId').append(label);
-    document.getElementById('ruleId').append(document.createElement('br'));
+    li.append(label)
+    
+    document.getElementById('ruleId').append(li);
 }
 
 function showResponse(response){
@@ -179,22 +183,22 @@ function showResponse(response){
     var button = document.getElementById("hideShowBtn");
     $(".Divtext").empty()
     for(var i=0; i < result.length; i++){
-        var res = $('<div class="all">'+ result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" + '</div>');
-        $('.Divtext').append(res);    
-        res.attr('id', 'result'+i);
-        var hideRes = $('<div class="hideAll" onclick="see();">'+ result[i][0] + '&nbsp;&nbsp;(' + "segment_" + i + ")" + '</div>');
-        $('.Divtext').append(hideRes);    
-        hideRes.attr('id', 'hideResult'+i); 
+        var res = $('<div class="all">'+ result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" + '</div>');   
+        res.id = 'result'+i;
+        $('.Divtext').append(res); 
+        var hideRes = $('<div class="hideAll" onclick="seeDiv(this)">'+ result[i][0] + '&nbsp;&nbsp;(' + "segment_" + i + ")" + '</div>');  
+        hideRes.id = 'hideResult'+i; 
+        $('.Divtext').append(hideRes);  
         showSeg(result[i].slice(1), hideRes.id)  
     }
     $(".DivtextDel").empty()
     for(var i=0; i < remove.length; i++){
-        var rem = $('<div class="all">' + remove[i][0] + '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" + '</div>');
-        $('.DivtextDel').append(rem);    
-        rem.attr('id', 'remove'+i);
-        var hideRem = $('<div class="hideAll">'+ remove[i][0] + '&nbsp;&nbsp;(' + "segment_" + lenRes + ")" + '</div>');
-        $('.DivtextDel').append(hideRem);    
-        hideRem.attr('id', 'hideRemove'+i);
+        var rem = $('<div class="all">' + remove[i][0] + '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" + '</div>');   
+        rem.id = 'remove'+i;
+        $('.DivtextDel').append(rem); 
+        var hideRem = $('<div class="hideAll">'+ remove[i][0] + '&nbsp;&nbsp;(' + "segment_" + lenRes + ")" + '</div>');    
+        hideRem.id = 'hideRemove'+i;
+        $('.DivtextDel').append(hideRem);
         lenRes++; 
     }
     if(button.value == "Hide"){
@@ -211,9 +215,20 @@ function showResponse(response){
 function deleteBtn(){
     for(var i = 0; i < list_checkbox.length; i++){
         if(document.getElementById(list_checkbox[i]).checked){
+            var li = document.getElementById("li" + list_checkbox[i])
             var label = document.getElementById("label" + list_checkbox[i])
-            var value = label.value
-            label.remove()
+            var value = String(label.value)
+            $(".label").each(function () {
+                var $this = $(this);
+                if ($this.is(":empty")) {
+                    var $nextItem = $this.nextAll().not(':empty').first();
+                    if($nextItem.length){
+                        $this.html($nextItem.html());
+                        $nextItem.empty();
+                    }
+                }
+            });
+            li.parentNode.removeChild(li)
             array_rule = array_rule.filter(function(f) { return f !== list_checkbox[i] })
             list_checkbox = list_checkbox.filter(function(f) { return f !== list_checkbox[i] })
             var arr = value.split("-")
@@ -301,6 +316,8 @@ function clearDiv(){
     $(".DivtextDel").empty()
     $(".divRule").empty()
     $(".title_file").empty()
+    $("#act1").empty()
+    $("#act2").empty()
     array_rule = []
     $.ajax({
         url: "/clear"
@@ -330,25 +347,53 @@ function hideShow(){
     }  
 }
 
+
 function showSeg(segment, id){
     html = '<div class="showDiv"><ul>';
+    var html = $('<div class="showDiv"><ul>');   
+    html.id = id+"see";
+   // g = document.createElement('div');
+   // g.setAttribute("id", id+"see");
+    //html.id = id//+"see"
+    //html += '<ul>'
+    
+    console.log(id, html.id)
     for(var i = 0; i < segment.length; i++){
         html+= "<li>"+ segment[i]+"</li>";
     }
+    
     html+= '</ul></div>';
     $('#divSeg').append(html);
   
     
 }
 
-function see(){
-    $(document).ready(function(){
-        $(this).click(function() {
-            console.log("aaaaaaa")
-            $('#divSeg').show();
-        });
-    });
+
+
+
+function seeDiv(elem){
+    var id = $(elem).attr("id");
+    //id = id+"see"
+    //console.log(id)
+    id = "hideResult0see"
+    var div = document.getElementById(id)
+    if(div.style.display == "none")
+        div.style.display ="block"
+       // $('#'+id).show();
+    else div.style.display = "none"
+    //$('#'+id).hide();     
 }
+
+/*
+$(document).ready(function(){
+    $(this).click(function() {
+        console.log("aaaaaaa")
+        if(document.getElementById("divSeg").style.display == "none")
+            $('#divSeg').show();
+        else $('#divSeg').hide();    
+    });
+});*/
+
 
 function timeout(id){
     setTimeout(function () {

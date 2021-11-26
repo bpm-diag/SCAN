@@ -109,10 +109,22 @@
     margin-bottom: 20px;
 }
 
+#ruleId{
+    height: 240px;
+    overflow-y: scroll;
+}
+
+ul.no-bullets {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
 .showDiv{
     border:2px solid black;
     border-right-style: outset; 
     background-color: aqua;
     z-index: 2;
 }
+
 
