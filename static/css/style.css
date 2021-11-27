@@ -114,17 +114,24 @@
     overflow-y: scroll;
 }
 
-ul.no-bullets {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
 .showDiv{
+    width: 20%;
+    height: 50%;
     border:2px solid black;
     border-right-style: outset; 
     background-color: aqua;
-    z-index: 2;
+    position: absolute;
+    z-index: 10;
+    top: 150px;
+    left: 250px;
 }
 
+.hideAll:hover{
+    background: red;
+}
 
+ul.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}

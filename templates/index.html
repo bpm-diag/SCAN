@@ -16,8 +16,8 @@
     
      
 </head>
+<!--<body style="background-image: url('static/css/sfondo.jpg');">-->
 <body>
-
     <div class="container-fluid">
         <div class="row">
         <div class="col-md-9">
@@ -28,13 +28,13 @@
                             <div class="input-group">
                                 <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
                                 <input type="submit" value="Submit">
-                                <button type="button" class="btn btn-outline-success" onclick="loadSegments();">UPLOAD</button>
+                                <button type="button" class="btn btn-success" onclick="loadSegments();">UPLOAD</button>
                             </div> 
                         </form>
                         <div id="b-container">
-                            <button type="button" class="btn btn-outline-primary" onclick="hideShow();" id="hideShowBtn" value="Hide">HIDE</button>
-                            <button type="button" class="btn btn-outline-secondary" onclick="clearDiv();">CLEAR</button>
-                            <button type="button" class="btn btn-outline-success" onclick="exportFile();" id="exportBtn" download>EXPORT</button>
+                            <button type="button" class="btn btn-primary" onclick="hideShow();" id="hideShowBtn" value="Hide">HIDE</button>
+                            <button type="button" class="btn btn-secondary" onclick="clearDiv();">CLEAR</button>
+                            <button type="button" class="btn btn-success" onclick="exportFile();" id="exportBtn" download>EXPORT</button>
                         </div>
                         <div class="title_file" id="name">
                             {{nameFile}}
@@ -56,11 +56,9 @@
              </div>
             <div id="segment-container">
                 <div class="title">List segments</div> 
-                <div id="scroll-seg" class="Divtext">
-                     
-                </div>
-                <div id="divSeg" style="display: none;"></div>               
+                <div id="scroll-seg" class="Divtext"></div>
             </div>
+            <div id="divSeg" class="showDiv" style="display:none"></div> 
             <div id="deleted-segment-container">
                 <div class="title">Not accepted segments</div>
                 <div id="scroll-del-seg" class="DivtextDel"></div>
@@ -108,7 +106,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <button id="button-apply" type="button" class="btn btn-outline-dark" style="justify-content:center" onclick="takeFunction();">APPLY</button>
+                <button id="button-apply" type="button" class="btn btn-dark" style="justify-content:center" onclick="takeFunction();">APPLY</button>
                 <div class="alert alert-danger alert-dismissible fade show" id="error_adding_rule" style="display:none">
                     <strong>Error!</strong> It is not possible to use the same activity twice.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_error_adding_rule();"></button>
@@ -125,7 +123,7 @@
             <div id="division"></div>
             <div id="rules">
                 <div class="title" style="text-align:center">List of rules</div>
-                <button type="button" class="btn btn-outline-danger btn btn-default" float="right" style="margin-left:80%; margin-top:-15%" data-toggle="confirmation" data-placement="bottom"
+                <button type="button" class="btn btn-danger btn btn-default" float="right" style="margin-left:80%; margin-top:-15%" data-toggle="confirmation" data-placement="bottom"
                 onclick="deleteBtn();">Delete</button>
                 <ul class="divRule no-bullets" id="ruleId"></ul>
                 

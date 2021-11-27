@@ -195,20 +195,21 @@ function showResponse(response){
         var res = $('<div class="all">'+ result[i][0] + '&nbsp;&nbsp;(' + result[i].slice(1) + ")" + '</div>');   
         res.id = 'result'+i;
         $('.Divtext').append(res); 
-        var hideRes = $('<div class="hideAll" onclick="seeDiv(this)">'+ result[i][0] + '&nbsp;&nbsp;(' + "segment_" + i + ")" + '</div>');  
+        var hideRes = $('<div class="hideAll" onclick="seeDiv(this)" id="hideResult'+i+'">'+ result[i][0] + '&nbsp;&nbsp;(' + "segment_" + i + ")" + '</div>');  
         hideRes.id = 'hideResult'+i; 
         $('.Divtext').append(hideRes);  
-        showSeg(result[i].slice(1), hideRes.id)  
+        showSeg(result[i], hideRes.id)  
     }
     $(".DivtextDel").empty()
     for(var i=0; i < remove.length; i++){
         var rem = $('<div class="all">' + remove[i][0] + '&nbsp;&nbsp;(' + remove[i].slice(1) + ")" + '</div>');   
         rem.id = 'remove'+i;
         $('.DivtextDel').append(rem); 
-        var hideRem = $('<div class="hideAll">'+ remove[i][0] + '&nbsp;&nbsp;(' + "segment_" + lenRes + ")" + '</div>');    
+        var hideRem = $('<div class="hideAll" onclick="seeDiv(this)" id="hideRemove'+i+'">'+ remove[i][0] + '&nbsp;&nbsp;(' + "segment_" + lenRes + ")" + '</div>');    
         hideRem.id = 'hideRemove'+i;
         $('.DivtextDel').append(hideRem);
         lenRes++; 
+        showSeg(remove[i], hideRem.id) 
     }
     if(button.value == "Hide"){
         $(".all").show();
@@ -356,24 +357,11 @@ function hideShow(){
     }  
 }
 
-
+var d = {}
 function showSeg(segment, id){
-    html = '<div class="showDiv"><ul>';
-    var html = $('<div class="showDiv"><ul>');   
-    html.id = id+"see";
-   // g = document.createElement('div');
-   // g.setAttribute("id", id+"see");
-    //html.id = id//+"see"
-    //html += '<ul>'
-    
-    console.log(id, html.id)
-    for(var i = 0; i < segment.length; i++){
-        html+= "<li>"+ segment[i]+"</li>";
-    }
-    
-    html+= '</ul></div>';
-    $('#divSeg').append(html);
-  
+
+    i = id+"see";
+    d[i] = segment
     
 }
 
@@ -382,26 +370,30 @@ function showSeg(segment, id){
 
 function seeDiv(elem){
     var id = $(elem).attr("id");
-    //id = id+"see"
-    //console.log(id)
-    id = "hideResult0see"
-    var div = document.getElementById(id)
-    if(div.style.display == "none")
-        div.style.display ="block"
-       // $('#'+id).show();
-    else div.style.display = "none"
-    //$('#'+id).hide();     
+    var hid = id+"see"
+    $('#'+id)
+    .css('cursor', 'pointer')
+    .click(
+        function(){
+            if(hid in d){
+                for(var i = 0; i < d[hid].length; i++){
+                    $('#divSeg').append("&nbsp;&nbsp;"+d[hid][i]+"</br>"); 
+                }
+            }
+            viewDiv();
+        }   
+    )
 }
 
-/*
-$(document).ready(function(){
-    $(this).click(function() {
-        console.log("aaaaaaa")
-        if(document.getElementById("divSeg").style.display == "none")
-            $('#divSeg').show();
-        else $('#divSeg').hide();    
-    });
-});*/
+function viewDiv(){
+    if(document.getElementById("divSeg").style.display == 'none')  
+        document.getElementById("divSeg").style.display = 'block'   
+    else {
+        document.getElementById("divSeg").style.display = 'none'
+        $('#divSeg').empty(); 
+    }      
+}    
+
 
 
 function timeout(id){
@@ -409,7 +401,7 @@ function timeout(id){
         $(id).fadeTo(2000, 500).slideUp(500, function () {
             $(id).hide();
         });
-      }, 4000);//4000=4 seconds 
+      }, 3000);//3000=3 seconds 
 }
 
 function close_error_adding_rule(){
