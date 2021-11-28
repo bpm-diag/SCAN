@@ -375,6 +375,11 @@ function seeDiv(elem){
     .css('cursor', 'pointer')
     .click(
         function(){
+            var button = document.createElement("BUTTON");
+            button.className= "btn-close"
+            button.id = "divSegBtn"
+            button.addEventListener("click", close_diSegBtn);
+            $('#divSeg').append(button)
             if(hid in d){
                 for(var i = 0; i < d[hid].length; i++){
                     $('#divSeg').append("&nbsp;&nbsp;"+d[hid][i]+"</br>"); 
@@ -426,6 +431,11 @@ if(document.getElementById("error_flash").style.display != 'none'){
 
 function close_success_download(){
     document.getElementById("success_download").style.display = 'none';
+}
+
+function close_diSegBtn(){
+    document.getElementById("divSeg").style.display = 'none';
+    $('#divSeg').empty();
 }
 
  

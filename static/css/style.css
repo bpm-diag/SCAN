@@ -121,7 +121,7 @@
     border-right-style: outset; 
     background-color: aqua;
     position: absolute;
-    z-index: 10;
+    z-index: 3;
     top: 150px;
     left: 250px;
 }
@@ -131,7 +131,13 @@
 }
 
 ul.no-bullets {
-    list-style-type: none; /* Remove bullets */
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margins */
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+}
+
+#divSegBtn{
+    float: right;
+    margin-top: 2px;
+    margin-right: 2px;
 }
