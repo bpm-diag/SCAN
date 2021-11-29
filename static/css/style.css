@@ -1,3 +1,9 @@
+body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
 
 #buttons-container{
     width: 98%;
@@ -21,6 +27,8 @@
     margin-top: -1%;
     border:2px solid black;
     border-right-style: outset;
+    background-color: rgb(35, 36, 37);
+    opacity: 0.85;
 }
 
 #scroll-seg{
@@ -32,6 +40,7 @@
     overflow-y: scroll;
     overflow-x: scroll;
     white-space: nowrap;
+    color:rgb(228, 228, 228);
 }
 
 #deleted-segment-container{
@@ -42,6 +51,8 @@
     border-right-style: outset;
     font-size: 18px;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(35, 36, 37);
+    opacity: 0.85;
 }
 
 #scroll-del-seg{
@@ -53,6 +64,7 @@
     overflow-y: scroll;
     overflow-x: scroll;
     white-space: nowrap;
+    color:rgb(228, 228, 228);
 }
 
 .title_file{
@@ -74,30 +86,49 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-style: oblique;
     font-weight: bold;
+    color:rgb(228, 228, 228);
+}
+
+.title-rule{
+    width: 100%;
+    height: 30px;
+    margin-left: 1%;
+    margin-top: 3.5%;
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: oblique;
+    font-weight: bold;
+    color:rgb(35, 36, 37);
 }
 
 .sub-title{
     font-size: 16px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
+    color:rgb(35, 36, 37);
 }
 
 #new_rule{
     width: 100%;
-    height: 40%;
+    height: 45%;
     justify-content: center;
+    background-color: rgb(225, 236, 248);
+    opacity: 0.85;
+    margin-top: 4%;
+    border-radius: 4px;
 }
 
 .combobox{
     width: 60%;
-    height: 30%;
+    height: 20%;
     margin-top: 2%;
     margin-left:20%;
     justify-content: center;
 }
 
 #button-apply{
-    margin-left: 40%;
+    margin-left: 38%;
+    margin-top: 8%;
 
 }
 
@@ -110,8 +141,16 @@
 }
 
 #ruleId{
-    height: 240px;
+    height: 290px;
     overflow-y: scroll;
+}
+
+#rules{
+    height: 50%;
+    background-color: rgb(225, 236, 248);
+    opacity: 0.85;
+    margin-top: 5%;
+    border-radius: 4px;
 }
 
 .showDiv{
@@ -119,7 +158,8 @@
     height: 50%;
     border:2px solid black;
     border-right-style: outset; 
-    background-color: aqua;
+    background-color:rgb(225, 236, 248);
+    opacity: 0.92;
     position: absolute;
     z-index: 3;
     top: 150px;
@@ -127,13 +167,14 @@
 }
 
 .hideAll:hover{
-    background: red;
+    background: rgb(3, 160, 165);
+    opacity: 0.8;
 }
 
 ul.no-bullets {
     list-style-type: none; 
     padding: 0;
-    margin: 0;
+    margin-left: 2%;
 }
 
 #divSegBtn{
