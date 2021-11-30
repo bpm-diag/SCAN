@@ -182,3 +182,9 @@ ul.no-bullets {
     margin-top: 2px;
     margin-right: 2px;
 }
+
+.alert{
+    position: absolute;
+    z-index: 3;
+    justify-content:center;
+}

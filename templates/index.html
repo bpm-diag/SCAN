@@ -19,115 +19,114 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-        <div class="col-md-9">
-            <div id="buttons-container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <form method="post" action="/" enctype="multipart/form-data">
-                            <div class="input-group">
-                                <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
-                                <input type="submit" value="Submit">
-                                <button type="button" class="btn btn-success" onclick="loadSegments();">UPLOAD</button>
-                            </div> 
-                        </form>
-                        <div id="b-container">
-                            <button type="button" class="btn btn-primary" onclick="hideShow();" id="hideShowBtn" value="Hide">HIDE</button>
-                            <button type="button" class="btn btn-secondary" onclick="clearDiv();">CLEAR</button>
-                            <button type="button" class="btn btn-success" onclick="exportFile();" id="exportBtn" download>EXPORT</button>
+            <div class="col-md-9">
+                <div id="buttons-container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" action="/" enctype="multipart/form-data">
+                                <div class="input-group">
+                                    <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
+                                    <input type="submit" value="Submit">
+                                    <button type="button" class="btn btn-success" onclick="loadSegments();">UPLOAD</button>
+                                </div> 
+                            </form>
+                            <div id="b-container">
+                                <button type="button" class="btn btn-primary" onclick="hideShow();" id="hideShowBtn" value="Hide">HIDE</button>
+                                <button type="button" class="btn btn-secondary" onclick="clearDiv();">CLEAR</button>
+                                <button type="button" class="btn btn-success" onclick="exportFile();" id="exportBtn" download>EXPORT</button>
+                            </div>
+                            <div class="title_file" id="name">File: 
+                                {{nameFile}}
+                            </div>    
                         </div>
-                        <div class="title_file" id="name">File: 
-                            {{nameFile}}
-                        </div>    
+                        <div class="col-md-6" height="10px">
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-{{ category }} alert-dismissible fade show" id="error_flash">
+                                            <span>{{ message }}</span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_flash();"></button>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %} 
+                        </div>      
                     </div>
-                    <div class="col-md-6" height="10px">
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                            {% if messages %}
-                                {% for category, message in messages %}
-                                    <div class="alert alert-{{ category }} alert-dismissible fade show" id="error_flash">
-                                        <span>{{ message }}</span>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_flash();"></button>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        {% endwith %} 
-                    </div>      
                 </div>
-             </div>
-            <div id="segment-container">
-                <div class="title" style="margin-top:1%">List segments</div> 
-                <div id="scroll-seg" class="Divtext"></div>
+                <div id="segment-container">
+                    <div class="title" style="margin-top:1%">List segments</div> 
+                    <div id="scroll-seg" class="Divtext"></div>
+                </div>
+                <div id="divSeg" class="showDiv" style="display:none"></div> 
+                <div id="deleted-segment-container">
+                    <div class="title" style="margin-top:1%">Not accepted segments</div>
+                    <div id="scroll-del-seg" class="DivtextDel"></div>
+                </div>
             </div>
-            <div id="divSeg" class="showDiv" style="display:none"></div> 
-            <div id="deleted-segment-container">
-                <div class="title" style="margin-top:1%">Not accepted segments</div>
-                <div id="scroll-del-seg" class="DivtextDel"></div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div id="new_rule">
-                <div class="title-rule" style="text-align:center">Add new rule</div>
-                <div id="first-combobox" class="combobox">
-                    <div class="sub-title">Select rule</div>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="selectFun" onclick="selectFunction();">
-                        <option value="Existence">Existence(a)</option>
-                        <option value="Absence">Absence(a)</option>
-                        <option value="Choice">Choice(a,b)</option>
-                        <option value="ExclusiveChoice">ExclusiveChoice(a,b)</option>
-                        <option value="RespondedExistence">RespondedExistence(a,b)</option>
-                        <option value="Response">Response(a,b)</option>
-                        <option value="AlternateResponse">AlternateResponse(a,b)</option>
-                        <option value="ChainResponse">ChainResponse(a,b)</option>
-                        <option value="Precedence">Precedence(a,b)</option>
-                        <option value="AlternatePrecedence">AlternatePrecedence(a,b)</option>
-                        <option value="ChainPrecedence">ChainPrecedence(a,b)</option>
-                        <option value="CoExistence">CoExistence(a,b)</option>
-                        <option value="Succession">Succession(a,b)</option>
-                        <option value="AlternateSuccession">AlternateSuccession(a,b)</option>
-                        <option value="ChainSuccession">ChainSuccession(a,b)</option>
-                        <option value="NotCoExistence">NotCoExistence(a,b)</option>
-                        <option value="NotSuccession">NotSuccession(a,b)</option>
-                        <option value="NotChainSuccession">NotChainSuccession(a,b)</option>
-                    </select>
+            <div class="col-md-3">
+                <div id="new_rule">
+                    <div class="title-rule" style="text-align:center">Add new rule</div>
+                    <div id="first-combobox" class="combobox">
+                        <div class="sub-title">Select rule</div>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="selectFun" onclick="selectFunction();">
+                            <option value="Existence">Existence(a)</option>
+                            <option value="Absence">Absence(a)</option>
+                            <option value="Choice">Choice(a,b)</option>
+                            <option value="ExclusiveChoice">ExclusiveChoice(a,b)</option>
+                            <option value="RespondedExistence">RespondedExistence(a,b)</option>
+                            <option value="Response">Response(a,b)</option>
+                            <option value="AlternateResponse">AlternateResponse(a,b)</option>
+                            <option value="ChainResponse">ChainResponse(a,b)</option>
+                            <option value="Precedence">Precedence(a,b)</option>
+                            <option value="AlternatePrecedence">AlternatePrecedence(a,b)</option>
+                            <option value="ChainPrecedence">ChainPrecedence(a,b)</option>
+                            <option value="CoExistence">CoExistence(a,b)</option>
+                            <option value="Succession">Succession(a,b)</option>
+                            <option value="AlternateSuccession">AlternateSuccession(a,b)</option>
+                            <option value="ChainSuccession">ChainSuccession(a,b)</option>
+                            <option value="NotCoExistence">NotCoExistence(a,b)</option>
+                            <option value="NotSuccession">NotSuccession(a,b)</option>
+                            <option value="NotChainSuccession">NotChainSuccession(a,b)</option>
+                        </select>
+                    </div>
+                    <div id="second-combobox" class="combobox">
+                        <div class="sub-title">Select activity 1</div>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="act1">
+                            {% for act in activity %}
+                                <option>{{ act }}</option>   
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div id="third-combobox" class="combobox">
+                        <div class="sub-title">Select activity 2</div>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="act2">
+                            {% for act in activity %}
+                                <option>{{ act }}</option>   
+                            {% endfor %}
+                        </select>
+                        <button id="button-apply" type="button" class="btn btn-dark" style="justify-content:center;" onclick="takeFunction();">APPLY</button>
+                    </div>
                 </div>
-                <div id="second-combobox" class="combobox">
-                    <div class="sub-title">Select activity 1</div>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="act1">
-                        {% for act in activity %}
-                            <option>{{ act }}</option>   
-                        {% endfor %}
-                    </select>
-                </div>
-                 <div id="third-combobox" class="combobox">
-                    <div class="sub-title">Select activity 2</div>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="act2">
-                        {% for act in activity %}
-                            <option>{{ act }}</option>   
-                        {% endfor %}
-                    </select>
-                    <button id="button-apply" type="button" class="btn btn-dark" style="justify-content:center;" onclick="takeFunction();">APPLY</button>
-                </div>
-                <div class="alert alert-danger alert-dismissible fade show" id="error_adding_rule" style="display:none">
+                <div class="alert alert-danger alert-dismissible fade show" id="error_adding_rule" style="display:none" role="alert">
                     <strong>Error!</strong> It is not possible to use the same activity twice.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_error_adding_rule();"></button>
                 </div>
-                <div class="alert alert-danger alert-dismissible fade show" id="error_duplicate_rule" style="display:none">
+                <div class="alert alert-danger alert-dismissible fade show" id="error_duplicate_rule" style="display:none" role="alert">
                     <strong>Error!</strong> The rule already exists.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_error_duplicate_rule();"></button>
                 </div>
-                <div class="alert alert-danger alert-dismissible fade show" id="error_opposite_rule" style="display:none">
+                <div class="alert alert-danger alert-dismissible fade show" id="error_opposite_rule" style="display:none" role="alert">
                     <strong>Error!</strong> The rule is in contrast with an existing one.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_error_opposite_rule();"></button>
                 </div>
+                <div id="rules">
+                    <div class="title-rule" style="text-align:center">List of rules</div>
+                    <button type="button" class="btn btn-danger btn btn-default" float="right" style="margin-left:78%; margin-top:-12%" data-toggle="confirmation" data-placement="bottom"
+                    onclick="deleteBtn();">Delete</button>
+                    <ul class="divRule no-bullets" id="ruleId"></ul>
+                    
+                </div>
             </div>
-            <!--<div id="division"></div>-->
-            <div id="rules">
-                <div class="title-rule" style="text-align:center">List of rules</div>
-                <button type="button" class="btn btn-danger btn btn-default" float="right" style="margin-left:78%; margin-top:-12%" data-toggle="confirmation" data-placement="bottom"
-                onclick="deleteBtn();">Delete</button>
-                <ul class="divRule no-bullets" id="ruleId"></ul>
-                
-            </div>
-        </div>
         </div>
     </div>  
     <script src="{{ url_for('static', filename="js/index.js") }}"></script>

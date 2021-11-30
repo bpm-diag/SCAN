@@ -1,7 +1,6 @@
 import os
 from utilities import *
 from rule import *
-from del_rule import *
 from app import *
 from flask import Flask, flash, request, redirect, render_template, url_for, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
@@ -171,7 +170,7 @@ def not_chain_succession():
     return jsonify({"result": result, "remove": removeSegment})     
 
 @app.route('/del_rule', methods=['POST'])
-def del_existence():
+def delete_rule():
     result, removeSegment = del_rule()
     return jsonify({"result": result, "remove": removeSegment})  
 
