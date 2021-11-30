@@ -600,3 +600,15 @@ def rule_not_chain_succession():
     writeOnSegmentFile(result)   
     writeOnRemoveSegmentFile(removeSegment)
     return result, removeSegment
+
+def del_rule():
+    segments = takeSegmentFromFile()
+    removeSegment = takeRemoveSegmentFromFile()  
+    remove = [] 
+    for act in removeSegment:
+        if act and act not in segments:        
+            segments.append(act)
+    clear()        
+    writeOnSegmentFile(segments)   
+    writeOnRemoveSegmentFile(remove) 
+    return segments, remove

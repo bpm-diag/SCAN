@@ -43,18 +43,18 @@ function checkActivities(act1, act2, fun){
     }
     else{
         error.style.display = 'none';
-        if(act2 != null) rule = fun + act1 + act2
-        else rule = fun + act1;
+        if(act2 != null) rule = fun + "-" + act1 + "-" + act2
+        else rule = fun + "-" + act1;
 
         if(array_rule.includes(rule) == false){
-            if(fun == "Existence" && array_rule.includes("Absence"+act1) || 
-                fun  == "Absence" && array_rule.includes("Existence"+act1)){
+            if(fun == "Existence" && array_rule.includes("Absence-"+act1) || 
+                fun  == "Absence" && array_rule.includes("Existence-"+act1)){
                 opposite.style.display = 'block';
                 timeout("#error_opposite_rule")
             }        
             else{
                 array_rule.push(rule)
-                goToFunction(act1, act2, fun)
+                goToFunction(fun, act1, act2, 0)
                 opposite.style.display = 'none';
             }
             
@@ -66,79 +66,80 @@ function checkActivities(act1, act2, fun){
     } 
 }
 
-function goToFunction(act1, act2, fun){
+function goToFunction(fun, act1, act2, value){
+    console.log(fun, act1, act2)
     switch(fun) {
         case "Existence":
             applyFunction(act1, null, '/existence');
-            showRule(act1, null, fun)
+            if(value == 0) showRule(act1, null, fun)
             break;
         case "Absence":
             applyFunction(act1, null, '/absence');
-            showRule(act1, null, fun)
+            if(value == 0) showRule(act1, null, fun)
             break;    
         case "Choice":
             applyFunction(act1, act2, '/choice');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "ExclusiveChoice":
             applyFunction(act1, act2, '/exclusive_choice');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break; 
         case "RespondedExistence":
             applyFunction(act1, act2, '/responded_existence');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;  
         case "Response":
             applyFunction(act1, act2, '/response');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break; 
         case "AlternateResponse":
             applyFunction(act1, act2, '/alternate_response');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "ChainResponse":
             applyFunction(act1, act2, '/chain_response');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "Precedence":
             applyFunction(act1, act2, '/precedence');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "AlternatePrecedence":
             applyFunction(act1, act2, '/alternate_precedence');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "ChainPrecedence":
             applyFunction(act1, act2, '/chain_precedence');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "CoExistence":
             applyFunction(act1, act2, '/co_existence');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "Succession":
             applyFunction(act1, act2, '/succession');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "AlternateSuccession":
             applyFunction(act1, act2, '/alternate_succession');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "ChainSuccession":
             applyFunction(act1, act2, '/chain_succession');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;   
         case "NotCoExistence":
             applyFunction(act1, act2, '/not_co_existence');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;
         case "NotSuccession":
             applyFunction(act1, act2, '/not_succession');
-            showRule(act1, act2, fun);
+            if(value == 0) showRule(act1, act2, fun);
             break;                                                 
         default:
             applyFunction(act1, act2, '/not_chain_succession');
-            showRule(act1, act2, fun); 
+            if(value == 0) showRule(act1, act2, fun); 
     }
 }
 
@@ -164,18 +165,19 @@ function showRule(act1, act2, rule){
     checkbox.type = "checkbox"; 
     if(act2 != null){
         var description = document.createTextNode(" " + rule + "(" + act1 + "," + act2 + ")");
-        checkbox.id = rule + act1 + act2;
-        label.id = "label" + rule + act1 + act2
-        label.value = String(rule + "-" + act1 + "-" + act2)
-        li.id = "li" + rule + act1 + act2
+        checkbox.id = String(rule + "-" + act1 + "-" + act2);
+        label.id = "label" + rule + "-" + act1 + "-" + act2;
+        label.value = String(rule + "-" + act1 + "-" + act2);
+        li.id = "li" + rule + "-" + act1 + "-" + act2
         list_checkbox.push(checkbox.id) 
     } 
     else {
         var description = document.createTextNode(" " + rule + "(" + act1 + ")");
-        checkbox.id = rule + act1; 
-        label.id = "label" + rule + act1
-        label.value = String(rule + "-" + act1)
-        li.id = "li" + rule + act1
+        checkbox.id = String(rule + "-" + act1); 
+        label.id = "label" + rule + "-" + act1;
+        label.value = String(rule + "-" + act1);
+        console.log(label.value)
+        li.id = "li" + rule + "-" + act1
         list_checkbox.push(checkbox.id) 
     } 
     label.appendChild(checkbox);   
@@ -239,6 +241,8 @@ function deleteBtn(){
                 }
             });
             li.parentNode.removeChild(li)
+            console.log("arr", array_rule)
+            console.log("li", list_checkbox[i])
             array_rule = array_rule.filter(function(f) { return f !== list_checkbox[i] })
             list_checkbox = list_checkbox.filter(function(f) { return f !== list_checkbox[i] })
             var arr = value.split("-")
@@ -251,65 +255,21 @@ function deleteBtn(){
             recomputeSegments(fun, act1, act2)
         }
     }
+    for(var r = 0; r < array_rule.length; r++){
+        rule = array_rule[r]
+        var arr = rule.split("-")
+        var fun = arr[0]
+        var act1 = arr[1]
+        var act2 = null
+        if(arr.length > 2) act2 = arr[2]
+        goToFunction(fun, act1, act2, 1)
+    }
 }
 
 function recomputeSegments(fun, act1, act2){
-    switch(fun) {
-        case "Existence":
-            applyFunction(act1, null, '/del_existence');
-            break;
-        case "Absence":
-            applyFunction(act1, null, '/del_absence');
-            break;    
-        case "Choice":
-            applyFunction(act1, act2, '/del_choice');
-            break;
-        case "ExclusiveChoice":
-            applyFunction(act1, act2, '/del_exclusive_choice');
-            break; 
-        case "RespondedExistence":
-            applyFunction(act1, act2, '/del_responded_existence');
-            break;  
-        case "Response":
-            applyFunction(act1, act2, '/del_response');
-            break; 
-        case "AlternateResponse":
-            applyFunction(act1, act2, '/del_alternate_response');
-            break;
-        case "ChainResponse":
-            applyFunction(act1, act2, '/del_chain_response');
-            break;
-        case "Precedence":
-            applyFunction(act1, act2, '/del_precedence');
-            break;
-        case "AlternatePrecedence":
-            applyFunction(act1, act2, '/del_alternate_precedence');
-            break;
-        case "ChainPrecedence":
-            applyFunction(act1, act2, '/del_chain_precedence');
-            break;
-        case "CoExistence":
-            applyFunction(act1, act2, '/del_co_existence');
-            break;
-        case "Succession":
-            applyFunction(act1, act2, '/del_succession');
-            break;
-        case "AlternateSuccession":
-            applyFunction(act1, act2, '/del_alternate_succession');
-            break;
-        case "ChainSuccession":
-            applyFunction(act1, act2, '/del_chain_succession');
-            break;   
-        case "NotCoExistence":
-            applyFunction(act1, act2, '/del_not_co_existence');
-            break;
-        case "NotSuccession":
-            applyFunction(act1, act2, '/del_not_succession');
-            break;                                                 
-        default:
-            applyFunction(act1, act2, '/del_not_chain_succession');
-    }
-}
+    applyFunction(act1, act2, '/del_rule');
+}    
+
 
 function deselectAct2(activity2){
     activity2.disabled = true;
@@ -364,9 +324,6 @@ function showSeg(segment, id){
     d[i] = segment
     
 }
-
-
-
 
 function seeDiv(elem){
     var id = $(elem).attr("id");
