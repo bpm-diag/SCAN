@@ -1,3 +1,4 @@
+//load segments from file the first time
 function loadSegments(){
     $(document).ready(function(){
         $.ajax({
@@ -9,6 +10,7 @@ function loadSegments(){
     });
 }
 
+//select the rule to apply and show the right number of combobox
 function selectFunction(){
     var fun = document.getElementById("selectFun").value;
     var activity2 = document.getElementById("act2");
@@ -16,6 +18,7 @@ function selectFunction(){
     else activeAct2(activity2);
 }
 
+//take the rule inserted and check if it is valid
 function takeFunction(){
     var fun = document.getElementById("selectFun").value;
     var act1 = document.getElementById("act1").value;
@@ -32,6 +35,7 @@ function takeFunction(){
     
 }
 
+//check if the rule is valid and create the array of rules
 var array_rule = []
 function checkActivities(act1, act2, fun){
     var error = document.getElementById("error_adding_rule");
@@ -66,6 +70,7 @@ function checkActivities(act1, act2, fun){
     } 
 }
 
+//call to server by the rule required
 function goToFunction(fun, act1, act2, value){
     console.log(fun, act1, act2)
     switch(fun) {
@@ -143,6 +148,7 @@ function goToFunction(fun, act1, act2, value){
     }
 }
 
+//ajax function to server
 function applyFunction(act1, act2, url){
     $(document).ready(function(){
         $.ajax({
@@ -155,6 +161,7 @@ function applyFunction(act1, act2, url){
     });
 }
 
+//show list of rules applied
 var list_checkbox = []
 function showRule(act1, act2, rule){
     var li = document.createElement("li")
@@ -187,6 +194,7 @@ function showRule(act1, act2, rule){
     document.getElementById('ruleId').append(li);
 }
 
+//show result of rule in segments and not accepted segments
 function showResponse(response){
     var result = response.result
     var lenRes = result.length
@@ -224,6 +232,7 @@ function showResponse(response){
 
 }
 
+//when click delete button 
 function deleteBtn(){
     for(var i = 0; i < list_checkbox.length; i++){
         if(document.getElementById(list_checkbox[i]).checked){
@@ -266,10 +275,10 @@ function deleteBtn(){
     }
 }
 
+//when delete some rule
 function recomputeSegments(fun, act1, act2){
     applyFunction(act1, act2, '/del_rule');
 }    
-
 
 function deselectAct2(activity2){
     activity2.disabled = true;
@@ -300,6 +309,7 @@ function exportFile(){
     }); 
 }
 
+//hide/show segments and button
 function hideShow(){
     var button = document.getElementById("hideShowBtn");
     if(button.value == "Hide"){
@@ -325,6 +335,7 @@ function showSeg(segment, id){
     
 }
 
+//div shown onclick with the activity of the segment
 function seeDiv(elem){
     var id = $(elem).attr("id");
     var hid = id+"see"
@@ -338,7 +349,7 @@ function seeDiv(elem){
             button.addEventListener("click", close_diSegBtn);
             $('#divSeg').append(button)
             if(hid in d){
-                for(var i = 0; i < d[hid].length; i++){
+                for(var i = 1; i < d[hid].length; i++){
                     $('#divSeg').append("&nbsp;&nbsp;"+d[hid][i]+"</br>"); 
                 }
             }
@@ -357,7 +368,7 @@ function viewDiv(){
 }    
 
 
-
+//alert's timeout
 function timeout(id){
     setTimeout(function () {
         $(id).fadeTo(2000, 500).slideUp(500, function () {
