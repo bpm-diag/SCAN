@@ -132,14 +132,6 @@ body {
 
 }
 
-#division{
-    border-bottom: 2px solid #000;
-    margin-top: 16%;
-    margin-left: -10%;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
-
 #ruleId{
     height: 290px;
     overflow-y: scroll;
@@ -164,8 +156,8 @@ body {
     opacity: 0.92;
     position: absolute;
     z-index: 3;
-    top: 150px;
-    left: 250px;
+    top: 250px;
+    left: 400px;
 }
 
 .hideAll:hover{
@@ -182,11 +174,19 @@ ul.no-bullets {
 #divSegBtn{
     float: right;
     margin-top: 2px;
-    margin-right: 2px;
+    margin-right: 1.5px;
 }
 
 .alert{
     position: absolute;
     z-index: 3;
     justify-content:center;
+}
+
+.col-occ { 
+    width: 20%; 
+    justify-content: center;
+}
+.col-seg{
+    width: 80%;
 }
