@@ -14,7 +14,7 @@ function loadSegments(){
 function selectFunction(){
     var fun = document.getElementById("selectFun").value;
     var activity2 = document.getElementById("act2");
-    if(fun == "Existence" || fun == "Absence") deselectAct2(activity2);
+    if(fun == "Existence" || fun == "Absence" || fun == "StartActivity" || fun == "EndActivity") deselectAct2(activity2);
     else activeAct2(activity2);
 }
 
@@ -24,7 +24,7 @@ function takeFunction(){
     var act1 = document.getElementById("act1").value;
     var activity2 = document.getElementById("act2");
     var act2 = activity2.value;
-    if(fun == "Existence" || fun == "Absence"){
+    if(fun == "Existence" || fun == "Absence" || fun == "StartActivity" || fun == "EndActivity"){
         deselectAct2(activity2);
         checkActivities(act1, null, fun)
     } 
@@ -73,6 +73,14 @@ function checkActivities(act1, act2, fun){
 //call to server by the rule required
 function goToFunction(fun, act1, act2, value){
     switch(fun) {
+        case "StartActivity":
+            applyFunction(act1, null, '/start_activity');
+            if(value == 0) showRule(act1, null, fun)
+            break;
+        case "EndActivity":
+            applyFunction(act1, null, '/end_activity');
+            if(value == 0) showRule(act1, null, fun)
+            break;
         case "Existence":
             applyFunction(act1, null, '/existence');
             if(value == 0) showRule(act1, null, fun)
@@ -382,6 +390,26 @@ function timeout(id){
 function showInfo(){
     var fun = document.getElementById("selectFun").value;
     switch(fun) {
+        case "StartActivity":
+            document.getElementById("groupConstraints").innerHTML = "Start/End activity constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Start Activity:</b> filter by start activity a"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "acac"
+            document.getElementById("re2").innerHTML = "acbbc"
+            document.getElementById("we1").innerHTML = "bcc"
+            document.getElementById("we2").innerHTML = "c"
+            $('#divInfo').show()
+            break;
+        case "EndActivity":
+            document.getElementById("groupConstraints").innerHTML = "Start/End activity constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>End Activity:</b> filter by end activity a"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "bcca"
+            document.getElementById("re2").innerHTML = "cca"
+            document.getElementById("we1").innerHTML = "bcc"
+            document.getElementById("we2").innerHTML = "c"
+            $('#divInfo').show()
+            break;    
         case "Existence":
             document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
             document.getElementById("nameConstraint").innerHTML = "<b>Existence:</b> a occurs at least once"

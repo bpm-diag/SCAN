@@ -78,6 +78,16 @@ def load_segments():
 def download():
     downloadFile()
     return render_template('index.html');   
+        
+@app.route('/start_activity', methods=['POST'])
+def start_activity():
+    result, removeSegment = rule_start_activity()
+    return jsonify({"result": result, "remove": removeSegment}) 
+
+@app.route('/end_activity', methods=['POST'])
+def end_activity():
+    result, removeSegment = rule_end_activity()
+    return jsonify({"result": result, "remove": removeSegment}) 
           
 @app.route('/existence', methods=['POST'])
 def existence():
