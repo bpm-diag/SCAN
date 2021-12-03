@@ -72,7 +72,6 @@ function checkActivities(act1, act2, fun){
 
 //call to server by the rule required
 function goToFunction(fun, act1, act2, value){
-    console.log(fun, act1, act2)
     switch(fun) {
         case "Existence":
             applyFunction(act1, null, '/existence');
@@ -380,6 +379,193 @@ function timeout(id){
       }, 3000);//3000=3 seconds 
 }
 
+function showInfo(){
+    var fun = document.getElementById("selectFun").value;
+    switch(fun) {
+        case "Existence":
+            document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Existence:</b> a occurs at least once"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "bcac"
+            document.getElementById("re2").innerHTML = "bcaac"
+            document.getElementById("we1").innerHTML = "bcc"
+            document.getElementById("we2").innerHTML = "c"
+            $('#divInfo').show()
+            break;
+        case "Absence":
+            document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Absence:</b> a never occur"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "bcc"
+            document.getElementById("re2").innerHTML = "ccc"
+            document.getElementById("we1").innerHTML = "bcac"
+            document.getElementById("we2").innerHTML = "bcaca"
+            $('#divInfo').show()
+            break;    
+        case "Choice":
+            document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Choice:</b> a or b eventually occur"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "bcc"
+            document.getElementById("re2").innerHTML = "bcac"
+            document.getElementById("we1").innerHTML = "c"
+            document.getElementById("we2").innerHTML = "ccc"
+            $('#divInfo').show()
+            break;
+        case "ExclusiveChoice":
+            document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Exclusive Choice:</b> a or b eventually occur, but not together"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "bcc"
+            document.getElementById("re2").innerHTML = "acc"
+            document.getElementById("we1").innerHTML = "bcac"
+            document.getElementById("we2").innerHTML = "c"
+            $('#divInfo').show()
+            break; 
+        case "RespondedExistence":
+            document.getElementById("groupConstraints").innerHTML = "Relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Responded Existence:</b> if a occurs in the trace, then b occurs as well"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "bcaac"
+            document.getElementById("re2").innerHTML = "bcc"
+            document.getElementById("we1").innerHTML = "caac"
+            document.getElementById("we2").innerHTML = "acc"
+            $('#divInfo').show()
+            break;  
+        case "Response":
+            document.getElementById("groupConstraints").innerHTML = "Relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Response:</b> if a occurs, then b occurs after a"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "caacb"
+            document.getElementById("re2").innerHTML = "bcc"
+            document.getElementById("we1").innerHTML = "caac"
+            document.getElementById("we2").innerHTML = "bacc"
+            $('#divInfo').show()
+            break; 
+        case "AlternateResponse":
+            document.getElementById("groupConstraints").innerHTML = "Relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Response:</b> each time a occurs, then b occurs immediately afterwards, before a recurs"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cacb"
+            document.getElementById("re2").innerHTML = "abcabc"
+            document.getElementById("we1").innerHTML = "caacb"
+            document.getElementById("we2").innerHTML = "bacacb"
+            $('#divInfo').show()
+            break;
+        case "ChainResponse":
+            applyFunction(act1, act2, '/chain_response');
+            document.getElementById("groupConstraints").innerHTML = "Relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Chain Response:</b> each time a occurs, then b occurs immediately afterwards"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cabb"
+            document.getElementById("re2").innerHTML = "abcab"
+            document.getElementById("we1").innerHTML = "cacb"
+            document.getElementById("we2").innerHTML = "bca"
+            $('#divInfo').show()
+            break;
+        case "Precedence":
+            document.getElementById("groupConstraints").innerHTML = "Relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Precedence:</b> b occurs only if preceded by a"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cacbb"
+            document.getElementById("re2").innerHTML = "acc"
+            document.getElementById("we1").innerHTML = "ccbb"
+            document.getElementById("we2").innerHTML = "bacc"
+            $('#divInfo').show()
+            break;
+        case "AlternatePrecedence":
+            document.getElementById("groupConstraints").innerHTML = "Relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Precedence:</b> each time b occurs, it is preceded by a and no other b can recur in between"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cacba"
+            document.getElementById("re2").innerHTML = "abcaacb"
+            document.getElementById("we1").innerHTML = "cacbba"
+            document.getElementById("we2").innerHTML = "abbabcb"
+            $('#divInfo').show()
+            break;
+        case "ChainPrecedence":
+            document.getElementById("groupConstraints").innerHTML = "Relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Chain Precedence:</b> each time b occurs, then a occurs immediately beforehand"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "abca"
+            document.getElementById("re2").innerHTML = "abbabc"
+            document.getElementById("we1").innerHTML = "bca"
+            document.getElementById("we2").innerHTML = "baacb"
+            $('#divInfo').show()
+            break;
+        case "CoExistence":
+            document.getElementById("groupConstraints").innerHTML = "Mutual relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Co Existence:</b> if b occurs, then a occurs, and vice-versa"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cacbb"
+            document.getElementById("re2").innerHTML = "bcca"
+            document.getElementById("we1").innerHTML = "cac"
+            document.getElementById("we2").innerHTML = "bcc"
+            $('#divInfo').show()
+            break;
+        case "Succession":
+            document.getElementById("groupConstraints").innerHTML = "Mutual relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Succession:</b> a occurs if and only if it is followed by b"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cacbb"
+            document.getElementById("re2").innerHTML = "accb"
+            document.getElementById("we1").innerHTML = "bac"
+            document.getElementById("we2").innerHTML = "bcca"
+            $('#divInfo').show()
+            break;
+        case "AlternateSuccession":
+            document.getElementById("groupConstraints").innerHTML = "Mutual relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Succession:</b> a and b if and only if the latter immediately follows the former, and they alternate each other in the trace"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cacbab"
+            document.getElementById("re2").innerHTML = "abcabc"
+            document.getElementById("we1").innerHTML = "caacbb"
+            document.getElementById("we2").innerHTML = "bac"
+            $('#divInfo').show()
+            break;
+        case "ChainSuccession":
+            document.getElementById("groupConstraints").innerHTML = "Mutual relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Chain Succession:</b> a and b occur if and only if the latter immediately follows the former"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cabab"
+            document.getElementById("re2").innerHTML = "ccc"
+            document.getElementById("we1").innerHTML = "cacb"
+            document.getElementById("we2").innerHTML = "cbac"
+            $('#divInfo').show()
+            break;   
+        case "NotCoExistence":
+            document.getElementById("groupConstraints").innerHTML = "Negative relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Not Co Existence:</b> a and b never occur together"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "cccbbb"
+            document.getElementById("re2").innerHTML = "ccac"
+            document.getElementById("we1").innerHTML = "accbb"
+            document.getElementById("we2").innerHTML = "bcac"
+            $('#divInfo').show()
+            break;
+        case "NotSuccession":
+            document.getElementById("groupConstraints").innerHTML = "Negative relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Not Succession:</b> a can never occur before b"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "bbcaa"
+            document.getElementById("re2").innerHTML = "cbbca"
+            document.getElementById("we1").innerHTML = "aacbb"
+            document.getElementById("we2").innerHTML = "abb"
+            $('#divInfo').show()
+            break;                                                 
+        default:
+            document.getElementById("groupConstraints").innerHTML = "Negative relation constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Not Chain Succession:</b> a and b occur if and only if the latter does not immediately follows the former"
+            document.getElementById("examples").innerHTML = "<b>Example:</b>"
+            document.getElementById("re1").innerHTML = "acbacb"
+            document.getElementById("re2").innerHTML = "bbaa"
+            document.getElementById("we1").innerHTML = "abcab"
+            document.getElementById("we2").innerHTML = "cabc" 
+            $('#divInfo').show()
+    }
+
+}
+
 function close_error_adding_rule(){
     document.getElementById("error_adding_rule").style.display = 'none';
 }
@@ -407,6 +593,10 @@ function close_success_download(){
 function close_diSegBtn(){
     document.getElementById("divSeg").style.display = 'none';
     $('#divSeg').empty();
+}
+
+function close_infoBtn(){
+    document.getElementById("divInfo").style.display = 'none';
 }
  
 

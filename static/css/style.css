@@ -160,6 +160,17 @@ body {
     left: 400px;
 }
 
+.showInfo{
+    width: 20%;
+    height: 30%;
+    border:2px solid rgb(149, 172, 247);
+    background-color:rgb(180, 210, 241);
+    position: absolute;
+    z-index: 10;
+    top: 50px;
+    right: 40px;
+}
+
 .hideAll:hover{
     background: rgb(3, 160, 165);
     opacity: 0.8;
@@ -177,6 +188,12 @@ ul.no-bullets {
     margin-right: 1.5px;
 }
 
+#infoBtn{
+    float: right;
+    margin-top: 0.5px;
+    margin-right: 1.5px;
+}
+
 .alert{
     position: absolute;
     z-index: 3;
@@ -189,4 +206,31 @@ ul.no-bullets {
 }
 .col-seg{
     width: 80%;
+}
+
+#groupConstraints{
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+#nameConstraint{
+    font-style: oblique;
+    font-size: 14px;
+    margin-left: 8px;
+    margin-top: 15px;
+
+}
+
+#examples{
+    margin-top: 10px;
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+#explanation{
+    font-style: normal;
+    margin-left: 5px;
+    font-size: 14px;
 }
