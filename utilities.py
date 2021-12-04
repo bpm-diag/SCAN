@@ -3,6 +3,7 @@ from pm4py.objects.log.exporter.xes import exporter as xes_exporter
 from flask import Flask, flash
 import tkinter
 from tkinter import filedialog
+import datetime
 
 def clear():
     clearFile('segments.txt')
@@ -115,6 +116,11 @@ def replaceInFile(file):
     fin = open(file, "wt")
     fin.write(data)
     fin.close() 
+    
+def takeTimestamp():
+    ct = datetime.datetime.now() # ct stores current time
+    ts = ct.timestamp()  # ts store timestamp of current time
+    return str(ts)    
     
 
                   

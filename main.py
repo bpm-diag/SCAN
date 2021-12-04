@@ -6,10 +6,12 @@ from flask import Flask, flash, request, redirect, render_template, url_for, sen
 from werkzeug.utils import secure_filename
 import pm4py
 from collections import Counter
+import glob
 
 
 ALLOWED_EXTENSIONS = {'xes'}
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/uploads/'
+TIMESTAMP_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/timestamp/'
 
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -60,7 +62,11 @@ def upload_file():
                     f.write(str(line))
                     f.write('\n')
                     replaceInFile("segments.txt")
-            f.close()        
+            f.close()   
+            timestamp = takeTimestamp()
+            with open(os.path.join(TIMESTAMP_FOLDER, 'log_' + timestamp + '.txt'), 'w+') as file:
+                file.write("UPLOAD: " + timestamp + "\n")
+            file.close()
             flash("Successfully loaded", "success")            
             return render_template("index.html", activity=listActivity, nameFile=filename)
         else:
@@ -77,6 +83,12 @@ def load_segments():
 @app.route('/download_file')      
 def download():
     downloadFile()
+    list_of_files = glob.glob(TIMESTAMP_FOLDER + '/*') 
+    latest_file = max(list_of_files, key=os.path.getctime)
+    with open(latest_file, 'a') as file:
+        timestamp = takeTimestamp()
+        file.write("EXPORT: " + timestamp + "\n")
+    file.close()
     return render_template('index.html');   
         
 @app.route('/start_activity', methods=['POST'])
@@ -182,7 +194,33 @@ def not_chain_succession():
 @app.route('/del_rule', methods=['POST'])
 def delete_rule():
     result, removeSegment = del_rule()
-    return jsonify({"result": result, "remove": removeSegment})  
+    return jsonify({"result": result, "remove": removeSegment}) 
+
+@app.route('/write_apply', methods=['POST'])
+def write_apply():
+    fun = request.form["fun"]
+    act1 = request.form["act1"]
+    act2 = request.form["act2"]
+    list_of_files = glob.glob(TIMESTAMP_FOLDER + '/*') 
+    latest_file = max(list_of_files, key=os.path.getctime)
+    with open(latest_file, 'a') as file:
+        timestamp = takeTimestamp()
+        file.write("APPLY: " + timestamp + "," + fun + "," + act1 + "," + act2 + "\n")
+    file.close()
+    return render_template('index.html');
+
+@app.route('/write_delete', methods=['POST'])
+def write_delete():
+    fun = request.form["fun"]
+    act1 = request.form["act1"]
+    act2 = request.form["act2"]
+    list_of_files = glob.glob(TIMESTAMP_FOLDER + '/*') 
+    latest_file = max(list_of_files, key=os.path.getctime)
+    with open(latest_file, 'a') as file:
+        timestamp = takeTimestamp()
+        file.write("DELETE: " + timestamp + "," + fun + "," + act1 + "," + act2 + "\n")
+    file.close()
+    return render_template('index.html');
 
 
 def main():

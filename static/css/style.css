@@ -169,6 +169,8 @@ body {
     z-index: 10;
     top: 50px;
     right: 40px;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .hideAll:hover{
@@ -202,10 +204,10 @@ ul.no-bullets {
 
 .col-occ { 
     width: 20%; 
-    justify-content: center;
 }
+
 .col-seg{
-    width: 80%;
+    width: fit-content;
 }
 
 #groupConstraints{
