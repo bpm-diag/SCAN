@@ -173,11 +173,6 @@ body {
     overflow-x: auto;
 }
 
-.hideAll:hover{
-    background: rgb(3, 160, 165);
-    opacity: 0.8;
-}
-
 ul.no-bullets {
     list-style-type: none; 
     padding: 0;
@@ -202,12 +197,18 @@ ul.no-bullets {
     justify-content:center;
 }
 
+
+.table-hover tbody tr:hover td{
+    background-color: rgb(3, 160, 165);
+    opacity: 0.8;
+}
+
 .col-occ { 
-    width: 20%; 
+    width: 12%; 
 }
 
 .col-seg{
-    width: fit-content;
+    width: auto;
 }
 
 #groupConstraints{

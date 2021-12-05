@@ -245,20 +245,20 @@ function showResponse(response){
     for(var i=0; i < result.length; i++){
         var res = $('<tr class="all"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(1) + '<td></tr>');   
         res.id = 'result'+i;
-        $('#table-seg').append(res); 
+        $('#table-seg-body').append(res); 
         var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+i+'"><td>'+ result[i][0] + '</td><td>' + "segment_" + i + '</td></tr>');  
         hideRes.id = 'hideResult'+i; 
-        $('#table-seg').append(hideRes);  
+        $('#table-seg-body').append(hideRes);  
         showSeg(result[i], hideRes.id)
     }
     createFirstRowTable("table-del-seg");
     for(var i=0; i < remove.length; i++){
         var rem = $('<tr class="all"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(1) + '<td></tr>');   
         rem.id = 'remove'+i;
-        $('#table-del-seg').append(rem); 
+        $('#table-del-seg-body').append(rem); 
         var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+i+'"><td>'+ remove[i][0] + '</td><td>' + "segment_" + lenRes + '</td></tr>');    
         hideRem.id = 'hideRemove'+i;
-        $('#table-del-seg').append(hideRem);
+        $('#table-del-seg-body').append(hideRem);
         lenRes++; 
         showSeg(remove[i], hideRem.id) 
     }
@@ -273,6 +273,7 @@ function showResponse(response){
 }
 
 function createFirstRowTable(tableId){
+    $("#"+tableId+"-body").empty()
     $("#"+tableId).empty()
     var row = $('<tr><th class="col-occ">Occurrence</th><th class="col-seg">Segment<th></tr>');   
     $('#'+tableId).append(row);
