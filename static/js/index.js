@@ -38,18 +38,16 @@ function takeFunction(){
 //check if the rule is valid and create the array of rules
 var array_rule = []
 function checkActivities(act1, act2, fun){
-    var error = document.getElementById("error_adding_rule");
+    var adding = document.getElementById("error_adding_rule");
     var duplicate = document.getElementById("error_duplicate_rule");
     var opposite = document.getElementById("error_opposite_rule");
     if(act1 == act2){
-        error.style.display = 'block';
+        adding.style.display = 'block';
         timeout("#error_adding_rule")
     }
     else{
-        error.style.display = 'none';
         if(act2 != null) rule = fun + "-" + act1 + "-" + act2
         else rule = fun + "-" + act1;
-
         if(array_rule.includes(rule) == false){
             if(fun == "Existence" && array_rule.includes("Absence-"+act1) || 
                 fun  == "Absence" && array_rule.includes("Existence-"+act1)){
@@ -58,8 +56,7 @@ function checkActivities(act1, act2, fun){
             }        
             else{
                 array_rule.push(rule)
-                goToFunction(fun, act1, act2, 0)
-                opposite.style.display = 'none';
+                goToFunction(fun, act1, act2, 0, true)
                 $.ajax({
                     type : "POST",
                     url : "/write_apply",
@@ -76,86 +73,106 @@ function checkActivities(act1, act2, fun){
 }
 
 //call to server by the rule required
-function goToFunction(fun, act1, act2, value){
+function goToFunction(fun, act1, act2, value, bool){
     switch(fun) {
         case "StartActivity":
-            applyFunction(act1, null, '/start_activity');
+            if(bool == true) applyFunction(act1, null, '/start_activity');
+            else applyDelFunction(act1, null, '/start_activity')
             if(value == 0) showRule(act1, null, fun)
             break;
         case "EndActivity":
-            applyFunction(act1, null, '/end_activity');
+            if(bool == true) applyFunction(act1, null, '/end_activity');
+            else applyDelFunction(act1, null, '/end_activity');
             if(value == 0) showRule(act1, null, fun)
             break;
         case "Existence":
-            applyFunction(act1, null, '/existence');
+            if(bool == true) applyFunction(act1, null, '/existence');
+            else applyDelFunction(act1, null, '/existence');
             if(value == 0) showRule(act1, null, fun)
             break;
         case "Absence":
-            applyFunction(act1, null, '/absence');
+            if(bool == true) applyFunction(act1, null, '/absence');
+            else applyDelFunction(act1, null, '/absence');
             if(value == 0) showRule(act1, null, fun)
             break;    
         case "Choice":
-            applyFunction(act1, act2, '/choice');
+            if(bool == true) applyFunction(act1, act2, '/choice');
+            else applyDelFunction(act1, act2, '/choice');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "ExclusiveChoice":
-            applyFunction(act1, act2, '/exclusive_choice');
+            if(bool == true) applyFunction(act1, act2, '/exclusive_choice');
+            else applyDelFunction(act1, act2, '/exclusive_choice');
             if(value == 0) showRule(act1, act2, fun);
             break; 
         case "RespondedExistence":
-            applyFunction(act1, act2, '/responded_existence');
+            if(bool == true) applyFunction(act1, act2, '/responded_existence');
+            else applyDelFunction(act1, act2, '/responded_existence');
             if(value == 0) showRule(act1, act2, fun);
             break;  
         case "Response":
-            applyFunction(act1, act2, '/response');
+            if(bool == true) applyFunction(act1, act2, '/response');
+            else applyDelFunction(act1, act2, '/response');
             if(value == 0) showRule(act1, act2, fun);
             break; 
         case "AlternateResponse":
-            applyFunction(act1, act2, '/alternate_response');
+            if(bool == true) applyFunction(act1, act2, '/alternate_response');
+            else applyDelFunction(act1, act2, '/alternate_response');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "ChainResponse":
-            applyFunction(act1, act2, '/chain_response');
+            if(bool == true) applyFunction(act1, act2, '/chain_response');
+            else applyDelFunction(act1, act2, '/chain_response');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "Precedence":
-            applyFunction(act1, act2, '/precedence');
+            if(bool == true) applyFunction(act1, act2, '/precedence');
+            else applyDelFunction(act1, act2, '/precedence');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "AlternatePrecedence":
-            applyFunction(act1, act2, '/alternate_precedence');
+            if(bool == true) applyFunction(act1, act2, '/alternate_precedence');
+            else applyDelFunction(act1, act2, '/alternate_precedence');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "ChainPrecedence":
-            applyFunction(act1, act2, '/chain_precedence');
+            if(bool == true) applyFunction(act1, act2, '/chain_precedence');
+            else applyDelFunction(act1, act2, '/chain_precedence');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "CoExistence":
-            applyFunction(act1, act2, '/co_existence');
+            if(bool == true) applyFunction(act1, act2, '/co_existence');
+            else applyDelFunction(act1, act2, '/co_existence');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "Succession":
-            applyFunction(act1, act2, '/succession');
+            if(bool == true) applyFunction(act1, act2, '/succession');
+            else applyDelFunction(act1, act2, '/succession');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "AlternateSuccession":
-            applyFunction(act1, act2, '/alternate_succession');
+            if(bool == true) applyFunction(act1, act2, '/alternate_succession');
+            else applyDelFunction(act1, act2, '/alternate_succession');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "ChainSuccession":
-            applyFunction(act1, act2, '/chain_succession');
+            if(bool == true) applyFunction(act1, act2, '/chain_succession');
+            else applyDelFunction(act1, act2, '/chain_succession');
             if(value == 0) showRule(act1, act2, fun);
             break;   
         case "NotCoExistence":
-            applyFunction(act1, act2, '/not_co_existence');
+            if(bool == true) applyFunction(act1, act2, '/not_co_existence');
+            else applyDelFunction(act1, act2, '/not_co_existence');
             if(value == 0) showRule(act1, act2, fun);
             break;
         case "NotSuccession":
-            applyFunction(act1, act2, '/not_succession');
+            if(bool == true) applyFunction(act1, act2, '/not_succession');
+            else applyDelFunction(act1, act2, '/not_succession');
             if(value == 0) showRule(act1, act2, fun);
             break;                                                 
         default:
-            applyFunction(act1, act2, '/not_chain_succession');
+            if(bool == true) applyFunction(act1, act2, '/not_chain_succession');
+            else applyDelFunction(act1, act2, '/not_chain_succession');
             if(value == 0) showRule(act1, act2, fun); 
     }
 }
@@ -173,6 +190,16 @@ function applyFunction(act1, act2, url){
     });
 }
 
+function applyDelFunction(act1, act2, url){
+    $(document).ready(function(){
+        $.ajax({
+            type : "POST",
+            url : url,
+            data: {act1: act1, act2: act2}
+        });     
+    });
+}
+
 //show list of rules applied
 var list_checkbox = []
 function showRule(act1, act2, rule){
@@ -181,7 +208,9 @@ function showRule(act1, act2, rule){
     label.className = "label"
     var checkbox = document.createElement("input");
 
-    checkbox.type = "checkbox"; 
+    checkbox.type = "radio";
+    checkbox.name = "radio-btn"; 
+    checkbox.className = "radio";
     if(act2 != null){
         var description = document.createTextNode(" " + rule + "(" + act1 + "," + act2 + ")");
         checkbox.id = String(rule + "-" + act1 + "-" + act2);
@@ -251,55 +280,75 @@ function createFirstRowTable(tableId){
 
 //when click delete button 
 function deleteBtn(){
-    for(var i = 0; i < list_checkbox.length; i++){
-        if(document.getElementById(list_checkbox[i]).checked){
-            var li = document.getElementById("li" + list_checkbox[i])
-            var label = document.getElementById("label" + list_checkbox[i])
-            var value = String(label.value)
-            $(".label").each(function () {
-                var $this = $(this);
-                if ($this.is(":empty")) {
-                    var $nextItem = $this.nextAll().not(':empty').first();
-                    if($nextItem.length){
-                        $this.html($nextItem.html());
-                        $nextItem.empty();
+    error_no_rule = document.getElementById("error_no_rule");
+    error_no_check_rule = document.getElementById("error_no_check_rule");
+    var selectedCount = 0;
+    $('.radio').each(function(){
+        if ($(this).is(":checked")){
+            selectedCount++;
+        }
+    })
+    if(selectedCount == 0){
+        error_no_check_rule.style.display = "block"
+        timeout("#error_no_check_rule")
+    }
+    if(list_checkbox.length == 0){
+        error_no_rule.style.display = "block"
+        timeout("#error_no_rule")
+    }
+    else{
+        for(var i = 0; i < list_checkbox.length; i++){
+            if(document.getElementById(list_checkbox[i]).checked){
+                var li = document.getElementById("li" + list_checkbox[i])
+                var label = document.getElementById("label" + list_checkbox[i])
+                var value = String(label.value)
+                $(".label").each(function () {
+                    var $this = $(this);
+                    if ($this.is(":empty")) {
+                        var $nextItem = $this.nextAll().not(':empty').first();
+                        if($nextItem.length){
+                            $this.html($nextItem.html());
+                            $nextItem.empty();
+                        }
                     }
-                }
-            });
-            li.parentNode.removeChild(li)
-            console.log("arr", array_rule)
-            console.log("li", list_checkbox[i])
-            array_rule = array_rule.filter(function(f) { return f !== list_checkbox[i] })
-            list_checkbox = list_checkbox.filter(function(f) { return f !== list_checkbox[i] })
-            var arr = value.split("-")
+                });
+                li.parentNode.removeChild(li)
+                console.log("arr", array_rule)
+                console.log("li", list_checkbox[i])
+                array_rule = array_rule.filter(function(f) { return f !== list_checkbox[i] })
+                list_checkbox = list_checkbox.filter(function(f) { return f !== list_checkbox[i] })
+                var arr = value.split("-")
+                var fun = arr[0]
+                var act1 = arr[1]
+                var act2 = null
+                if(arr.length > 2) act2 = arr[2]
+                if(array_rule.length > 1) recomputeSegments(act1, act2, 1)
+                else recomputeSegments(act1, act1, 0)
+                $.ajax({
+                    type : "POST",
+                    url : "/write_delete",
+                    data: {fun: fun, act1: act1, act2: act2},
+                });    
+            }
+        }
+        for(var r = 0; r < array_rule.length; r++){
+            rule = array_rule[r]
+            var arr = rule.split("-")
             var fun = arr[0]
             var act1 = arr[1]
             var act2 = null
-            if(arr.length > 2){
-                act2 = arr[2]
-            }
-            recomputeSegments(fun, act1, act2)
-            $.ajax({
-                type : "POST",
-                url : "/write_delete",
-                data: {fun: fun, act1: act1, act2: act2},
-            });    
+            if(arr.length > 2) act2 = arr[2]
+            if(r+1 == array_rule.length) goToFunction(fun, act1, act2, 1, true)
+            goToFunction(fun, act1, act2, 1, false)
         }
-    }
-    for(var r = 0; r < array_rule.length; r++){
-        rule = array_rule[r]
-        var arr = rule.split("-")
-        var fun = arr[0]
-        var act1 = arr[1]
-        var act2 = null
-        if(arr.length > 2) act2 = arr[2]
-        goToFunction(fun, act1, act2, 1)
-    }
+    }    
 }
 
+
 //when delete some rule
-function recomputeSegments(fun, act1, act2){
-    applyFunction(act1, act2, '/del_rule');
+function recomputeSegments(act1, act2, value){
+    if(value == 0) applyFunction(act1, act2, '/del_rule');
+    else applyDelFunction(act1, act2, '/del_rule')
 }    
 
 function deselectAct2(activity2){
@@ -322,7 +371,9 @@ function clearDiv(){
     array_rule = []
     $.ajax({
         url: "/clear"
-    });    
+    }); 
+    document.getElementById("info_clear").style.display = "block"
+    timeout("#info_clear")   
 }
 
 function exportFile(){
@@ -491,7 +542,6 @@ function showInfo(){
             $('#divInfo').show()
             break;
         case "ChainResponse":
-            applyFunction(act1, act2, '/chain_response');
             document.getElementById("groupConstraints").innerHTML = "Relation constraints"
             document.getElementById("nameConstraint").innerHTML = "<b>Chain Response:</b> each time a occurs, then b occurs immediately afterwards"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
@@ -604,38 +654,31 @@ function showInfo(){
 
 }
 
-function close_error_adding_rule(){
-    document.getElementById("error_adding_rule").style.display = 'none';
-}
+function close_error_adding_rule(){ document.getElementById("error_adding_rule").style.display = 'none'; }
 
-function close_error_duplicate_rule(){
-    document.getElementById("error_duplicate_rule").style.display = 'none';
-}
+function close_error_duplicate_rule(){ document.getElementById("error_duplicate_rule").style.display = 'none'; }
 
-function close_error_opposite_rule(){
-    document.getElementById("error_opposite_rule").style.display = 'none';
-}
+function close_error_opposite_rule(){ document.getElementById("error_opposite_rule").style.display = 'none'; }
 
-function close_flash(){
-    document.getElementById("error_flash").style.display = 'none';
-}
+function close_flash(){ document.getElementById("error_flash").style.display = 'none'; }
 
-if(document.getElementById("error_flash").style.display != 'none'){
-    timeout("#error_flash")
-}
+if(document.getElementById("error_flash").style.display != 'none'){ timeout("#error_flash"); }
 
-function close_success_download(){
-    document.getElementById("success_download").style.display = 'none';
-}
+function close_success_download(){ document.getElementById("success_download").style.display = 'none'; }
+
+function close_infoBtn(){ document.getElementById("divInfo").style.display = 'none'; }
+
+function close_error_no_rule(){ document.getElementById("error_no_rule").style.display = 'none'; }
+
+function close_error_no_check_rule(){ document.getElementById("error_no_check_rule").style.display = 'none'; }
+
+function close_info_clear(){ document.getElementById("info_clear").style.display = 'none'; }
 
 function close_diSegBtn(){
     document.getElementById("divSeg").style.display = 'none';
     $('#divSeg').empty();
 }
 
-function close_infoBtn(){
-    document.getElementById("divInfo").style.display = 'none';
-}
- 
+
 
   

@@ -23,6 +23,12 @@ def upload_form():
 @app.route('/clear')
 def clearDiv():
     clear()
+    list_of_files = glob.glob(TIMESTAMP_FOLDER + '/*') 
+    latest_file = max(list_of_files, key=os.path.getctime)
+    with open(latest_file, 'a') as file:
+        timestamp = takeTimestamp()
+        file.write("CLEAR: " + timestamp + "\n")
+    file.close()
     return render_template('index.html');
 
 @app.route('/', methods=['POST'])
