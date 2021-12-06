@@ -50,6 +50,10 @@
                             <div class="alert alert-info alert-dismissible fade show" id="info_clear" style="display:none" role="alert">
                                 <strong>Info!</strong> Select a new file to analyze.
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_info_clear();"></button>
+                            </div>
+                            <div class="alert alert-info alert-dismissible fade show" id="download_info" style="display:none" role="alert">
+                                <strong>Info!</strong> Downloading file...
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_download_info();"></button>
                             </div> 
                             {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
@@ -74,6 +78,7 @@
                     </div>
                 </div>
                 <div id="divSeg" class="showDiv" style="display:none"></div>
+                    
                 <div id="deleted-segment-container">
                     <div class="title" style="margin-top:1%">Not accepted segments' list</div>
                     <div id="scroll-del-seg" class="DivtextDel">

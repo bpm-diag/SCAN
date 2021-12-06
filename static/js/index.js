@@ -224,7 +224,6 @@ function showRule(act1, act2, rule){
         checkbox.id = String(rule + "-" + act1); 
         label.id = "label" + rule + "-" + act1;
         label.value = String(rule + "-" + act1);
-        console.log(label.value)
         li.id = "li" + rule + "-" + act1
         list_checkbox.push(checkbox.id) 
     } 
@@ -314,8 +313,6 @@ function deleteBtn(){
                     }
                 });
                 li.parentNode.removeChild(li)
-                console.log("arr", array_rule)
-                console.log("li", list_checkbox[i])
                 array_rule = array_rule.filter(function(f) { return f !== list_checkbox[i] })
                 list_checkbox = list_checkbox.filter(function(f) { return f !== list_checkbox[i] })
                 var arr = value.split("-")
@@ -381,6 +378,8 @@ function exportFile(){
     $.ajax({
         url: "/download_file"
     }); 
+    document.getElementById("download_info").style.display = "block"
+    timeout("#download_info") 
 }
 
 //hide/show segments and button
@@ -665,8 +664,6 @@ function close_flash(){ document.getElementById("error_flash").style.display = '
 
 if(document.getElementById("error_flash").style.display != 'none'){ timeout("#error_flash"); }
 
-function close_success_download(){ document.getElementById("success_download").style.display = 'none'; }
-
 function close_infoBtn(){ document.getElementById("divInfo").style.display = 'none'; }
 
 function close_error_no_rule(){ document.getElementById("error_no_rule").style.display = 'none'; }
@@ -674,6 +671,8 @@ function close_error_no_rule(){ document.getElementById("error_no_rule").style.d
 function close_error_no_check_rule(){ document.getElementById("error_no_check_rule").style.display = 'none'; }
 
 function close_info_clear(){ document.getElementById("info_clear").style.display = 'none'; }
+
+function close_download_info(){ document.getElementById("download_info").style.display = 'none'; }
 
 function close_diSegBtn(){
     document.getElementById("divSeg").style.display = 'none';

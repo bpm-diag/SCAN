@@ -51,20 +51,22 @@ def downloadFile():
     #parent.withdraw() # Hide the window as we do not want to see this one
     directory_to_start_from = 'C:/Users/User/Downloads/'
     path = filedialog.askdirectory(initialdir=directory_to_start_from, title='Please select a folder:', parent=parent)
-    xes_exporter.apply(log, path + "/log.xes")
-    flash("Download file with success", "success")
+    timestamp = takeTimestamp()
+    xes_exporter.apply(log, path + "/log_export_"+timestamp+".xes")
 
 def takeSegmentFromFile():  
     segments = []  
     with open('segments.txt', 'r') as f:
         for line in f:
             line = line.strip("[()]")
-            line = line.replace("(", "")
+            line = line.replace("('", "")
             line = line.replace(")]", "")
+            line = line.replace("' ", "'")
             seg = line.split(",")
             s = []
             for word in seg:
                 word = word.replace(" '", "'")
+                word = word.replace("' ", "'")
                 word = word.rstrip("\n")
                 word = word.strip("']/")
                 s.append(word)
@@ -77,12 +79,14 @@ def takeRemoveSegmentFromFile():
     with open('removeSegments.txt', 'r') as f:
         for line in f:
             line = line.strip("[()]")
-            line = line.replace("(", "")
+            line = line.replace("('", "")
             line = line.replace(")]", "")
+            line = line.replace("' ", "'")
             seg = line.split(",")
             s = []
             for word in seg:
                 word = word.replace(" '", "'")
+                word = word.replace("' ", "'")
                 word = word.rstrip("\n")
                 word = word.strip("']/")
                 s.append(word)
@@ -96,7 +100,7 @@ def writeOnSegmentFile(result):
             f.write(str(line))
             f.write("\n")
     f.close()
-    #replaceInFile("segments.txt")
+    replaceInFile("segments.txt")
         
 def writeOnRemoveSegmentFile(removeSegment):
     with open('removeSegments.txt', 'w') as f:
@@ -104,14 +108,17 @@ def writeOnRemoveSegmentFile(removeSegment):
             f.write(str(line))
             f.write("\n")
     f.close() 
-    #replaceInFile("removeSegments.txt")
+    replaceInFile("removeSegments.txt")
      
         
 def replaceInFile(file):
     fin = open(file, "rt")
     data = fin.read()
-    data = data.replace(", '(',", " (")
-    data = data.replace(", ')'", ")")
+    data = data.replace(", '(',", "")
+    data = data.replace(", ')'", "")
+    data = data.replace("' ", "'")
+    data = data.replace(" ('", " '")
+    data = data.replace("')", "'")
     fin.close()
     fin = open(file, "wt")
     fin.write(data)

@@ -67,8 +67,8 @@ def upload_file():
                 for line in actWithOccurence:
                     f.write(str(line))
                     f.write('\n')
-                    replaceInFile("segments.txt")
-            f.close()   
+            f.close()
+            replaceInFile("segments.txt")    
             timestamp = takeTimestamp()
             with open(os.path.join(TIMESTAMP_FOLDER, 'log_' + timestamp + '.txt'), 'w+') as file:
                 file.write("UPLOAD: " + timestamp + "\n")
@@ -80,7 +80,7 @@ def upload_file():
             return redirect(request.url)	
       
 @app.route('/load_segments', methods=['POST'])
-def load_segments():
+def load_segments():      
     result = takeSegmentFromFile()
     removeSegment = takeRemoveSegmentFromFile()
     return jsonify({"result": result, "remove": removeSegment}) 

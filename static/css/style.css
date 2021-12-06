@@ -37,8 +37,8 @@ body {
     width: 99%;
     height: 234px;
     margin-left: 1%;
-    overflow-y: scroll;
-    overflow-x: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
     white-space: nowrap;
     color:rgb(228, 228, 228);
 }
@@ -61,8 +61,8 @@ body {
     width: 99%;
     height: 234px;
     margin-left: 1%;
-    overflow-y: scroll;
-    overflow-x: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
     white-space: nowrap;
     color:rgb(228, 228, 228);
 }
@@ -134,8 +134,8 @@ body {
 
 #ruleId{
     height: 290px;
-    overflow-y: scroll;
-    overflow-x: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
     white-space: nowrap;
 }
 
@@ -148,8 +148,8 @@ body {
 }
 
 .showDiv{
-    width: 20%;
-    height: 50%;
+    width: 250px;
+    height: 350px;
     border:2px solid black;
     border-right-style: outset; 
     background-color:rgb(225, 236, 248);
@@ -158,6 +158,8 @@ body {
     z-index: 3;
     top: 250px;
     left: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .showInfo{
@@ -169,8 +171,6 @@ body {
     z-index: 10;
     top: 50px;
     right: 40px;
-    overflow-y: auto;
-    overflow-x: auto;
 }
 
 ul.no-bullets {
