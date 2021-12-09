@@ -22,21 +22,28 @@
                 <div id="buttons-container">
                     <div class="row">
                         <div class="col-md-6">
-                            <form method="post" action="/" enctype="multipart/form-data">
+                            <form method="post" enctype="multipart/form-data">
                                 <div class="input-group">
+                                    <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
+                                    <button type="submit" class="btn btn-success" onclick="loadSegments();" id="uploadBtn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                        </svg>&nbsp;  UPLOAD</button>
+                                    <!--
                                     <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
                                     <input type="submit" value="Submit">
                                     <button type="button" class="btn btn-success" onclick="loadSegments();">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
                                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
                                             <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                                        </svg>&nbsp;  UPLOAD</button>
+                                        </svg>&nbsp;  UPLOAD</button> -->
                                 </div> 
                             </form>
                             <div id="b-container">
-                                <button type="button" class="btn btn-primary" onclick="hideShow();" id="hideShowBtn" value="Hide">HIDE</button>
-                                <button type="button" class="btn btn-secondary" onclick="clearDiv();">CLEAR</button>
-                                <button type="button" class="btn btn-success" onclick="exportFile();" id="exportBtn" download>
+                                <button type="button" class="btn btn-primary" onclick="hideShow();" id="hideShowBtn" value="Hide" >HIDE</button>
+                                <button type="button" class="btn btn-secondary" onclick="clearDiv();" disabled>CLEAR</button>
+                                <button type="button" class="btn btn-success" onclick="exportFile();" id="exportBtn" download >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
                                         <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -72,8 +79,21 @@
                     <div class="title" style="margin-top:1%">Segments' list</div> 
                     <div id="scroll-seg" class="Divtext">
                         <table class="table table-hover table-dark table" >
-                            <thead id="table-seg"></thead>
-                            <tbody id="table-seg-body"></tbody>
+                            <thead id="table-seg">
+                                <tr><th class="col-occ">Occurrence</th><th class="col-seg">Segment</th></tr>
+                            </thead>
+                            <tbody id="table-seg-body">
+                                {% for item in segments %}
+                                    <tr><td>{{item[0]}}</td>
+                                        <td>{% for elem in item[1:] %}
+                                                {%if not loop.last %} {{elem}} &#44; 
+                                                {%else%} {{elem}}
+                                                {%endif%}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -83,7 +103,9 @@
                     <div class="title" style="margin-top:1%">Not accepted segments' list</div>
                     <div id="scroll-del-seg" class="DivtextDel">
                         <table class="table table-hover table-dark">
-                            <thead id="table-del-seg"></thead>
+                            <thead id="table-del-seg">
+                                <tr><th class="col-occ">Occurrence</th><th class="col-seg">Segment</th></tr>
+                            </thead>
                             <tbody id="table-del-seg-body"></tbody>
                         </table>
                     </div>
@@ -134,8 +156,8 @@
                             </svg>
                         </div>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="selectFun" onclick="selectFunction();">                          
-                            <option value="StartActivity">Start Activity(a)</option>
-                            <option value="EndActivity">End Activity(a)</option>
+                            <option value="Start">Start(a)</option>
+                            <option value="End">End(a)</option>
                             <option value="Existence">Existence(a)</option>
                             <option value="Absence">Absence(a)</option>
                             <option value="Choice">Choice(a,b)</option>
@@ -166,7 +188,7 @@
                     </div>
                     <div id="third-combobox" class="combobox">
                         <div class="sub-title">Select activity 2</div>
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="act2">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="act2" disabled>
                             {% for act in activity %}
                                 <option>{{ act }}</option>   
                             {% endfor %}

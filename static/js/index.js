@@ -1,20 +1,17 @@
 //load segments from file the first time
 function loadSegments(){
-    $(document).ready(function(){
-        $.ajax({
-            type : "POST",
-            url : "/load_segments",
-            success: function(response) {
-                showResponse(response);}
-        });     
-    });
+    $.ajax({
+        type : "POST",
+        url : '/'
+    })  
 }
+
 
 //select the rule to apply and show the right number of combobox
 function selectFunction(){
     var fun = document.getElementById("selectFun").value;
     var activity2 = document.getElementById("act2");
-    if(fun == "Existence" || fun == "Absence" || fun == "StartActivity" || fun == "EndActivity") deselectAct2(activity2);
+    if(fun == "Existence" || fun == "Absence" || fun == "Start" || fun == "End") deselectAct2(activity2);
     else activeAct2(activity2);
 }
 
@@ -24,7 +21,7 @@ function takeFunction(){
     var act1 = document.getElementById("act1").value;
     var activity2 = document.getElementById("act2");
     var act2 = activity2.value;
-    if(fun == "Existence" || fun == "Absence" || fun == "StartActivity" || fun == "EndActivity"){
+    if(fun == "Existence" || fun == "Absence" || fun == "Start" || fun == "End"){
         deselectAct2(activity2);
         checkActivities(act1, null, fun)
     } 
@@ -76,12 +73,12 @@ function checkActivities(act1, act2, fun){
 function goToFunction(fun, act1, act2, value, bool){
     console.log(fun)
     switch(fun) {
-        case "StartActivity":
+        case "Start":
             if(bool == true) applyFunction(act1, null, '/start_activity');
             else applyDelFunction(act1, null, '/start_activity')
             if(value == 0) showRule(act1, null, fun)
             break;
-        case "EndActivity":
+        case "End":
             if(bool == true) applyFunction(act1, null, '/end_activity');
             else applyDelFunction(act1, null, '/end_activity');
             if(value == 0) showRule(act1, null, fun)
@@ -487,9 +484,9 @@ function timeout(id){
 function showInfo(){
     var fun = document.getElementById("selectFun").value;
     switch(fun) {
-        case "StartActivity":
-            document.getElementById("groupConstraints").innerHTML = "Start/End activity constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Start Activity:</b> filter by start activity a"
+        case "Start":
+            document.getElementById("groupConstraints").innerHTML = "Start/End constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>Start:</b> filter by start activity a"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "acac"
             document.getElementById("re2").innerHTML = "acbbc"
@@ -497,9 +494,9 @@ function showInfo(){
             document.getElementById("we2").innerHTML = "c"
             $('#divInfo').show()
             break;
-        case "EndActivity":
-            document.getElementById("groupConstraints").innerHTML = "Start/End activity constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>End Activity:</b> filter by end activity a"
+        case "End":
+            document.getElementById("groupConstraints").innerHTML = "Start/End constraints"
+            document.getElementById("nameConstraint").innerHTML = "<b>End:</b> filter by end activity a"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "bcca"
             document.getElementById("re2").innerHTML = "cca"

@@ -80,17 +80,20 @@ def upload_file():
             with open(os.path.join(TIMESTAMP_FOLDER, 'log_' + timestamp + '.txt'), 'w+') as file:
                 file.write("UPLOAD: " + timestamp + "\n")
             file.close()
-            flash("Successfully loaded", "success")            
-            return render_template("index.html", activity=listActivity, nameFile=filename)
+            flash("Successfully loaded", "success")       
+            result = takeSegmentFromFile()
+            return render_template("index.html", activity=listActivity, nameFile=filename, segments=result )
         else:
             flash("Extension not allowed", "danger")
             return redirect(request.url)	
-      
+     
+'''      
 @app.route('/load_segments', methods=['POST'])
 def load_segments():      
     result = takeSegmentFromFile()
     removeSegment = takeRemoveSegmentFromFile()
     return jsonify({"result": result, "remove": removeSegment}) 
+    '''
 
 @app.route('/show_trace', methods=['POST'])
 def show_trace():      
