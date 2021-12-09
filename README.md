@@ -1,7 +1,7 @@
-# SECT - SEgments ComplianT
+# SEC - SEgments Compliance
 
  ## Description
-**SEgments ComplianT** is a tool that helps user to identify the correct segments.
+**SEgments Compliance** is a tool that helps user to identify the correct segments.
 Allows you to load the interested **.xes** file and browse it using *DECLARE* rules.  
 Eventually, when you are satisfied, you can download the final xes file.
 
@@ -38,7 +38,7 @@ Type in the url bar:
 
 **N.B.**: For a better experience it is suggest to use Firefox.
 
-Now you are ready to use *SECT*!
+Now you are ready to use *SEC*!
 
 ## How to use
 Select your **.xes** file from a folder of your choice via the *SFOGLIA* button, then continue with *SUBMIT* and finally 
@@ -54,10 +54,11 @@ Select the constraint and the activities to apply it to. If you do not remember 
 All the constraints applied are visible in the *LIST OF CONSTRAINT* section and you can delete one at a time using 
 the *TRASH* button.
 
-Each time you apply a new constraint, segments that do not respect it are moved to the *NOT ACCEPTED SEGMENTS' LIST* section.  
+Each time you apply a new constraint, segments that do not respect it are moved to the *NOT ACCEPTED 
+SEGMENTS' LIST* section.  
   
-If you are not satisfied with your work you can click on the *CLEAR* button and start again from the beginning by loading 
-a new file.  
+If you are not satisfied with your work you can click on the *CLEAR* button and start again from the beginning by 
+loading a new file.  
   
 Otherwise, when you are satisfied with the results achieved, you can download the **.xes** file, by using the *EXPORT* button, 
 and save it wherever you want.

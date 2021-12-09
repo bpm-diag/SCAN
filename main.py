@@ -68,7 +68,14 @@ def upload_file():
                     f.write(str(line))
                     f.write('\n')
             f.close()
-            replaceInFile("segments.txt")    
+            replaceInFile("segments.txt")
+            fileHandle = open("segments.txt", "r")
+            texts = fileHandle.readlines()
+            fileHandle.close()
+            fileHandle = open("trace.txt", "w")
+            for s in texts:
+                fileHandle.write(s)
+            fileHandle.close()
             timestamp = takeTimestamp()
             with open(os.path.join(TIMESTAMP_FOLDER, 'log_' + timestamp + '.txt'), 'w+') as file:
                 file.write("UPLOAD: " + timestamp + "\n")
@@ -83,6 +90,19 @@ def upload_file():
 def load_segments():      
     result = takeSegmentFromFile()
     removeSegment = takeRemoveSegmentFromFile()
+    return jsonify({"result": result, "remove": removeSegment}) 
+
+@app.route('/show_trace', methods=['POST'])
+def show_trace():      
+    result = takeSegmentFromTrace()
+    removeSegment = []
+    fileHandle = open("trace.txt", "r")
+    texts = fileHandle.readlines()
+    fileHandle.close()
+    fileHandle = open("segments.txt", "w")
+    for s in texts:
+        fileHandle.write(s)
+    fileHandle.close()
     return jsonify({"result": result, "remove": removeSegment}) 
     
           

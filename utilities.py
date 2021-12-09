@@ -54,6 +54,26 @@ def downloadFile():
     timestamp = takeTimestamp()
     xes_exporter.apply(log, path + "/log_export_"+timestamp+".xes")
 
+def takeSegmentFromTrace():  
+    segments = []  
+    with open('trace.txt', 'r') as f:
+        for line in f:
+            line = line.strip("[()]")
+            line = line.replace("('", "")
+            line = line.replace(")]", "")
+            line = line.replace("' ", "'")
+            seg = line.split(",")
+            s = []
+            for word in seg:
+                word = word.replace(" '", "'")
+                word = word.replace("' ", "'")
+                word = word.rstrip("\n")
+                word = word.strip("']/")
+                s.append(word)
+            segments.append(s)        
+    f.close()        
+    return segments
+
 def takeSegmentFromFile():  
     segments = []  
     with open('segments.txt', 'r') as f:

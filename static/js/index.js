@@ -74,6 +74,7 @@ function checkActivities(act1, act2, fun){
 
 //call to server by the rule required
 function goToFunction(fun, act1, act2, value, bool){
+    console.log(fun)
     switch(fun) {
         case "StartActivity":
             if(bool == true) applyFunction(act1, null, '/start_activity');
@@ -179,25 +180,24 @@ function goToFunction(fun, act1, act2, value, bool){
 
 //ajax function to server
 function applyFunction(act1, act2, url){
-    $(document).ready(function(){
-        $.ajax({
-            type : "POST",
-            url : url,
-            data: {act1: act1, act2: act2},
-            success: function(response) {
-                showResponse(response);}
-        });     
-    });
+    $.ajax({
+        type : "POST",
+        url : url,
+        async: false,
+        data: {act1: act1, act2: act2},
+        success: function(response) {
+            showResponse(response);}
+    });    
 }
 
 function applyDelFunction(act1, act2, url){
-    $(document).ready(function(){
-        $.ajax({
-            type : "POST",
-            url : url,
-            data: {act1: act1, act2: act2}
-        });     
-    });
+    $.ajax({
+        type : "POST",
+        url : url,
+        async: false,
+        data: {act1: act1, act2: act2}
+    });     
+
 }
 
 //show list of rules applied
@@ -312,42 +312,78 @@ function deleteBtn(){
                         }
                     }
                 });
-                li.parentNode.removeChild(li)
+                delete_rule = array_rule.filter(function(f) { return f == list_checkbox[i] }) 
                 array_rule = array_rule.filter(function(f) { return f !== list_checkbox[i] })
                 list_checkbox = list_checkbox.filter(function(f) { return f !== list_checkbox[i] })
-                var arr = value.split("-")
-                var fun = arr[0]
-                var act1 = arr[1]
-                var act2 = null
-                if(arr.length > 2) act2 = arr[2]
-                if(array_rule.length > 1) recomputeSegments(act1, act2, 1)
-                else recomputeSegments(act1, act1, 0)
-                $.ajax({
-                    type : "POST",
-                    url : "/write_delete",
-                    data: {fun: fun, act1: act1, act2: act2},
-                });    
+                li.parentNode.removeChild(li)
+                
+                var arr_del = delete_rule[0].split("-")
+                var fun_del = arr_del[0]
+                var act1_del = arr_del[1]
+                var act2_del = null
+                if(arr_del.length > 2) act2_del = arr_del[2]
+                recomputeSegments(fun_del, act1_del, act2_del, array_rule)
             }
-        }
-        for(var r = 0; r < array_rule.length; r++){
-            rule = array_rule[r]
-            var arr = rule.split("-")
-            var fun = arr[0]
-            var act1 = arr[1]
-            var act2 = null
-            if(arr.length > 2) act2 = arr[2]
-            if(r+1 == array_rule.length) goToFunction(fun, act1, act2, 1, true)
-            goToFunction(fun, act1, act2, 1, false)
         }
     }    
 }
 
 
 //when delete some rule
-function recomputeSegments(act1, act2, value){
-    if(value == 0) applyFunction(act1, act2, '/del_rule');
-    else applyDelFunction(act1, act2, '/del_rule')
+function recomputeSegments(fun_del, act1_del, act2_del, array_rule){
+    $.ajax({
+        type : "POST",
+        url : "/del_rule",
+        success: function(){
+            $.ajax({
+                type : "POST",
+                url : "/write_delete",
+                data: {fun: fun_del, act1: act1_del, act2: act2_del},
+                complete: reapplyFunctions(array_rule)
+                 
+            });
+        }    
+            
+    });
+    
 }    
+
+function reapplyFunctions(array_rule){
+    if(array_rule.length > 1){
+        for(var r = 0; r < array_rule.length; r++){
+            var arr = array_rule[r].split("-")
+            var fun = arr[0]
+            var act1 = arr[1]
+            var act2 = null
+            if(arr.length > 2) act2 = arr[2]
+            console.log(r, array_rule.length)
+            if(r+1 != array_rule.length) {
+                goToFunction(fun, act1, act2, 1, false)
+                console.log("diverso")
+            }
+            else goToFunction(fun, act1, act2, 1, true)  
+        }
+    }
+    else if(array_rule.length == 1){
+        var arr = array_rule[0].split("-")
+        var fun = arr[0]
+        var act1 = arr[1]
+        var act2 = null
+        if(arr.length > 2) act2 = arr[2]
+        goToFunction(fun, act1, act2, 1, true)
+    }
+    else showStartSituation()
+}
+
+function showStartSituation(){
+    $.ajax({
+        type : "POST",
+        url : "/show_trace",
+        success: function(response) {
+            showResponse(response);}
+    });  
+}
+
 
 function deselectAct2(activity2){
     activity2.disabled = true;

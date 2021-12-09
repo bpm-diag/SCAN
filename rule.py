@@ -633,13 +633,9 @@ def rule_not_chain_succession():
     return result, removeSegment
 
 def del_rule():
-    segments = takeSegmentFromFile()
-    removeSegment = takeRemoveSegmentFromFile()  
-    remove = [] 
-    for act in removeSegment:
-        if act and act not in segments:        
-            segments.append(act)
-    clear()        
+    clear() 
+    segments = takeSegmentFromTrace()
+    remove = []            
     writeOnSegmentFile(segments)   
     writeOnRemoveSegmentFile(remove) 
     return segments, remove
