@@ -23,27 +23,19 @@
                     <div class="row">
                         <div class="col-md-6">
                             <form method="post" enctype="multipart/form-data">
-                                <div class="input-group">
-                                    <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" id="formFile"  type="file" name="file" autocomplete="off" required>
                                     <button type="submit" class="btn btn-success" onclick="loadSegments();" id="uploadBtn">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
                                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
                                             <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
                                         </svg>&nbsp;  UPLOAD</button>
-                                    <!--
-                                    <input class="form-control" id="formFile" type="file" name="file" autocomplete="off" required>
-                                    <input type="submit" value="Submit">
-                                    <button type="button" class="btn btn-success" onclick="loadSegments();">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                                        </svg>&nbsp;  UPLOAD</button> -->
                                 </div> 
                             </form>
                             <div id="b-container">
-                                <button type="button" class="btn btn-primary" onclick="hideShow();" id="hideShowBtn" value="Hide" >HIDE</button>
-                                <button type="button" class="btn btn-secondary" onclick="clearDiv();" disabled>CLEAR</button>
-                                <button type="button" class="btn btn-success" onclick="exportFile();" id="exportBtn" download >
+                                <button type="button" class="btn btn-primary" onclick="hideShow();" id="hideShowBtn" value="Hide" disabled>HIDE</button>
+                                <button type="button" class="btn btn-secondary" onclick="clearDiv();" id="clearBtn" disabled>CLEAR</button>
+                                <button type="button" class="btn btn-success" onclick="exportFile();" id="exportBtn" download disabled>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
                                         <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -193,7 +185,7 @@
                                 <option>{{ act }}</option>   
                             {% endfor %}
                         </select>
-                        <button id="button-apply" type="button" class="btn btn-dark" style="justify-content:center;" onclick="takeFunction();">APPLY</button>
+                        <button id="button-apply" type="button" class="btn btn-dark" style="justify-content:center;" onclick="takeFunction();" disabled>APPLY</button>
                     </div>
                 </div>
                 <div class="alert alert-danger alert-dismissible fade show" id="error_adding_rule" style="display:none" role="alert">
@@ -211,7 +203,7 @@
                 <div id="rules">
                     <div class="title-rule" style="text-align:center">List of constraints</div>
                     <button type="button" class="btn btn-danger btn btn-default" float="right" style="margin-left:85%; margin-top:-12%; display: inline-block" data-toggle="confirmation" data-placement="bottom"
-                    onclick="deleteBtn();"><label><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    onclick="deleteBtn();" id="deleteBtnId" disabled><label><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                         <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
                       </svg></label></button>
                     <div class="alert alert-danger alert-dismissible fade show" id="error_no_rule" style="display:none" role="alert">

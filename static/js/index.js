@@ -1,3 +1,5 @@
+//document.getElementById('formFile').innerHtml= "Choose XES file";
+
 //load segments from file the first time
 function loadSegments(){
     $.ajax({
@@ -6,6 +8,13 @@ function loadSegments(){
     })  
 }
 
+function enableButtons(){
+    $("#hideShowBtn").attr("disabled", false)
+    $("#clearBtn").attr("disabled", false)
+    $("#exportBtn").attr("disabled", false)
+    $("#button-apply").attr("disabled", false)
+    $("#deleteBtnId").attr("disabled", false)
+}
 
 //select the rule to apply and show the right number of combobox
 function selectFunction(){
@@ -693,9 +702,9 @@ function close_error_duplicate_rule(){ document.getElementById("error_duplicate_
 
 function close_error_opposite_rule(){ document.getElementById("error_opposite_rule").style.display = 'none'; }
 
-function close_flash(){ document.getElementById("error_flash").style.display = 'none'; }
+function close_flash(){ document.getElementById("error_flash").style.display = 'none';}
 
-if(document.getElementById("error_flash").style.display != 'none'){ timeout("#error_flash"); }
+if(document.getElementById("error_flash").style.display != 'none'){ timeout("#error_flash"); enableButtons() }
 
 function close_infoBtn(){ document.getElementById("divInfo").style.display = 'none'; }
 

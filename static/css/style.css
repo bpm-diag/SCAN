@@ -238,3 +238,5 @@ ul.no-bullets {
     font-size: 14px;
 }
 
+input[type='file'] { 
+    color: transparent; } 
