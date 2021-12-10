@@ -365,7 +365,6 @@ function reapplyFunctions(array_rule){
             console.log(r, array_rule.length)
             if(r+1 != array_rule.length) {
                 goToFunction(fun, act1, act2, 1, false)
-                console.log("diverso")
             }
             else goToFunction(fun, act1, act2, 1, true)  
         }
@@ -721,6 +720,9 @@ function close_diSegBtn(){
     $('#divSeg').empty();
 }
 
+function closeDiv(){ 
+    console.log("aaaa")
+    document.getElementById("info_start").style.display = 'block';
+    timeout("#info_start")}
 
-
-  
+function close_info_start(){document.getElementById("info_start").style.display = 'none'; }

@@ -14,15 +14,14 @@
     
      
 </head>
-<body style="background-image: url('static/css/sfondo.jpg');">
-<body>
+<body style="background-image: url('static/css/sfondo.jpg');" onload="closeDiv();">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9">
                 <div id="buttons-container">
                     <div class="row">
                         <div class="col-md-6">
-                            <form method="post" enctype="multipart/form-data">
+                            <form method="post" enctype="multipart/form-data" id="formId">
                                 <div class="input-group mb-3">
                                     <input class="form-control" id="formFile"  type="file" name="file" autocomplete="off" required>
                                     <button type="submit" class="btn btn-success" onclick="loadSegments();" id="uploadBtn">
@@ -46,8 +45,12 @@
                             </div>    
                         </div>
                         <div class="col-md-6" height="10px">
+                            <div class="alert alert-info alert-dismissible fade show" id="info_start" style="display:none" role="alert" >
+                                <strong>Info!</strong> Select a XES file to analyze.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_info_start();"></button>
+                            </div>
                             <div class="alert alert-info alert-dismissible fade show" id="info_clear" style="display:none" role="alert">
-                                <strong>Info!</strong> Select a new file to analyze.
+                                <strong>Info!</strong> Select a new XES file to analyze.
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_info_clear();"></button>
                             </div>
                             <div class="alert alert-info alert-dismissible fade show" id="download_info" style="display:none" role="alert">
