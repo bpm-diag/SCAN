@@ -1,12 +1,3 @@
-//document.getElementById('formFile').innerHtml= "Choose XES file";
-
-//load segments from file the first time
-function loadSegments(){
-    $.ajax({
-        type : "POST",
-        url : '/'
-    })  
-}
 
 function enableButtons(){
     $("#hideShowBtn").attr("disabled", false)
@@ -14,6 +5,20 @@ function enableButtons(){
     $("#exportBtn").attr("disabled", false)
     $("#button-apply").attr("disabled", false)
     $("#deleteBtnId").attr("disabled", false)
+    $("#selectFun").attr("disabled", false)
+    $("#act1").attr("disabled", false)
+    $("#infoId").attr("disabled", false)
+}
+
+function disableButtons(){
+    $("#hideShowBtn").attr("disabled", true)
+    $("#clearBtn").attr("disabled", true)
+    $("#exportBtn").attr("disabled", true)
+    $("#button-apply").attr("disabled", true)
+    $("#deleteBtnId").attr("disabled", true)
+    $("#selectFun").attr("disabled", true)
+    $("#act1").attr("disabled", true)
+    $("#infoId").attr("disabled", true)
 }
 
 //select the rule to apply and show the right number of combobox
@@ -80,7 +85,6 @@ function checkActivities(act1, act2, fun){
 
 //call to server by the rule required
 function goToFunction(fun, act1, act2, value, bool){
-    console.log(fun)
     switch(fun) {
         case "Start":
             if(bool == true) applyFunction(act1, null, '/start_activity');
@@ -277,6 +281,40 @@ function showResponse(response){
     }        
 }
 
+function firstTimeSegments(){
+    var table = document.getElementById("table-seg-body")
+    var button = document.getElementById("hideShowBtn");
+    var array = []
+    for(var i = 0; i < table.rows.length; i++) {
+        var objCells = table.rows.item(i).cells;
+        var arr = []
+        for (var j = 0; j < objCells.length; j++) {
+            arr.push(objCells.item(j).innerHTML.replaceAll("\n",""))
+        }
+        array.push(arr)
+    }
+    $("#table-seg-body").empty()
+    for(var elem = 0; elem < array.length; elem++){
+        var res = $('<tr class="all"><td class="col-occ">'+ array[elem][0] + '</td><td class="col-seg">' + array[elem].slice(1) + '<td></tr>');   
+        res.id = 'result'+elem;
+        $('#table-seg-body').append(res); 
+        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+elem+'"><td>'+ array[elem][0] + '</td><td>' + "segment_" + elem + '</td></tr>');  
+        hideRes.id = 'hideResult'+elem; 
+        $('#table-seg-body').append(hideRes); 
+        array_elem = array[elem][1].split(",")
+        array_elem.unshift(array[elem][0])
+        showSeg(array_elem, hideRes.id) 
+    }
+    if(button.value == "Hide"){
+        $(".all").show();
+        $(".hideAll").hide();
+    }
+    else{
+        $(".all").hide();
+        $(".hideAll").show();
+    }  
+}
+
 function createFirstRowTable(tableId){
     $("#"+tableId+"-body").empty()
     $("#"+tableId).empty()
@@ -306,8 +344,6 @@ function deleteBtn(){
         for(var i = 0; i < list_checkbox.length; i++){
             if(document.getElementById(list_checkbox[i]).checked){
                 var li = document.getElementById("li" + list_checkbox[i])
-                var label = document.getElementById("label" + list_checkbox[i])
-                var value = String(label.value)
                 $(".label").each(function () {
                     var $this = $(this);
                     if ($this.is(":empty")) {
@@ -362,7 +398,6 @@ function reapplyFunctions(array_rule){
             var act1 = arr[1]
             var act2 = null
             if(arr.length > 2) act2 = arr[2]
-            console.log(r, array_rule.length)
             if(r+1 != array_rule.length) {
                 goToFunction(fun, act1, act2, 1, false)
             }
@@ -413,6 +448,7 @@ function clearDiv(){
     }); 
     document.getElementById("info_clear").style.display = "block"
     timeout("#info_clear")   
+    disableButtons();
 }
 
 function exportFile(){
@@ -494,7 +530,7 @@ function showInfo(){
     switch(fun) {
         case "Start":
             document.getElementById("groupConstraints").innerHTML = "Start/End constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Start:</b> filter by start activity a"
+            document.getElementById("nameConstraint").innerHTML = "<b>Start(a):</b> filter by start activity a"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "acac"
             document.getElementById("re2").innerHTML = "acbbc"
@@ -504,7 +540,7 @@ function showInfo(){
             break;
         case "End":
             document.getElementById("groupConstraints").innerHTML = "Start/End constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>End:</b> filter by end activity a"
+            document.getElementById("nameConstraint").innerHTML = "<b>End(a):</b> filter by end activity a"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "bcca"
             document.getElementById("re2").innerHTML = "cca"
@@ -514,7 +550,7 @@ function showInfo(){
             break;    
         case "Existence":
             document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Existence:</b> a occurs at least once"
+            document.getElementById("nameConstraint").innerHTML = "<b>Existence(a):</b> a occurs at least once"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "bcac"
             document.getElementById("re2").innerHTML = "bcaac"
@@ -524,7 +560,7 @@ function showInfo(){
             break;
         case "Absence":
             document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Absence:</b> a never occur"
+            document.getElementById("nameConstraint").innerHTML = "<b>Absence(a):</b> a never occur"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "bcc"
             document.getElementById("re2").innerHTML = "ccc"
@@ -534,7 +570,7 @@ function showInfo(){
             break;    
         case "Choice":
             document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Choice:</b> a or b eventually occur"
+            document.getElementById("nameConstraint").innerHTML = "<b>Choice(a,b):</b> a or b eventually occur"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "bcc"
             document.getElementById("re2").innerHTML = "bcac"
@@ -544,7 +580,7 @@ function showInfo(){
             break;
         case "ExclusiveChoice":
             document.getElementById("groupConstraints").innerHTML = "Existence and Choice constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Exclusive Choice:</b> a or b eventually occur, but not together"
+            document.getElementById("nameConstraint").innerHTML = "<b>Exclusive Choice(a,b):</b> a or b eventually occur, but not together"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "bcc"
             document.getElementById("re2").innerHTML = "acc"
@@ -554,7 +590,7 @@ function showInfo(){
             break; 
         case "RespondedExistence":
             document.getElementById("groupConstraints").innerHTML = "Relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Responded Existence:</b> if a occurs in the trace, then b occurs as well"
+            document.getElementById("nameConstraint").innerHTML = "<b>Responded Existence(a,b):</b> if a occurs in the trace, then b occurs as well"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "bcaac"
             document.getElementById("re2").innerHTML = "bcc"
@@ -564,7 +600,7 @@ function showInfo(){
             break;  
         case "Response":
             document.getElementById("groupConstraints").innerHTML = "Relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Response:</b> if a occurs, then b occurs after a"
+            document.getElementById("nameConstraint").innerHTML = "<b>Response(a,b):</b> if a occurs, then b occurs after a"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "caacb"
             document.getElementById("re2").innerHTML = "bcc"
@@ -574,7 +610,7 @@ function showInfo(){
             break; 
         case "AlternateResponse":
             document.getElementById("groupConstraints").innerHTML = "Relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Response:</b> each time a occurs, then b occurs immediately afterwards, before a recurs"
+            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Response(a,b):</b> each time a occurs, then b occurs immediately afterwards, before a recurs"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cacb"
             document.getElementById("re2").innerHTML = "abcabc"
@@ -584,7 +620,7 @@ function showInfo(){
             break;
         case "ChainResponse":
             document.getElementById("groupConstraints").innerHTML = "Relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Chain Response:</b> each time a occurs, then b occurs immediately afterwards"
+            document.getElementById("nameConstraint").innerHTML = "<b>Chain Response(a,b):</b> each time a occurs, then b occurs immediately afterwards"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cabb"
             document.getElementById("re2").innerHTML = "abcab"
@@ -594,7 +630,7 @@ function showInfo(){
             break;
         case "Precedence":
             document.getElementById("groupConstraints").innerHTML = "Relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Precedence:</b> b occurs only if preceded by a"
+            document.getElementById("nameConstraint").innerHTML = "<b>Precedence(a,b):</b> b occurs only if preceded by a"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cacbb"
             document.getElementById("re2").innerHTML = "acc"
@@ -604,7 +640,7 @@ function showInfo(){
             break;
         case "AlternatePrecedence":
             document.getElementById("groupConstraints").innerHTML = "Relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Precedence:</b> each time b occurs, it is preceded by a and no other b can recur in between"
+            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Precedence(a,b):</b> each time b occurs, it is preceded by a and no other b can recur in between"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cacba"
             document.getElementById("re2").innerHTML = "abcaacb"
@@ -614,7 +650,7 @@ function showInfo(){
             break;
         case "ChainPrecedence":
             document.getElementById("groupConstraints").innerHTML = "Relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Chain Precedence:</b> each time b occurs, then a occurs immediately beforehand"
+            document.getElementById("nameConstraint").innerHTML = "<b>Chain Precedence(a,b):</b> each time b occurs, then a occurs immediately beforehand"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "abca"
             document.getElementById("re2").innerHTML = "abbabc"
@@ -624,7 +660,7 @@ function showInfo(){
             break;
         case "CoExistence":
             document.getElementById("groupConstraints").innerHTML = "Mutual relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Co Existence:</b> if b occurs, then a occurs, and vice-versa"
+            document.getElementById("nameConstraint").innerHTML = "<b>Co Existence(a,b):</b> if b occurs, then a occurs, and vice-versa"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cacbb"
             document.getElementById("re2").innerHTML = "bcca"
@@ -634,7 +670,7 @@ function showInfo(){
             break;
         case "Succession":
             document.getElementById("groupConstraints").innerHTML = "Mutual relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Succession:</b> a occurs if and only if it is followed by b"
+            document.getElementById("nameConstraint").innerHTML = "<b>Succession(a,b):</b> a occurs if and only if it is followed by b"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cacbb"
             document.getElementById("re2").innerHTML = "accb"
@@ -644,7 +680,7 @@ function showInfo(){
             break;
         case "AlternateSuccession":
             document.getElementById("groupConstraints").innerHTML = "Mutual relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Succession:</b> a and b if and only if the latter immediately follows the former, and they alternate each other in the trace"
+            document.getElementById("nameConstraint").innerHTML = "<b>Alternate Succession(a,b):</b> a and b if and only if the latter immediately follows the former, and they alternate each other in the trace"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cacbab"
             document.getElementById("re2").innerHTML = "abcabc"
@@ -654,7 +690,7 @@ function showInfo(){
             break;
         case "ChainSuccession":
             document.getElementById("groupConstraints").innerHTML = "Mutual relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Chain Succession:</b> a and b occur if and only if the latter immediately follows the former"
+            document.getElementById("nameConstraint").innerHTML = "<b>Chain Succession(a,b):</b> a and b occur if and only if the latter immediately follows the former"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cabab"
             document.getElementById("re2").innerHTML = "ccc"
@@ -664,7 +700,7 @@ function showInfo(){
             break;   
         case "NotCoExistence":
             document.getElementById("groupConstraints").innerHTML = "Negative relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Not Co Existence:</b> a and b never occur together"
+            document.getElementById("nameConstraint").innerHTML = "<b>Not Co Existence(a,b):</b> a and b never occur together"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "cccbbb"
             document.getElementById("re2").innerHTML = "ccac"
@@ -674,7 +710,7 @@ function showInfo(){
             break;
         case "NotSuccession":
             document.getElementById("groupConstraints").innerHTML = "Negative relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Not Succession:</b> a can never occur before b"
+            document.getElementById("nameConstraint").innerHTML = "<b>Not Succession(a,b):</b> a can never occur before b"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "bbcaa"
             document.getElementById("re2").innerHTML = "cbbca"
@@ -684,7 +720,7 @@ function showInfo(){
             break;                                                 
         default:
             document.getElementById("groupConstraints").innerHTML = "Negative relation constraints"
-            document.getElementById("nameConstraint").innerHTML = "<b>Not Chain Succession:</b> a and b occur if and only if the latter does not immediately follows the former"
+            document.getElementById("nameConstraint").innerHTML = "<b>Not Chain Succession(a,b):</b> a and b occur if and only if the latter does not immediately follows the former"
             document.getElementById("examples").innerHTML = "<b>Example:</b>"
             document.getElementById("re1").innerHTML = "acbacb"
             document.getElementById("re2").innerHTML = "bbaa"
@@ -703,7 +739,11 @@ function close_error_opposite_rule(){ document.getElementById("error_opposite_ru
 
 function close_flash(){ document.getElementById("error_flash").style.display = 'none';}
 
-if(document.getElementById("error_flash").style.display != 'none'){ timeout("#error_flash"); enableButtons() }
+if(document.getElementById("error_flash").style.display != 'none'){ 
+    timeout("#error_flash"); 
+    enableButtons();
+    firstTimeSegments();
+}
 
 function close_infoBtn(){ document.getElementById("divInfo").style.display = 'none'; }
 
@@ -721,8 +761,9 @@ function close_diSegBtn(){
 }
 
 function closeDiv(){ 
-    console.log("aaaa")
     document.getElementById("info_start").style.display = 'block';
-    timeout("#info_start")}
+    timeout("#info_start")
+    
+}
 
 function close_info_start(){document.getElementById("info_start").style.display = 'none'; }

@@ -148,7 +148,7 @@ body {
 }
 
 .showDiv{
-    width: 250px;
+    width: 300px;
     height: 350px;
     border:2px solid black;
     border-right-style: outset; 
@@ -236,4 +236,13 @@ ul.no-bullets {
     font-style: normal;
     margin-left: 5px;
     font-size: 14px;
+}
+
+#infoId{
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
 }
