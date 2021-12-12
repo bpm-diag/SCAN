@@ -760,10 +760,5 @@ function close_diSegBtn(){
     $('#divSeg').empty();
 }
 
-function closeDiv(){ 
-    document.getElementById("info_start").style.display = 'block';
-    timeout("#info_start")
-    
-}
 
 function close_info_start(){document.getElementById("info_start").style.display = 'none'; }

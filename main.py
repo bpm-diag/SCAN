@@ -18,7 +18,8 @@ def allowed_file(filename):
 
 @app.route('/')
 def upload_form():
-	return render_template('index.html')
+    flash("Select a XES file to analyze.", "info")
+    return render_template('index.html')
 
 @app.route('/clear')
 def clearDiv():

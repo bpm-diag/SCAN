@@ -18,7 +18,7 @@ body {
 }
 
 .form-control{
-    width: 30%;
+    width: 10%;
 }
 
 #segment-container{
@@ -163,7 +163,7 @@ body {
 }
 
 .showInfo{
-    width: 20%;
+    width: 20%; /*80*/
     height: 30%;
     border:2px solid rgb(149, 172, 247);
     background-color:rgb(180, 210, 241);
@@ -246,3 +246,4 @@ ul.no-bullets {
     overflow: hidden;
     outline: none;
 }
+

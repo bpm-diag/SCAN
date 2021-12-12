@@ -4,6 +4,7 @@ from flask import Flask, flash
 import tkinter
 from tkinter import filedialog
 import datetime
+import numpy as np
 
 def clear():
     clearFile('segments.txt')
@@ -34,21 +35,22 @@ def downloadFile():
     for trace in log:
         activities = []
         for event in trace:
-            activities.append(event["concept:name"])
+            activities.append(event["concept:name"]) 
             allXESActivities[trace.attributes["concept:name"]] = activities
-            list_key.append(trace.attributes["concept:name"]) 
+            list_key.append(trace.attributes["concept:name"])  
+    print(" all XES activities = ", allXESActivities)              
     list_ok_key = []  
     for key, value in allXESActivities.items():
         for elem in seg:
-            if(elem == value): 
-                list_ok_key.append(key)              
+            if(elem == value): #non entra in questo if
+                list_ok_key.append(key)  
+    print("\n list ok key \n", list_ok_key)                        
     list_ko_key = set(list_key) - set(list_ok_key)
     for fil in list_ko_key:
         log = pm4py.filter_trace_attribute_values(log, 'concept:name', {fil}, retain=False)
-    xes_exporter.apply(log, "downloads/log.xes")
+    xes_exporter.apply(log, "downloads/log.xes") #log contiene i segmenti che mantieni
     parent = tkinter.Tk() # Create the object
-    #parent.overrideredirect(1) # Avoid it appearing and then disappearing quickly
-    #parent.withdraw() # Hide the window as we do not want to see this one
+    parent.attributes("-topmost", True)
     directory_to_start_from = 'C:/Users/User/Downloads/'
     path = filedialog.askdirectory(initialdir=directory_to_start_from, title='Please select a folder:', parent=parent)
     timestamp = takeTimestamp()
