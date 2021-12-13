@@ -11,30 +11,31 @@ Eventually, when you are satisfied, you can download the final xes file.
 
 ## How to locally install
 In order to install this tool locally you need:
-1. Python (version 3.9): https://www.python.org/downloads/
+1. Python (version 3.9): https://www.python.org/downloads/ 
 2. Visual Studio Code: https://code.visualstudio.com/Download
 3. Download the zip folder of the project
+You can find a python installation guide here: https://python.land/installing-python
 
 After installing everything, unzip the project and open the folder with Visual Studio Code and add the python extension.
 
 Position within the project folder and type the following commands:
 
-**For Windows:**
-<code>py -3 -m venv .venv</code>
-<code>.venv\scripts\activate</code>
-<code>pip install -r requirements.txt</code>
+**For Windows:**<br>
+<code>py -3 -m venv .venv</code><br>
+<code>.venv\scripts\activate</code><br>
+<code>pip install -r requirements.txt</code><br>
 
-**For Linux / macOS:**
-<code>python3 -m venv env</code>
-<code>source env/bin/activate</code>
-<code>pip install -r requirements.txt</code>
+**For Linux / macOS:**<br>
+<code>python3 -m venv env</code><br>
+<code>source env/bin/activate</code><br>
+<code>pip install -r requirements.txt</code><br>
 
-Once the last command is finished, you can run the program:
-<code>python main.py</code>
+Once the last command is finished, you can run the program:<br>
+<code>python main.py</code><br>
 
 At this point you can open your preferred browser between Firefox, Google Chrome, Microsoft Edge and Opera to view the tool.
-Type in the url bar:
-<code>localhost:5000</code>
+Type in the url bar:<br>
+<code>localhost:5000</code><br>
 
 **N.B.**: For a better experience it is suggest to use Firefox.
 

@@ -37,14 +37,12 @@ def downloadFile():
         for event in trace:
             activities.append(event["concept:name"]) 
             allXESActivities[trace.attributes["concept:name"]] = activities
-            list_key.append(trace.attributes["concept:name"])  
-    print(" all XES activities = ", allXESActivities)              
+            list_key.append(trace.attributes["concept:name"])              
     list_ok_key = []  
     for key, value in allXESActivities.items():
         for elem in seg:
             if(elem == value): #non entra in questo if
-                list_ok_key.append(key)  
-    print("\n list ok key \n", list_ok_key)                        
+                list_ok_key.append(key)                        
     list_ko_key = set(list_key) - set(list_ok_key)
     for fil in list_ko_key:
         log = pm4py.filter_trace_attribute_values(log, 'concept:name', {fil}, retain=False)
