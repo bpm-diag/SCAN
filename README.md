@@ -14,6 +14,7 @@ In order to install this tool locally you need:
 1. Python (version 3.9): https://www.python.org/downloads/ 
 2. Visual Studio Code: https://code.visualstudio.com/Download
 3. Download the zip folder of the project
+
 You can find a python installation guide here: https://python.land/installing-python
 
 After installing everything, unzip the project and open the folder with Visual Studio Code and add the python extension.
@@ -37,13 +38,12 @@ At this point you can open your preferred browser between Firefox, Google Chrome
 Type in the url bar:<br>
 <code>localhost:5000</code><br>
 
-**N.B.**: For a better experience it is suggest to use Firefox.
+**N.B.**: For a better experience it is suggested to use Firefox.
 
 Now you are ready to use *SEC*!
 
 ## How to use
-Select your **.xes** file from a folder of your choice via the *SFOGLIA* button, then continue with *SUBMIT* and finally 
-with *UPLOAD*.
+Select your **.xes** file from a folder of your choice via the *BROWSE* button, then continue with *UPLOAD*.
 
 You can now view the segments in the *SEGMENTS' LIST* section on the left.  
 You can use the *HIDE/SHOW* button to change the display of segments. If the button is set to *HIDE* by clicking on a row 
