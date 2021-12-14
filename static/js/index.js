@@ -302,6 +302,7 @@ function firstTimeSegments(){
         hideRes.id = 'hideResult'+elem; 
         $('#table-seg-body').append(hideRes); 
         array_elem = array[elem][1].split(",")
+        array_elem.unshift("segment_"+elem)
         array_elem.unshift(array[elem][0])
         showSeg(array_elem, hideRes.id) 
     }
@@ -498,7 +499,8 @@ function seeDiv(elem){
             $('#divSeg').append(button)
             if(hid in d){
                 for(var i = 1; i < d[hid].length; i++){
-                    $('#divSeg').append("&nbsp;&nbsp;"+d[hid][i]+"</br>"); 
+                    if(i == 1) $('#divSeg').append("&nbsp;&nbsp;<b>"+d[hid][i]+":</b></br>"); 
+                    else $('#divSeg').append("&nbsp;&nbsp;"+d[hid][i]+"</br>"); 
                 }
             }
             viewDiv();
