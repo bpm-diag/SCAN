@@ -43,8 +43,7 @@ Type in the url bar:<br>
 Now you are ready to use *SEC*!
 
 ## How to use
-Select your **.xes** file from a folder of your choice via the *SFOGLIA* button, then continue with *SUBMIT* and finally 
-with *UPLOAD*.
+Select your **.xes** file from a folder of your choice via the *BROWSE* button, then continue with *UPLOAD*.
 
 You can now view the segments in the *SEGMENTS' LIST* section on the left.  
 You can use the *HIDE/SHOW* button to change the display of segments. If the button is set to *HIDE* by clicking on a row 
