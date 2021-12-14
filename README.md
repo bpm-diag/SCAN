@@ -14,6 +14,7 @@ In order to install this tool locally you need:
 1. Python (version 3.9): https://www.python.org/downloads/ 
 2. Visual Studio Code: https://code.visualstudio.com/Download
 3. Download the zip folder of the project
+
 You can find a python installation guide here: https://python.land/installing-python
 
 After installing everything, unzip the project and open the folder with Visual Studio Code and add the python extension.
