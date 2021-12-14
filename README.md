@@ -38,7 +38,7 @@ At this point you can open your preferred browser between Firefox, Google Chrome
 Type in the url bar:<br>
 <code>localhost:5000</code><br>
 
-**N.B.**: For a better experience it is suggest to use Firefox.
+**N.B.**: For a better experience it is suggested to use Firefox.
 
 Now you are ready to use *SEC*!
 
