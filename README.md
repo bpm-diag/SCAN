@@ -20,18 +20,21 @@ You can find a python installation guide here: https://python.land/installing-py
 After installing everything, unzip the project and open the folder with Visual Studio Code and add the python extension.
 
 Position within the project folder and type the following commands:
+<code>pip install -r requirements.txt</code><br>
+<code>python main.py</code><br>
+
+If the commands gives you some error execute these lines:<br>
 
 **For Windows:**<br>
 <code>py -3 -m venv .venv</code><br>
 <code>.venv\scripts\activate</code><br>
 <code>pip install -r requirements.txt</code><br>
+<code>python main.py</code><br>
 
 **For Linux / macOS:**<br>
 <code>python3 -m venv env</code><br>
 <code>source env/bin/activate</code><br>
 <code>pip install -r requirements.txt</code><br>
-
-Once the last command is finished, you can run the program:<br>
 <code>python main.py</code><br>
 
 At this point you can open your preferred browser between Firefox, Google Chrome, Microsoft Edge and Opera to view the tool.
