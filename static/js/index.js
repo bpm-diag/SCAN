@@ -1,4 +1,3 @@
-
 function enableButtons(){
     $("#hideShowBtn").attr("disabled", false)
     $("#clearBtn").attr("disabled", false)
@@ -18,6 +17,7 @@ function disableButtons(){
     $("#deleteBtnId").attr("disabled", true)
     $("#selectFun").attr("disabled", true)
     $("#act1").attr("disabled", true)
+    $("#act2").attr("disabled", true)
     $("#infoId").attr("disabled", true)
 }
 
@@ -742,9 +742,12 @@ function close_error_opposite_rule(){ document.getElementById("error_opposite_ru
 function close_flash(){ document.getElementById("error_flash").style.display = 'none';}
 
 if(document.getElementById("error_flash").style.display != 'none'){ 
+    console.log(document.getElementById("error_flash").innerText)
     timeout("#error_flash"); 
-    enableButtons();
-    firstTimeSegments();
+    if(document.getElementById("error_flash").innerText == "Successfully loaded"){
+        enableButtons();
+        firstTimeSegments();
+    }    
 }
 
 function close_infoBtn(){ document.getElementById("divInfo").style.display = 'none'; }

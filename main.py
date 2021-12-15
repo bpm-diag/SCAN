@@ -88,13 +88,6 @@ def upload_file():
             flash("Extension not allowed", "danger")
             return redirect(request.url)	
      
-'''      
-@app.route('/load_segments', methods=['POST'])
-def load_segments():      
-    result = takeSegmentFromFile()
-    removeSegment = takeRemoveSegmentFromFile()
-    return jsonify({"result": result, "remove": removeSegment}) 
-    '''
 
 @app.route('/show_trace', methods=['POST'])
 def show_trace():      
