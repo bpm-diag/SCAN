@@ -257,10 +257,14 @@ function showResponse(response){
         $('#table-seg-body').append(res); 
         var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+i+'"><td>'+ result[i][0] + '</td><td>' + "segment_" + i + '</td></tr>');  
         hideRes.id = 'hideResult'+i; 
-        $('#table-seg-body').append(hideRes);  
-        showSeg(result[i], hideRes.id)
+        $('#table-seg-body').append(hideRes); 
+        array_elem = result[i].slice(1)
+        array_elem.unshift("segment_"+i)
+        array_elem.unshift(result[i][0]) 
+        showSeg(array_elem, hideRes.id)
     }
     createFirstRowTable("table-del-seg");
+    array_elem = []
     for(var i=0; i < remove.length; i++){
         var rem = $('<tr class="all"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(1) + '<td></tr>');   
         rem.id = 'remove'+i;
@@ -268,8 +272,11 @@ function showResponse(response){
         var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+i+'"><td>'+ remove[i][0] + '</td><td>' + "segment_" + lenRes + '</td></tr>');    
         hideRem.id = 'hideRemove'+i;
         $('#table-del-seg-body').append(hideRem);
+        array_elem = remove[i].slice(1)
+        array_elem.unshift("segment_"+lenRes)
+        array_elem.unshift(remove[i][0])
+        showSeg(array_elem, hideRem.id)
         lenRes++; 
-        showSeg(remove[i], hideRem.id) 
     }
     if(button.value == "Hide"){
         $(".all").show();
@@ -742,7 +749,6 @@ function close_error_opposite_rule(){ document.getElementById("error_opposite_ru
 function close_flash(){ document.getElementById("error_flash").style.display = 'none';}
 
 if(document.getElementById("error_flash").style.display != 'none'){ 
-    console.log(document.getElementById("error_flash").innerText)
     timeout("#error_flash"); 
     if(document.getElementById("error_flash").innerText == "Successfully loaded"){
         enableButtons();
