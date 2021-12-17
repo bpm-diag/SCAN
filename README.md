@@ -1,27 +1,27 @@
 # SEC - SEgments Compliance
 
  ## Description
-**SEgments Compliance** is a tool that helps user to identify the correct segments.
-It allows you to load the interested **.xes** file and browse it using *DECLARE* rules.  
-Eventually, when you are satisfied, you can download the final xes file.
+**SEgments Compliance** is a tool that helps users to identify all the potential behaviors (i.e., segments) of the routines of interest directly from an event log. 
+It allows you to load the interested event log (in the *XES* format) and filter out those segments not allowed by any real-world routine behavior, by using the *DECLARE* constraints. Such constraints describe the temporally extended relations between the activities that must be satisfied throughout a segment (e.g., an activity a$_1$ must be eventually followed by an activity a$_2$). 
+Finally, when you have identified and removed those segments that should not be compliant with any real-world routine behavior, you can export the resulting event log.
 
  ## Table of content
-1. How to locally install
+1. How to install
 2. How to use
 
-## How to locally install
-In order to install this tool locally you need:
+## How to install
+For the installation of the tool you need:
 1. Python (version 3.9): https://www.python.org/downloads/ 
-2. Download the zip folder of the project
+2. Download the zip folder of the project: https://github.com/bpm-diag/SEC (press on *Code* and then on *Download ZIP*).
 
-You can find a python installation guide here: https://python.land/installing-python
+You can find a python installation guide here: https://python.land/installing-python.
 
 After installing everything, unzip the project and open the terminal of your computer and positioning within the project folder. 
-So, type the following commands:
+So, inside the project folder type the following commands:
 <code>pip install -r requirements.txt</code><br>
 <code>python main.py</code><br>
 
-If the commands gives you some error execute these lines:<br>
+If you are encountering errors in running the previous commands, run these lines:<br>
 
 **For Windows:**<br>
 <code>py -3 -m venv .venv</code><br>
@@ -37,18 +37,18 @@ If the commands gives you some error execute these lines:<br>
 
 At this point you can open your preferred browser between Firefox, Google Chrome, Microsoft Edge and Opera to view the tool.
 Type in the url bar:<br>
-<code>localhost:5000</code><br>
+<code>127.0.0.1:5000</code><br>
 
 **N.B.**: For a better experience it is suggested to use Firefox.
 
 Now you are ready to use *SEC*!
 
 ## How to use
-Select your **.xes** file from a folder of your choice via the *BROWSE* button, then continue with *UPLOAD*.
+Select your **.xes** event log file from a folder of your choice via the *BROWSE* button, then continue with *UPLOAD*.
 
 You can now view the segments in the *SEGMENTS' LIST* section on the left.  
 You can use the *HIDE/SHOW* button to change the display of segments. If the button is set to *HIDE* by clicking on a row 
-of the table you will be shown a section that will show the content of the segment.
+of the table you will be shown a pop-up that will show the content of the segment.
 
 ![Visualize segments after upload file](/images/img1.JPG?raw=true)
 
@@ -56,15 +56,15 @@ of the table you will be shown a section that will show the content of the segme
 
 The segments are shown by default in ascending order following the number of occurrences. You can reverse the order by clicking on the button *ASCENDING/DESCENDING* and view them as you prefer.
 
-On the right you can create the new *DECLARE CONSTRAINTS* you want to apply. 
+On the right you can choose the *DECLARE* constraints you want to apply. 
 Select the constraint and the activities to apply it to. If you do not remember the operation of a constraint click on 
-*i* which show an informative box.
+*i* which shows an informative box.
 All the constraints applied are visible in the *LIST OF CONSTRAINT* section and you can delete one at a time using 
 the *TRASH* button.
 
 ![Apply DECLARE constraints and visualize in DESCENDING order](images/img3.JPG)
 
-Each time you apply a new constraint, segments that do not respect it are moved to the *NOT ACCEPTED SEGMENTS' LIST* section. 
+Each time you apply a new constraint, segments that do not satisfy it are moved to the *NOT ACCEPTED SEGMENTS' LIST* section. 
  
 ![After deletion of constraint](images/img4.JPG) 
 
@@ -75,7 +75,9 @@ and save it wherever you want.
 
 ![Export of file](images/img5.JPG) 
 
-At the end, the output of the tool are:
-- a **.xes** file which represents the correct segments that you have found thank to your investigation;
-- **log_timestamp.txt** that is created every time that you upload a file and in the exactly moment in which you done that. The file represents all the actions that you have performed during your investigation: every rule correctly applied, every deletion, but also the download of the file and if you have clicked on clear. In this way it is possible to know all the needed action to reach the result.
-These files are available inside the *timestamp* folder in the project.
+Thus, the output of the tool consists in:
+- a **.xes** event log file which stores the segments that satisfy the list of *DECLARE* constraints you chose;
+- **log_timestamp.txt** file that is created every time you upload a *.xes* event log file within the tool. This file logs all the steps you have performed during your run, i.e.: each constraint you applied/deleted, the different buttons you clicked, etc...
+These files are available inside the *timestamp* folder of the project.
+
+For a video demonstration of the tool please refer to the following link: https://tinyurl.com/demo-tool
