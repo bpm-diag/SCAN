@@ -7,6 +7,7 @@ function enableButtons(){
     $("#selectFun").attr("disabled", false)
     $("#act1").attr("disabled", false)
     $("#infoId").attr("disabled", false)
+    $("#sortBtn").attr("disabled", false)
 }
 
 function disableButtons(){
@@ -19,6 +20,7 @@ function disableButtons(){
     $("#act1").attr("disabled", true)
     $("#act2").attr("disabled", true)
     $("#infoId").attr("disabled", true)
+    $("#sortBtn").attr("disabled", true)
 }
 
 //select the rule to apply and show the right number of combobox
@@ -195,8 +197,9 @@ function applyFunction(act1, act2, url){
         url : url,
         async: false,
         data: {act1: act1, act2: act2},
-        success: function(response) {
-            showResponse(response);}
+        success: function(){
+            orderSegments();
+        }
     });    
 }
 
@@ -251,7 +254,6 @@ function showResponse(response){
     var button = document.getElementById("hideShowBtn");
     createFirstRowTable("table-seg");
     for(var i=0; i < result.length; i++){
-        console.log("res", result)
         var res = $('<tr class="all"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(1,-1) + '<td></tr>');   
         res.id = 'result'+result[i].slice(-1);
         $('#table-seg-body').append(res); 
@@ -376,21 +378,20 @@ function deleteBtn(){
 
 //when delete some rule
 function recomputeSegments(fun_del, act1_del, act2_del, array_rule){
+    button = document.getElementById("sortBtn")
     $.ajax({
         type : "POST",
         url : "/del_rule",
+        data: {order: button.value},
         success: function(){
             $.ajax({
                 type : "POST",
                 url : "/write_delete",
                 data: {fun: fun_del, act1: act1_del, act2: act2_del},
-                complete: reapplyFunctions(array_rule)
-                 
+                complete: reapplyFunctions(array_rule)   
             });
-        }    
-            
-    });
-    
+        }           
+    });   
 }    
 
 function reapplyFunctions(array_rule){
@@ -419,9 +420,11 @@ function reapplyFunctions(array_rule){
 }
 
 function showStartSituation(){
+    button = document.getElementById("sortBtn")
     $.ajax({
         type : "POST",
         url : "/show_trace",
+        data: {order: button.value},
         success: function(response) {
             showResponse(response);}
     });  
@@ -736,6 +739,56 @@ function showInfo(){
             $('#divInfo').show()
     }
 
+}
+
+function changeSort(){
+    button = document.getElementById("sortBtn")
+    row = document.getElementById("rowBtn")
+    if(button.value == "decrescent"){
+        button.value = "crescent"
+        $('#sortBtn').contents().filter(function() {
+            return this.nodeType == 3 && this.textContent.trim();
+          })[0].textContent = 'CRESCENT ';
+        $.ajax({
+            type : "POST",
+            url: "/decrescent_order",
+            success: function(response) {
+                showResponse(response);} 
+        });
+    }
+    else{
+        button.value = "decrescent"
+        $('#sortBtn').contents().filter(function() {
+            return this.nodeType == 3 && this.textContent.trim();
+          })[0].textContent = 'DECRESCENT ';
+        $.ajax({
+            type : "POST",
+            url: "/crescent_order",
+            success: function(response) {
+                showResponse(response);} 
+        });
+    }
+}
+
+function orderSegments(){
+    button = document.getElementById("sortBtn")
+    if(button.value == "descrescent"){
+        $.ajax({
+            type : "POST",
+            url: "/decrescent_order",
+            success: function(response) {
+                showResponse(response);} 
+        });
+    }
+    else{
+        $.ajax({
+            type : "POST",
+            url: "/crescent_order",
+            success: function(response) {
+                showResponse(response);} 
+        });
+    }
+    
 }
 
 function close_error_adding_rule(){ document.getElementById("error_adding_rule").style.display = 'none'; }

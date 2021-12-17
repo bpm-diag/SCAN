@@ -163,6 +163,13 @@ def takeTimestamp():
     ts = ct.timestamp()  # ts store timestamp of current time
     return str(ts)    
     
+def sortCrescentOrder(actWithOccurence):
+    actWithOccurence.sort(key=lambda y: y[0])
+    return actWithOccurence   
 
+def sortDecrescentOrder(actWithOccurence):
+    actWithOccurence.sort(key=lambda y: y[0], reverse=True)
+    return actWithOccurence
+                        
                   
                   

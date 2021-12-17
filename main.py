@@ -63,7 +63,8 @@ def upload_file():
             for elem in c:
                 list = [c[elem], elem]
                 actWithOccurence.append(list)    
-            clear()      
+            clear()    
+            actWithOccurence = sortCrescentOrder(actWithOccurence)
             with open('segments.txt', 'w') as f:
                 i = 0
                 for line in actWithOccurence:
@@ -94,17 +95,34 @@ def upload_file():
 
 @app.route('/show_trace', methods=['POST'])
 def show_trace():      
+    order = request.form["order"]
     result = takeSegmentFromTrace()
     removeSegment = []
-    fileHandle = open("trace.txt", "r")
-    texts = fileHandle.readlines()
-    fileHandle.close()
-    fileHandle = open("segments.txt", "w")
-    for s in texts:
-        fileHandle.write(s)
-    fileHandle.close()
+    if(order == "crescent"): result = sortDecrescentOrder(result)
+    else: result = sortCrescentOrder(result)
+    writeOnSegmentFile(result)     
     return jsonify({"result": result, "remove": removeSegment}) 
     
+          
+@app.route('/crescent_order', methods=['POST'])
+def crescent_order():
+    segments = takeSegmentFromFile()
+    remove = takeRemoveSegmentFromFile()
+    seg_ord = sortCrescentOrder(segments)
+    rem_ord = sortCrescentOrder(remove)
+    writeOnSegmentFile(seg_ord)
+    writeOnRemoveSegmentFile(rem_ord)
+    return jsonify({"result": seg_ord, "remove": rem_ord}) 
+
+@app.route('/decrescent_order', methods=['POST'])
+def decrescent_order():
+    segments = takeSegmentFromFile()
+    remove = takeRemoveSegmentFromFile()
+    seg_ord = sortDecrescentOrder(segments)
+    rem_ord = sortDecrescentOrder(remove)
+    writeOnSegmentFile(seg_ord)
+    writeOnRemoveSegmentFile(rem_ord)
+    return jsonify({"result": seg_ord, "remove": rem_ord}) 
           
 @app.route('/download_file')      
 def download():
@@ -220,6 +238,10 @@ def not_chain_succession():
 @app.route('/del_rule', methods=['POST'])
 def delete_rule():
     result, removeSegment = del_rule()
+    order = request.form["order"]
+    if order == "crescent": result = sortDecrescentOrder(result)
+    else: result = sortCrescentOrder(result)
+    writeOnSegmentFile(result)
     return jsonify({"result": result, "remove": removeSegment}) 
 
 @app.route('/write_apply', methods=['POST'])
