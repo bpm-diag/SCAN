@@ -204,12 +204,12 @@ ul.no-bullets {
 }
 
 .col-occ { 
-    width: 12%; 
+    width: 15%; 
     text-align: center;  
 }
 
 .col-seg{
-    width: auto;
+    width: 85%;
 }
 
 #groupConstraints{
@@ -248,6 +248,3 @@ ul.no-bullets {
     outline: none;
 }
 
-.td-occ{
-    
-}

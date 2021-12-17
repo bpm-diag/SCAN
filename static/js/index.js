@@ -255,7 +255,7 @@ function showResponse(response){
         var res = $('<tr class="all"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(1,-1) + '<td></tr>');   
         res.id = 'result'+result[i].slice(-1);
         $('#table-seg-body').append(res); 
-        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+result[i].slice(-1)+'"><td>'+ result[i][0] + '</td><td>' + result[i].slice(-1) + '</td></tr>');  
+        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+result[i].slice(-1)+'"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(-1) + '</td></tr>');  
         hideRes.id = 'hideResult'+ result[i].slice(-1); 
         $('#table-seg-body').append(hideRes); 
         array_elem = result[i].slice(1)
@@ -267,7 +267,7 @@ function showResponse(response){
         var rem = $('<tr class="all"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(1, -1) + '<td></tr>');   
         rem.id = 'remove'+remove[i].slice(-1);
         $('#table-del-seg-body').append(rem); 
-        var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+remove[i].slice(-1)+'"><td>'+ remove[i][0] + '</td><td>' + remove[i].slice(-1) + '</td></tr>');    
+        var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+remove[i].slice(-1)+'"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(-1) + '</td></tr>');    
         hideRem.id = 'hideRemove'+remove[i].slice(-1);
         $('#table-del-seg-body').append(hideRem);
         array_elem = remove[i].slice(1)
@@ -303,7 +303,7 @@ function firstTimeSegments(){
         $('#table-seg-body').append(res); 
         var takeId = array_elem.slice(-1).toString()
         takeId = takeId.split(" ").join("");
-        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+takeId+'"><td>'+ array[elem][0] + '</td><td>' + array_elem.slice(-1) + '</td></tr>');  
+        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+takeId+'"><td class="col-occ">'+ array[elem][0] + '</td><td class="col-seg">' + array_elem.slice(-1) + '</td></tr>');  
         hideRes.id = 'hideResult'+ takeId; 
         $('#table-seg-body').append(hideRes); 
         showSeg(array_elem, hideRes.id) 
