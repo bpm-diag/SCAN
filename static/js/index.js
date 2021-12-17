@@ -247,36 +247,31 @@ function showRule(act1, act2, rule){
 //show result of rule in segments and not accepted segments
 function showResponse(response){
     var result = response.result
-    var lenRes = result.length
     var remove = response.remove
     var button = document.getElementById("hideShowBtn");
     createFirstRowTable("table-seg");
     for(var i=0; i < result.length; i++){
-        var res = $('<tr class="all"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(1) + '<td></tr>');   
-        res.id = 'result'+i;
+        console.log("res", result)
+        var res = $('<tr class="all"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(1,-1) + '<td></tr>');   
+        res.id = 'result'+result[i].slice(-1);
         $('#table-seg-body').append(res); 
-        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+i+'"><td>'+ result[i][0] + '</td><td>' + "segment_" + i + '</td></tr>');  
-        hideRes.id = 'hideResult'+i; 
+        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+result[i].slice(-1)+'"><td>'+ result[i][0] + '</td><td>' + result[i].slice(-1) + '</td></tr>');  
+        hideRes.id = 'hideResult'+ result[i].slice(-1); 
         $('#table-seg-body').append(hideRes); 
         array_elem = result[i].slice(1)
-        array_elem.unshift("segment_"+i)
-        array_elem.unshift(result[i][0]) 
         showSeg(array_elem, hideRes.id)
     }
     createFirstRowTable("table-del-seg");
     array_elem = []
     for(var i=0; i < remove.length; i++){
-        var rem = $('<tr class="all"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(1) + '<td></tr>');   
-        rem.id = 'remove'+i;
+        var rem = $('<tr class="all"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(1, -1) + '<td></tr>');   
+        rem.id = 'remove'+remove[i].slice(-1);
         $('#table-del-seg-body').append(rem); 
-        var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+i+'"><td>'+ remove[i][0] + '</td><td>' + "segment_" + lenRes + '</td></tr>');    
-        hideRem.id = 'hideRemove'+i;
+        var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+remove[i].slice(-1)+'"><td>'+ remove[i][0] + '</td><td>' + remove[i].slice(-1) + '</td></tr>');    
+        hideRem.id = 'hideRemove'+remove[i].slice(-1);
         $('#table-del-seg-body').append(hideRem);
         array_elem = remove[i].slice(1)
-        array_elem.unshift("segment_"+lenRes)
-        array_elem.unshift(remove[i][0])
         showSeg(array_elem, hideRem.id)
-        lenRes++; 
     }
     if(button.value == "Hide"){
         $(".all").show();
@@ -302,15 +297,15 @@ function firstTimeSegments(){
     }
     $("#table-seg-body").empty()
     for(var elem = 0; elem < array.length; elem++){
-        var res = $('<tr class="all"><td class="col-occ">'+ array[elem][0] + '</td><td class="col-seg">' + array[elem].slice(1) + '<td></tr>');   
-        res.id = 'result'+elem;
-        $('#table-seg-body').append(res); 
-        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+elem+'"><td>'+ array[elem][0] + '</td><td>' + "segment_" + elem + '</td></tr>');  
-        hideRes.id = 'hideResult'+elem; 
-        $('#table-seg-body').append(hideRes); 
         array_elem = array[elem][1].split(",")
-        array_elem.unshift("segment_"+elem)
-        array_elem.unshift(array[elem][0])
+        var res = $('<tr class="all"><td class="col-occ">'+ array[elem][0] + '</td><td class="col-seg">' + array_elem.slice(0,-1) + '<td></tr>');   
+        res.id = 'result'+array_elem.slice(-1);
+        $('#table-seg-body').append(res); 
+        var takeId = array_elem.slice(-1).toString()
+        takeId = takeId.split(" ").join("");
+        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+takeId+'"><td>'+ array[elem][0] + '</td><td>' + array_elem.slice(-1) + '</td></tr>');  
+        hideRes.id = 'hideResult'+ takeId; 
+        $('#table-seg-body').append(hideRes); 
         showSeg(array_elem, hideRes.id) 
     }
     if(button.value == "Hide"){
@@ -493,8 +488,11 @@ function showSeg(segment, id){
 
 //div shown onclick with the activity of the segment
 function seeDiv(elem){
+    console.log("click")
     var id = $(elem).attr("id");
+    console.log("id", id)
     var hid = id+"see"
+    console.log("hid", hid)
     $('#'+id)
     .css('cursor', 'pointer')
     .click(
@@ -505,9 +503,9 @@ function seeDiv(elem){
             button.addEventListener("click", close_diSegBtn);
             $('#divSeg').append(button)
             if(hid in d){
-                for(var i = 1; i < d[hid].length; i++){
-                    if(i == 1) $('#divSeg').append("&nbsp;&nbsp;<b>"+d[hid][i]+":</b></br>"); 
-                    else $('#divSeg').append("&nbsp;&nbsp;"+d[hid][i]+"</br>"); 
+                $('#divSeg').append("&nbsp;&nbsp;<b>"+d[hid].slice(-1)+":</b></br>");
+                for(var i = 0; i < d[hid].length-1; i++){
+                    $('#divSeg').append("&nbsp;&nbsp;"+d[hid][i]+"</br>"); 
                 }
             }
             viewDiv();

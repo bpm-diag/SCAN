@@ -23,7 +23,7 @@ def rule_end_activity():
     removeSegment = takeRemoveSegmentFromFile()   
     result = []
     for act in segments:
-        if act[-1] == a and act not in result:
+        if act[-2] == a and act not in result:
             result.append(act)
         else:
             if act not in removeSegment:

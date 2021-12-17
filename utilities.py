@@ -27,7 +27,7 @@ def downloadFile():
     segments = takeSegmentFromFile()
     seg = []
     for act in segments:
-        elem = act[1:]
+        elem = act[1:-1]
         seg.append(elem)  
     log = pm4py.read_xes("static/uploads/log.xes")
     allXESActivities = {}
@@ -62,8 +62,10 @@ def takeSegmentFromTrace():
             line = line.replace("('", "")
             line = line.replace(")]", "")
             line = line.replace("' ", "'")
+            line = line.replace("[", "")
             seg = line.split(",")
             s = []
+            seg = filter(None, seg)
             for word in seg:
                 word = word.replace(" '", "'")
                 word = word.replace("' ", "'")
@@ -82,15 +84,20 @@ def takeSegmentFromFile():
             line = line.replace("('", "")
             line = line.replace(")]", "")
             line = line.replace("' ", "'")
+            line = line.replace("[", "")
+            line = line.strip("\n")
+            line = line.strip("")
             seg = line.split(",")
+            seg = filter(None, seg)
             s = []
             for word in seg:
                 word = word.replace(" '", "'")
                 word = word.replace("' ", "'")
                 word = word.rstrip("\n")
                 word = word.strip("']/")
+                word = word.strip("")
                 s.append(word)
-            segments.append(s)        
+            segments.append(s)       
     f.close()        
     return segments
 
@@ -102,13 +109,18 @@ def takeRemoveSegmentFromFile():
             line = line.replace("('", "")
             line = line.replace(")]", "")
             line = line.replace("' ", "'")
+            line = line.replace("[", "")
+            line = line.strip("\n")
+            line = line.strip("")
             seg = line.split(",")
+            seg = filter(None, seg)
             s = []
             for word in seg:
                 word = word.replace(" '", "'")
                 word = word.replace("' ", "'")
                 word = word.rstrip("\n")
                 word = word.strip("']/")
+                word = word.strip("")
                 s.append(word)
             segments.append(s)        
     f.close()           
@@ -139,6 +151,8 @@ def replaceInFile(file):
     data = data.replace("' ", "'")
     data = data.replace(" ('", " '")
     data = data.replace("')", "'")
+    data = data.replace("]", ",")
+    data = data.replace("[", "")
     fin.close()
     fin = open(file, "wt")
     fin.write(data)

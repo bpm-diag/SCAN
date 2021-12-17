@@ -65,9 +65,12 @@ def upload_file():
                 actWithOccurence.append(list)    
             clear()      
             with open('segments.txt', 'w') as f:
+                i = 0
                 for line in actWithOccurence:
                     f.write(str(line))
+                    f.write("segment_"+str(i))
                     f.write('\n')
+                    i += 1
             f.close()
             replaceInFile("segments.txt")
             fileHandle = open("segments.txt", "r")
