@@ -253,10 +253,17 @@ function showResponse(response){
     var remove = response.remove
     var button = document.getElementById("hideShowBtn");
     createFirstRowTable("table-seg");
+    
     for(var i=0; i < result.length; i++){
-        var res = $('<tr class="all"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(1,-1) + '<td></tr>');   
+        var res = '<tr class="all"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">';
+        arr = result[i].slice(1,-1)
+        for(e = 0; e < arr.length; e++){
+            if(e+1 != arr.length) res += arr[e] + ", "
+            else res += arr[e]
+        }
+        res += '<td></tr>';   
         res.id = 'result'+result[i].slice(-1);
-        $('#table-seg-body').append(res); 
+        document.getElementById('table-seg-body').innerHTML += res; 
         var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+result[i].slice(-1)+'"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(-1) + '</td></tr>');  
         hideRes.id = 'hideResult'+ result[i].slice(-1); 
         $('#table-seg-body').append(hideRes); 
@@ -266,9 +273,15 @@ function showResponse(response){
     createFirstRowTable("table-del-seg");
     array_elem = []
     for(var i=0; i < remove.length; i++){
-        var rem = $('<tr class="all"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(1, -1) + '<td></tr>');   
+        var rem = '<tr class="all"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">';
+        arr = remove[i].slice(1, -1)
+        for(e = 0; e < arr.length; e++){
+            if(e+1 != arr.length) rem += arr[e] + ", "
+            else rem += arr[e]
+        }
+        rem += '<td></tr>';   
         rem.id = 'remove'+remove[i].slice(-1);
-        $('#table-del-seg-body').append(rem); 
+        document.getElementById('table-del-seg-body').innerHTML += rem; 
         var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+remove[i].slice(-1)+'"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(-1) + '</td></tr>');    
         hideRem.id = 'hideRemove'+remove[i].slice(-1);
         $('#table-del-seg-body').append(hideRem);
@@ -491,11 +504,8 @@ function showSeg(segment, id){
 
 //div shown onclick with the activity of the segment
 function seeDiv(elem){
-    console.log("click")
     var id = $(elem).attr("id");
-    console.log("id", id)
     var hid = id+"see"
-    console.log("hid", hid)
     $('#'+id)
     .css('cursor', 'pointer')
     .click(
@@ -744,26 +754,26 @@ function showInfo(){
 function changeSort(){
     button = document.getElementById("sortBtn")
     row = document.getElementById("rowBtn")
-    if(button.value == "decrescent"){
-        button.value = "crescent"
+    if(button.value == "descending"){
+        button.value = "ascending"
         $('#sortBtn').contents().filter(function() {
             return this.nodeType == 3 && this.textContent.trim();
-          })[0].textContent = 'CRESCENT ';
+          })[0].textContent = 'ASCENDING ';
         $.ajax({
             type : "POST",
-            url: "/decrescent_order",
+            url: "/descending_order",
             success: function(response) {
                 showResponse(response);} 
         });
     }
     else{
-        button.value = "decrescent"
+        button.value = "descending"
         $('#sortBtn').contents().filter(function() {
             return this.nodeType == 3 && this.textContent.trim();
-          })[0].textContent = 'DECRESCENT ';
+          })[0].textContent = 'DESCENDING ';
         $.ajax({
             type : "POST",
-            url: "/crescent_order",
+            url: "/ascending_order",
             success: function(response) {
                 showResponse(response);} 
         });
@@ -772,10 +782,10 @@ function changeSort(){
 
 function orderSegments(){
     button = document.getElementById("sortBtn")
-    if(button.value == "descrescent"){
+    if(button.value == "descending"){
         $.ajax({
             type : "POST",
-            url: "/decrescent_order",
+            url: "/ascending_order",
             success: function(response) {
                 showResponse(response);} 
         });
@@ -783,7 +793,7 @@ function orderSegments(){
     else{
         $.ajax({
             type : "POST",
-            url: "/crescent_order",
+            url: "/descending_order",
             success: function(response) {
                 showResponse(response);} 
         });

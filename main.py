@@ -64,7 +64,7 @@ def upload_file():
                 list = [c[elem], elem]
                 actWithOccurence.append(list)    
             clear()    
-            actWithOccurence = sortCrescentOrder(actWithOccurence)
+            actWithOccurence = sortAscendentOrder(actWithOccurence)
             with open('segments.txt', 'w') as f:
                 i = 0
                 for line in actWithOccurence:
@@ -98,28 +98,28 @@ def show_trace():
     order = request.form["order"]
     result = takeSegmentFromTrace()
     removeSegment = []
-    if(order == "crescent"): result = sortDecrescentOrder(result)
-    else: result = sortCrescentOrder(result)
+    if(order == "ascending"): result = sortDescendentOrder(result)
+    else: result = sortAscendentOrder(result)
     writeOnSegmentFile(result)     
     return jsonify({"result": result, "remove": removeSegment}) 
     
           
-@app.route('/crescent_order', methods=['POST'])
-def crescent_order():
+@app.route('/ascending_order', methods=['POST'])
+def ascending_order():
     segments = takeSegmentFromFile()
     remove = takeRemoveSegmentFromFile()
-    seg_ord = sortCrescentOrder(segments)
-    rem_ord = sortCrescentOrder(remove)
+    seg_ord = sortAscendentOrder(segments)
+    rem_ord = sortAscendentOrder(remove)
     writeOnSegmentFile(seg_ord)
     writeOnRemoveSegmentFile(rem_ord)
     return jsonify({"result": seg_ord, "remove": rem_ord}) 
 
-@app.route('/decrescent_order', methods=['POST'])
-def decrescent_order():
+@app.route('/descending_order', methods=['POST'])
+def descending_order():
     segments = takeSegmentFromFile()
     remove = takeRemoveSegmentFromFile()
-    seg_ord = sortDecrescentOrder(segments)
-    rem_ord = sortDecrescentOrder(remove)
+    seg_ord = sortDescendentOrder(segments)
+    rem_ord = sortDescendentOrder(remove)
     writeOnSegmentFile(seg_ord)
     writeOnRemoveSegmentFile(rem_ord)
     return jsonify({"result": seg_ord, "remove": rem_ord}) 
@@ -239,8 +239,8 @@ def not_chain_succession():
 def delete_rule():
     result, removeSegment = del_rule()
     order = request.form["order"]
-    if order == "crescent": result = sortDecrescentOrder(result)
-    else: result = sortCrescentOrder(result)
+    if order == "ascending": result = sortDescendentOrder(result)
+    else: result = sortAscendentOrder(result)
     writeOnSegmentFile(result)
     return jsonify({"result": result, "remove": removeSegment}) 
 
