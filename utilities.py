@@ -98,7 +98,7 @@ def takeSegmentFromFile():
                 word = word.strip("")
                 s.append(word)
             segments.append(s)       
-    f.close()        
+    f.close()         
     return segments
 
 def takeRemoveSegmentFromFile():  
@@ -163,13 +163,25 @@ def takeTimestamp():
     ts = ct.timestamp()  # ts store timestamp of current time
     return str(ts)    
     
-def sortAscendentOrder(actWithOccurence):
+def sortFirstAscendentOrder(actWithOccurence):
     actWithOccurence.sort(key=lambda y: y[0])
     return actWithOccurence   
 
+def sortAscendentOrder(actWithOccurence):
+    array = []
+    for elem in actWithOccurence:
+        arr = [int(elem[0]), tuple(elem[1:])]
+        array.append(arr)
+    array.sort(key=lambda y: y[0])  
+    return array  
+
 def sortDescendentOrder(actWithOccurence):
-    actWithOccurence.sort(key=lambda y: y[0], reverse=True)
-    return actWithOccurence
+    array = []
+    for elem in actWithOccurence:
+        arr = [int(elem[0]), tuple(elem[1:])]
+        array.append(arr)
+    array.sort(key=lambda y: y[0], reverse=True)  
+    return array
                         
                   
                   

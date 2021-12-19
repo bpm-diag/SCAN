@@ -63,8 +63,8 @@ def upload_file():
             for elem in c:
                 list = [c[elem], elem]
                 actWithOccurence.append(list)    
-            clear()    
-            actWithOccurence = sortAscendentOrder(actWithOccurence)
+            clear()  
+            actWithOccurence = sortFirstAscendentOrder(actWithOccurence)
             with open('segments.txt', 'w') as f:
                 i = 0
                 for line in actWithOccurence:

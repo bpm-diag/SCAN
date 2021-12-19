@@ -253,39 +253,46 @@ function showResponse(response){
     var remove = response.remove
     var button = document.getElementById("hideShowBtn");
     createFirstRowTable("table-seg");
-    
-    for(var i=0; i < result.length; i++){
+    for(var i=0; i < result.length; i++){   
         var res = '<tr class="all"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">';
-        arr = result[i].slice(1,-1)
+        arr = result[i][1]
+        resId = ""
         for(e = 0; e < arr.length; e++){
-            if(e+1 != arr.length) res += arr[e] + ", "
+            if(e == arr.length-1) {
+                resId = arr[e]
+                res.id = 'result'+ resId.toString();
+            }    
+            else if(e+2 != arr.length) res += arr[e] + ", "
             else res += arr[e]
         }
-        res += '<td></tr>';   
-        res.id = 'result'+result[i].slice(-1);
+        res += '<td></tr>';
         document.getElementById('table-seg-body').innerHTML += res; 
-        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+result[i].slice(-1)+'"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + result[i].slice(-1) + '</td></tr>');  
-        hideRes.id = 'hideResult'+ result[i].slice(-1); 
+        var hideRes = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideResult'+resId+'"><td class="col-occ">'+ result[i][0] + '</td><td class="col-seg">' + arr.slice(-1) + '</td></tr>');  
+        hideRes.id = 'hideResult'+ resId.toString(); 
         $('#table-seg-body').append(hideRes); 
-        array_elem = result[i].slice(1)
+        array_elem = arr 
         showSeg(array_elem, hideRes.id)
     }
     createFirstRowTable("table-del-seg");
     array_elem = []
     for(var i=0; i < remove.length; i++){
         var rem = '<tr class="all"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">';
-        arr = remove[i].slice(1, -1)
+        arr = remove[i][1]
+        remId = ""
         for(e = 0; e < arr.length; e++){
-            if(e+1 != arr.length) rem += arr[e] + ", "
+            if(e == arr.length-1) {
+                remId = arr[e]
+                rem.id = 'remove'+ remId.toString();
+            }    
+            else if(e+2 != arr.length) rem += arr[e] + ", "
             else rem += arr[e]
         }
         rem += '<td></tr>';   
-        rem.id = 'remove'+remove[i].slice(-1);
         document.getElementById('table-del-seg-body').innerHTML += rem; 
-        var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+remove[i].slice(-1)+'"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + remove[i].slice(-1) + '</td></tr>');    
-        hideRem.id = 'hideRemove'+remove[i].slice(-1);
+        var hideRem = $('<tr class="hideAll" onclick="seeDiv(this)" id="hideRemove'+remId+'"><td class="col-occ">'+ remove[i][0] + '</td><td class="col-seg">' + arr.slice(-1) + '</td></tr>');    
+        hideRem.id = 'hideRemove'+remId; 
         $('#table-del-seg-body').append(hideRem);
-        array_elem = remove[i].slice(1)
+        array_elem = arr
         showSeg(array_elem, hideRem.id)
     }
     if(button.value == "Hide"){
