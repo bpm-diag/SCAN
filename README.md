@@ -81,3 +81,5 @@ Thus, the output of the tool consists in:
 These files are available inside the *timestamp* folder of the project.
 
 For a video demonstration of the tool please refer to the following link: https://tinyurl.com/demo-tool
+
+Sample log available for download: https://tinyurl.com/sample-log
