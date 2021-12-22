@@ -11,10 +11,11 @@ Finally, when you have identified and removed those segments that should not be 
 
 ## How to install
 For the installation of the tool you need:
-1. Python (version 3.9): https://www.python.org/downloads/ 
+1. Python (version 3.9): https://www.python.org/downloads/release/python-399/ (The installers are available at the bottom of the page)
 2. Download the zip folder of the project: https://github.com/bpm-diag/SEC (press on *Code* and then on *Download ZIP*).
 
-You can find a python installation guide here: https://python.land/installing-python.
+You can find a python installation guide here: https://python.land/installing-python. <br>
+*N.B:* It is important that the version of python is the 3.9.
 
 After installing everything, unzip the project and open the terminal of your computer and positioning within the project folder. 
 So, inside the project folder type the following commands:
