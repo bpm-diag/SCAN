@@ -11,14 +11,29 @@ Finally, when you have identified and removed those segments that should not be 
 
 ## How to install
 For the installation of the tool you need:
-1. Python (version 3.9): https://www.python.org/downloads/release/python-399/ (The installers are available at the bottom of the page)
-2. Download the zip folder of the project: https://github.com/bpm-diag/SEC (press on *Code* and then on *Download ZIP*).
+1. Python (version 3.9): 
+    - **Windows:** https://www.python.org/ftp/python/3.9.9/python-3.9.9-amd64.exe
+    - **macOs:** https://www.python.org/ftp/python/3.9.9/python-3.9.9-macos11.pkg
+    - **Linux:** https://www.python.org/ftp/python/3.9.9/Python-3.9.9.tgz
+2. Download the zip folder of the project: https://github.com/bpm-diag/SEC (press on *Code* and then on *Download ZIP*).<br>
 
-You can find a python installation guide here: https://python.land/installing-python. <br>
-*N.B:* It is important that the version of python is the 3.9.
+**When you are installing python remember to check the flag 'ADD TO PATH'** <br>
+![Add to path in python installation](/images/path.png?raw=true)
+<br>
 
-After installing everything, unzip the project and open the terminal of your computer and positioning within the project folder. 
-So, inside the project folder type the following commands:
+Alternatively, you can set it manually as follows:
+1. Write in the search part of your bottom navigation bar *"system environment"* and click on the suggested *"Edit system environment variables"*.
+2. Click on button *"Environment variables"*.
+3. In the second section *"System variables"* search for the *"Path"* variable and then click on *"Edit"*.<br>
+Here you need to write the path of your python folder that has the following form: 
+<code>    {C:\Users\<nome\_utente>\AppData\Local\Programs\Python\<python\_version>\Scripts}<code> <br>
+To be sure to write the correct path navigate in your folders following the path until the folder Scripts included. Here copy your path and come back to the environment variables.
+
+4. Now, click on *"New"* and copy the path found and then click *"Ok"* to save.
+5. At the end, click again *"Ok"* to get out from the environment variable section.
+
+
+After you have installed python, unzip the project and open the terminal of your computer and locate the project folder. So, inside the project folder type the following commands:
 <code>pip install -r requirements.txt</code><br>
 <code>python main.py</code><br>
 
