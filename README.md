@@ -26,9 +26,9 @@ Alternatively, you can set it manually as follows:
 2. Click on button *"Environment variables"*.
 3. In the second section *"System variables"* search for the *"Path"* variable and then click on *"Edit"*.<br>
 Here you need to write the path of your python folder that has the following form: 
-<code>    {C:\Users\<nome\_utente>\AppData\Local\Programs\Python\<python\_version>\Scripts}<code> <br>
-To be sure to write the correct path navigate in your folders following the path until the folder Scripts included. Here copy your path and come back to the environment variables.
-
+<code>C:\Users\<nome\_utente>\AppData\Local\Programs\Python\<python\_version>\Scripts</code> <br>
+To be sure to write the correct path navigate in your folders following the path until the folder Scripts included. 
+Here copy your path and come back to the environment variables.<br>
 4. Now, click on *"New"* and copy the path found and then click *"Ok"* to save.
 5. At the end, click again *"Ok"* to get out from the environment variable section.
 
