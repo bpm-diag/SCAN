@@ -1,7 +1,7 @@
-# SEC - SEgments Compliance
+# SCAN - Segments Compliance ANalysis
 
  ## Description
-**SEgments Compliance** is a tool that helps users to identify all the potential behaviors (i.e., segments) of the routines of interest directly from an event log. 
+**Segments Compliance ANalysis** is a tool that helps users to identify all the potential behaviors (i.e., segments) of the routines of interest directly from an event log. 
 It allows you to load the interested event log (in the *XES* format) and filter out those segments not allowed by any real-world routine behavior, by using the *DECLARE* constraints. Such constraints describe the temporally extended relations between the activities that must be satisfied throughout a segment (e.g., an activity a1 must be eventually followed by an activity a2). 
 Finally, when you have identified and removed those segments that should not be compliant with any real-world routine behavior, you can export the resulting event log.
 
@@ -15,7 +15,7 @@ For the installation of the tool you need:
     - **Windows:** https://www.python.org/ftp/python/3.9.9/python-3.9.9-amd64.exe
     - **macOs:** https://www.python.org/ftp/python/3.9.9/python-3.9.9-macos11.pkg
     - **Linux:** https://www.python.org/ftp/python/3.9.9/Python-3.9.9.tgz
-2. Download the zip folder of the project: https://github.com/bpm-diag/SEC (press on *Code* and then on *Download ZIP*).<br>
+2. Download the zip folder of the project: https://github.com/bpm-diag/SCAN (press on *Code* and then on *Download ZIP*).<br>
 
 **When you are installing python remember to check the flag 'ADD TO PATH'** <br>
 ![Add to path in python installation](/images/path.png?raw=true)
@@ -57,7 +57,7 @@ Type in the url bar:<br>
 
 **N.B.**: For a better experience it is suggested to use Firefox.
 
-Now you are ready to use *SEC*!
+Now you are ready to use *SCAN*!
 
 ## How to use
 Select your **.xes** event log file from a folder of your choice via the *BROWSE* button, then continue with *UPLOAD*.
